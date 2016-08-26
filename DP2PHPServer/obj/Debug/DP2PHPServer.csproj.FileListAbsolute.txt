@@ -1,0 +1,9 @@
+c:\users\james\documents\visual studio 2015\Projects\DP2PHPSolution\DP2PHPServer\bin\Debug\DP2PHPServer.exe.config
+c:\Users\James\Documents\Visual Studio 2015\Projects\DP2PHPSolution\DP2PHPServer\bin\Debug\DP2PHPServer.exe
+c:\Users\James\Documents\Visual Studio 2015\Projects\DP2PHPSolution\DP2PHPServer\bin\Debug\DP2PHPServer.pdb
+c:\Users\James\Documents\Visual Studio 2015\Projects\DP2PHPSolution\DP2PHPServer\bin\Debug\NetworkCommsDotNetComplete.dll
+c:\Users\James\Documents\Visual Studio 2015\Projects\DP2PHPSolution\DP2PHPServer\bin\Debug\NetworkCommsDotNetComplete.pdb
+c:\Users\James\Documents\Visual Studio 2015\Projects\DP2PHPSolution\DP2PHPServer\bin\Debug\NetworkCommsDotNetComplete.xml
+c:\Users\James\Documents\Visual Studio 2015\Projects\DP2PHPSolution\DP2PHPServer\obj\Debug\DP2PHPServer.csprojResolveAssemblyReference.cache
+c:\Users\James\Documents\Visual Studio 2015\Projects\DP2PHPSolution\DP2PHPServer\obj\Debug\DP2PHPServer.exe
+c:\Users\James\Documents\Visual Studio 2015\Projects\DP2PHPSolution\DP2PHPServer\obj\Debug\DP2PHPServer.pdb

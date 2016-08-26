@@ -1,0 +1,12 @@
+c:\Users\James\Documents\Visual Studio 2015\Projects\DP2PHPSolution\DP2PHPClient\bin\Debug\DP2PHPClient.exe.config
+c:\Users\James\Documents\Visual Studio 2015\Projects\DP2PHPSolution\DP2PHPClient\bin\Debug\DP2PHPClient.exe
+c:\Users\James\Documents\Visual Studio 2015\Projects\DP2PHPSolution\DP2PHPClient\bin\Debug\DP2PHPClient.pdb
+c:\Users\James\Documents\Visual Studio 2015\Projects\DP2PHPSolution\DP2PHPClient\bin\Debug\NetworkCommsDotNetComplete.dll
+c:\Users\James\Documents\Visual Studio 2015\Projects\DP2PHPSolution\DP2PHPClient\bin\Debug\NetworkCommsDotNetComplete.pdb
+c:\Users\James\Documents\Visual Studio 2015\Projects\DP2PHPSolution\DP2PHPClient\bin\Debug\NetworkCommsDotNetComplete.xml
+c:\Users\James\Documents\Visual Studio 2015\Projects\DP2PHPSolution\DP2PHPClient\obj\Debug\DP2PHPClient.csprojResolveAssemblyReference.cache
+c:\Users\James\Documents\Visual Studio 2015\Projects\DP2PHPSolution\DP2PHPClient\obj\Debug\DP2PHPClient.Properties.Resources.resources
+c:\Users\James\Documents\Visual Studio 2015\Projects\DP2PHPSolution\DP2PHPClient\obj\Debug\DP2PHPClient.csproj.GenerateResource.Cache
+c:\Users\James\Documents\Visual Studio 2015\Projects\DP2PHPSolution\DP2PHPClient\obj\Debug\DP2PHPClient.exe
+c:\Users\James\Documents\Visual Studio 2015\Projects\DP2PHPSolution\DP2PHPClient\obj\Debug\DP2PHPClient.pdb
+c:\Users\James\Documents\Visual Studio 2015\Projects\DP2PHPSolution\DP2PHPClient\obj\Debug\DP2PHPClient.Main.resources
