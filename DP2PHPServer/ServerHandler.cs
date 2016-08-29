@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Net;
 using NetworkCommsDotNet;
 using NetworkCommsDotNet.Connections;
+using ProtoBuf;
 
 namespace DP2PHPServer
 {
@@ -30,6 +31,7 @@ namespace DP2PHPServer
             NetworkComms.AppendGlobalIncomingPacketHandler<string>("Message", PrintIncomingMessage);
             NetworkComms.AppendGlobalIncomingPacketHandler<string>("Hello", NewIncomingConnection);
             NetworkComms.AppendGlobalIncomingPacketHandler<int>("GetStockRequest", GetStockRecord);
+            NetworkComms.AppendGlobalIncomingPacketHandler<StockRecord>("InsertStock", InsertStock);
             //Start listening for incoming connections
             Connection.StartListening(ConnectionType.TCP, new System.Net.IPEndPoint(address, port));
 
@@ -88,12 +90,20 @@ namespace DP2PHPServer
         private static void GetStockRecord(PacketHeader header, Connection connection, int stockID)
         {
             //Get the requested stock record from the database.
-            StockRecord record = Database.GetStockRecord(stockID);
+            StockRecord record = DataWrapper.GetStockRecord(stockID);
 
-            Console.WriteLine("\nSending info about stock item: " + record.StockName + " to connection: " + connection.ToString() + "'.");
+            Console.WriteLine("\nSending info about stock item: " + record.ToString() + " to connection: " + connection.ToString() + "'.");
 
             //Send the record back to the client.
             connection.SendObject("ReturnStockRecord", record);
+        }
+
+        private static void InsertStock(PacketHeader header, Connection connection, StockRecord record)
+        {
+            Console.WriteLine("\nInserting: " + record.StockName + record.Purchase + record.CurrentSell + record.Quantity + " for connection: " + connection.ToString() + "'.");
+            DatabaseAccess dbconnect = new DatabaseAccess();
+            dbconnect.Insert(record.StockName, record.Purchase, record.CurrentSell, record.Quantity);
+            Console.WriteLine("Done");
         }
 
     }

@@ -42,13 +42,17 @@ namespace DP2PHPClient
         
         private void btn_requestStock_Click(object sender, EventArgs e)
         {
-            _connection.RequestStockInfo(int.Parse(txt_requestID.Text));
-            //StockRecord record = _connection.RequestStockInfo(int.Parse(txt_requestID.Text));
-            //txt_stockID.Text = record.StockID.ToString();
-            //txt_stockName.Text = record.StockName;
-            //txt_purchase.Text = record.Purchase.ToString();
-            //txt_sell.Text = record.CurrentSell.ToString();
-            //txt_qty.Text = record.Quantity.ToString();
+            StockRecord record = _connection.RequestStockInfo(int.Parse(txt_requestID.Text));
+            txt_stockID.Text = record.StockID.ToString();
+            txt_stockName.Text = record.StockName;
+            txt_purchase.Text = record.Purchase.ToString();
+            txt_sell.Text = record.CurrentSell.ToString();
+            txt_qty.Text = record.Quantity.ToString();
+        }
+
+        private void btn_insert_Click(object sender, EventArgs e)
+        {
+            _connection.InsertStock(txt_stknameinsert.Text, double.Parse(txt_purchaseinsert.Text), double.Parse(txt_sellinsert.Text), int.Parse(txt_qtyinsert.Text));
         }
     }
 }

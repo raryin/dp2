@@ -56,6 +56,11 @@ namespace DP2PHPClient
             return _connection.SendReceiveObject<StockRecord>("GetStockRequest", "ReturnStockRecord", 1000);
         }
 
+        public void InsertStock(string stockName, double purchase, double sell, int qty)
+        {
+            _connection.SendObject("InsertStock", new StockRecord(0, stockName, purchase, sell, qty));
+        }
+
         public void Shutdown()
         {
             NetworkComms.Shutdown();
