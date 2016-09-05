@@ -32,6 +32,7 @@ namespace DP2PHPServer
             NetworkComms.AppendGlobalIncomingPacketHandler<string>("Hello", NewIncomingConnection);
             NetworkComms.AppendGlobalIncomingPacketHandler<int>("GetStockRequest", GetStockRecord);
             NetworkComms.AppendGlobalIncomingPacketHandler<StockRecord>("InsertStockRecord", InsertStock);
+            NetworkComms.AppendGlobalIncomingPacketHandler<int>("DeleteStockRecord", DeleteStock);
             //Start listening for incoming connections
             Connection.StartListening(ConnectionType.TCP, new System.Net.IPEndPoint(address, port));
 
@@ -87,6 +88,12 @@ namespace DP2PHPServer
             Console.WriteLine("\nA message was received from " + connection.ToString() + " which said '" + message + "'.");
         }
 
+        /// <summary>
+        /// Returns a stock record from the database.
+        /// </summary>
+        /// <param name="header">The packet header associated with the incoming message</param>
+        /// <param name="connection">The connection used by the incoming message</param>
+        /// <param name="stockID">StockID to call</param>
         private static void GetStockRecord(PacketHeader header, Connection connection, int stockID)
         {
             //Get the requested stock record from the database.
@@ -98,6 +105,12 @@ namespace DP2PHPServer
             connection.SendObject("ReturnStockRecord", record);
         }
 
+        /// <summary>
+        /// Inserts a stock record into the database.
+        /// </summary>
+        /// <param name="header">The packet header associated with the incoming message</param>
+        /// <param name="connection">The connection used by the incoming message</param>
+        /// <param name="record">The record to insert</param>
         private static void InsertStock(PacketHeader header, Connection connection, StockRecord record)
         {
             Console.WriteLine("\nInserting: " + record.StockName + record.Purchase + record.CurrentSell + record.Quantity + " for connection: " + connection.ToString() + "'.");
@@ -112,6 +125,26 @@ namespace DP2PHPServer
                 Console.WriteLine("Failed.");
                 connection.SendObject("ReturnInsertStockRecord", false);
             }
+            Console.WriteLine("Done");
+        }
+
+        /// <summary>
+        /// Deletes a record from the database.
+        /// </summary>
+        /// <param name="header">The packet header associated with the incoming message</param>
+        /// <param name="connection">The connection used by the incoming message</param>
+        /// <param name="stockID">StockID to delete</param>
+        private static void DeleteStock(PacketHeader header, Connection connection, int stockID)
+        {
+            int rows = 0;
+            Console.WriteLine("\nDeleting: " + stockID + " for connection: " + connection.ToString() + "'.");
+            DatabaseAccess dbconnect = new DatabaseAccess();
+            if ((rows = dbconnect.Delete(stockID)) != 0)
+                Console.WriteLine("Success.");
+            else
+                Console.WriteLine("Failed.");
+            
+            connection.SendObject("ReturnDeleteStockRecord", rows);
             Console.WriteLine("Done");
         }
 

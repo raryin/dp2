@@ -8,6 +8,9 @@ using MySql.Data.MySqlClient;
 //Heavily based on http://www.codeproject.com/Articles/43438/Connect-C-to-MySQL
 namespace DP2PHPServer
 {
+    /// <summary>
+    /// Lists the tables available in the database. Prevents typos.
+    /// </summary>
     enum DatabaseTable
     {
         Stock,
@@ -23,18 +26,21 @@ namespace DP2PHPServer
         public string uid;
         public string password;
 
+        /// <summary>
+        /// Constructor. Calls initialiser.
+        /// </summary>
         public DatabaseAccess()
         {
             Initialise();
         }
 
+        /// <summary>
+        /// Sets up the connection to the database. Database adderss is fixed to db4free.net. Saves the database connection
+        /// in the connection global.
+        /// </summary>
         public void Initialise()
         {
-            //server = "fdb13.biz.nf";
-            //database = "2195923_dp2";
-            //uid = "2195923_dp2";
-            //password = "swinburnedp2";
-
+            //Database logon details.
             server = "db4free.net";
             database = "dp2db";
             uid = "dp2user";
@@ -46,7 +52,10 @@ namespace DP2PHPServer
             connection = new MySqlConnection(connectionString);
         }
 
-        //open connection to database
+        /// <summary>
+        /// Opens the connection to the database. Returns true if successful. Prints an error message otherwise.
+        /// </summary>
+        /// <returns>The success.</returns>
         public bool OpenConnection()
         {
             try
@@ -56,11 +65,10 @@ namespace DP2PHPServer
             }
             catch (MySqlException ex)
             {
-                //When handling errors, you can your application's response based 
-                //on the error number.
-                //The two most common error numbers when connecting are as follows:
+                //Handles the two most common error numbers when connecting:
                 //0: Cannot connect to server.
                 //1045: Invalid user name and/or password.
+                //Other errors are printing with an error number.
                 switch (ex.Number)
                 {
                     case 0:
@@ -78,7 +86,10 @@ namespace DP2PHPServer
             }
         }
 
-        //Close connection
+        /// <summary>
+        /// Closes the connection to the database. Returns true if successful. Prints an error message otherwise.
+        /// </summary>
+        /// <returns>The success.</returns>
         public bool CloseConnection()
         {
             try
@@ -93,31 +104,100 @@ namespace DP2PHPServer
             }
         }
 
-        //Insert statement
+        /// <summary>
+        /// Inserts data into the Stock table. ID is automatically generated. Returns 0 if failed.
+        /// </summary>
+        /// <param name="stockName">Stock name.</param>
+        /// <param name="purchase">Purchased price.</param>
+        /// <param name="sell">Current sell price.</param>
+        /// <param name="qty">Current stock level.</param>
+        /// <returns>Number of rows added. 1 if successful, 0 otherwise.</returns>
         public int Insert(string stockName, double purchase, double sell, int qty)
         {
-            return InsertCommand(DatabaseTable.Stock, " (StockName, PurchaseCost, SellPrice, StockQty) VALUES('"+stockName+"', "+purchase+", "+sell+", "+qty+")");
+            //Calls InsertCommand. Generates the query. The database connection is opened by InsertCommand.
+            return InsertCommand(DatabaseTable.Stock, "(StockName, PurchaseCost, SellPrice, StockQty) VALUES('"+stockName+"', "+purchase+", "+sell+", "+qty+")");
         }
-            
 
+        /// <summary>
+        /// Runs a generic insert query. Table and values must be specified.
+        /// </summary>
+        /// <param name="table">The table to insert into.</param>
+        /// <param name="values">The query in the form "([columns]) VALUES ([values])".</param>
+        /// <returns>Number of rows added. 1 if successful, 0 otherwise.</returns>
         private int InsertCommand(DatabaseTable table, string values)
         {
-            string query = "INSERT INTO " + table + values;
+            //Form the query.
+            string query = "INSERT INTO " + table + " " + values;
+
+            return RunNonQueryCommand(query);
+        }
+
+        /// <summary>
+        /// Deletes data from the Stock table based on StockID. Deletes all if stock ID is -1. Returns 0 if failed.
+        /// </summary>
+        /// <param name="stockID">StockID to delete. Specify -1 to delete all.</param>
+        /// <returns>Number of rows added. Number of rows deleted. 0 if failed. As StockID is unique, will only every return one record.</returns>
+        public int Delete(int stockID)
+        {
+            //Calls DeleteCommand. Generates the query. The database connection is opened by DeleteCommand.
+            //Delete all stock for -1.
+            if (stockID == -1)
+                return DeleteCommand(DatabaseTable.Stock);
+
+            //Otherwise run the WHERE condition.
+            return DeleteCommand(DatabaseTable.Stock, "StockID="+stockID);
+        }
+
+        /// <summary>
+        /// Runs a generic delete query. Table and condition must be specified.
+        /// </summary>
+        /// <param name="table">The table to delete from.</param>
+        /// <param name="values">The condition in the form "condition".</param>
+        /// <returns>Number of rows deleted. 0 if failed.</returns>
+        private int DeleteCommand(DatabaseTable table, string condition)
+        {
+            //Form the query.
+            string query = "DELETE FROM " + table + " WHERE " + condition;
+
+            return RunNonQueryCommand(query);
+        }
+
+        /// <summary>
+        /// Overload to delete all entries in a table.
+        /// </summary>
+        /// <param name="table">The table to delete from.</param>
+        /// <returns>Number of rows deleted. 0 if failed.</returns>
+        private int DeleteCommand(DatabaseTable table)
+        {
+            //Form the query.
+            string query = "DELETE FROM " + table;
+
+            return RunNonQueryCommand(query);
+        }
+
+        /// <summary>
+        /// Generic run for commands that do not return data. Returns the rows affected.
+        /// </summary>
+        /// <param name="query">The query to run.</param>
+        /// <returns>Number of rows affected. Success or failure depends on command.</returns>
+        private int RunNonQueryCommand(string query)
+        {
             int rowsAffected = 0;
 
-            //open connection
+            //Open connection
             if (this.OpenConnection() == true)
             {
-                //create command and assign the query and connection from the constructor
+                //Create command and assign the query and connection from the constructor.
                 MySqlCommand cmd = new MySqlCommand(query, connection);
 
-                //Execute command
+                //Execute command.
                 rowsAffected = cmd.ExecuteNonQuery();
 
-                //close connection
+                //Close connection.
                 this.CloseConnection();
             }
 
+            //Will return 0 if the database failed to open.
             return rowsAffected;
         }
 
@@ -140,19 +220,6 @@ namespace DP2PHPServer
                 cmd.ExecuteNonQuery();
 
                 //close connection
-                this.CloseConnection();
-            }
-        }
-
-        //Delete statement
-        public void Delete()
-        {
-            string query = "DELETE FROM tableinfo WHERE name='John Smith'";
-
-            if (this.OpenConnection() == true)
-            {
-                MySqlCommand cmd = new MySqlCommand(query, connection);
-                cmd.ExecuteNonQuery();
                 this.CloseConnection();
             }
         }

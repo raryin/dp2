@@ -49,5 +49,13 @@ namespace DP2PHPClient
         {
             _connection.InsertStock(txt_stknameinsert.Text, double.Parse(txt_purchaseinsert.Text), double.Parse(txt_sellinsert.Text), int.Parse(txt_qtyinsert.Text));
         }
+
+        private void btn_delete_Click(object sender, EventArgs e)
+        {
+            if (txt_deleteID.Text == "")
+                _connection.DeleteStock(-1);
+            else
+                _connection.DeleteStock(int.Parse(txt_deleteID.Text));
+        }
     }
 }
