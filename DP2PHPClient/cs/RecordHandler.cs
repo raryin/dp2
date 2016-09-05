@@ -9,6 +9,8 @@ namespace DP2PHPClient
 {
     /// <summary>
     /// Struct to return the contents of a stock record from the database.
+    /// ProtoContract is from NetworkCommsDotNet, allows the class to be serialized and sent over the
+    /// connection.
     /// </summary>
     [ProtoContract]
     struct StockRecord
