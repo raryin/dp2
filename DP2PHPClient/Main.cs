@@ -12,7 +12,7 @@ namespace DP2PHPClient
 {
     public partial class Main : Form
     {
-        ClientConnection _connection;
+        ClientConnectionManager _connection;
 
         public Main()
         {
@@ -21,18 +21,13 @@ namespace DP2PHPClient
 
         private void btn_connect_Click(object sender, EventArgs e)
         {
-            _connection = new ClientConnection(txt_ip.Text, int.Parse(txt_port.Text));
-            _connection.StartConnection();
+            _connection = new ClientConnectionManager(txt_ip.Text, int.Parse(txt_port.Text));
+            _connection.ConnectToServer();
         }
-
-        private void btn_send_Click(object sender, EventArgs e)
-        {
-            _connection.SendTest();
-        }
-
+        
         private void btn_shutdown_Click(object sender, EventArgs e)
         {
-            _connection.Shutdown();
+            _connection.Disconnect();
         }
 
         private void btn_getState_Click(object sender, EventArgs e)
@@ -42,13 +37,17 @@ namespace DP2PHPClient
         
         private void btn_requestStock_Click(object sender, EventArgs e)
         {
-            _connection.RequestStockInfo(int.Parse(txt_requestID.Text));
-            //StockRecord record = _connection.RequestStockInfo(int.Parse(txt_requestID.Text));
-            //txt_stockID.Text = record.StockID.ToString();
-            //txt_stockName.Text = record.StockName;
-            //txt_purchase.Text = record.Purchase.ToString();
-            //txt_sell.Text = record.CurrentSell.ToString();
-            //txt_qty.Text = record.Quantity.ToString();
+            StockRecord record = _connection.RequestStockInfo(int.Parse(txt_requestID.Text));
+            txt_stockID.Text = record.StockID.ToString();
+            txt_stockName.Text = record.StockName;
+            txt_purchase.Text = record.Purchase.ToString();
+            txt_sell.Text = record.CurrentSell.ToString();
+            txt_qty.Text = record.Quantity.ToString();
+        }
+
+        private void btn_insert_Click(object sender, EventArgs e)
+        {
+            _connection.InsertStock(txt_stknameinsert.Text, double.Parse(txt_purchaseinsert.Text), double.Parse(txt_sellinsert.Text), int.Parse(txt_qtyinsert.Text));
         }
     }
 }

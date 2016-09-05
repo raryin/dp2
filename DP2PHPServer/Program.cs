@@ -10,6 +10,10 @@ namespace DP2PHPServer
     {
         static void Main(string[] args)
         {
+            DatabaseAccess dbconnect = new DatabaseAccess();
+            
+            dbconnect.Select();
+
             ServerHandler.CreateServer(System.Net.IPAddress.Any, 25565);
 
             //Let the user close the server
