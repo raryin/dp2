@@ -9,3 +9,14 @@ c:\Users\James\Documents\Visual Studio 2015\Projects\DP2PHPSolution\DP2PHPClient
 c:\Users\James\Documents\Visual Studio 2015\Projects\DP2PHPSolution\DP2PHPClient\obj\Debug\DP2PHPClient.exe
 c:\Users\James\Documents\Visual Studio 2015\Projects\DP2PHPSolution\DP2PHPClient\obj\Debug\DP2PHPClient.pdb
 c:\Users\James\Documents\Visual Studio 2015\Projects\DP2PHPSolution\DP2PHPClient\obj\Debug\DP2PHPClient.Main.resources
+C:\Users\James\Desktop\PHPGit\DP2PHPClient\bin\Debug\DP2PHPClient.exe.config
+C:\Users\James\Desktop\PHPGit\DP2PHPClient\bin\Debug\DP2PHPClient.exe
+C:\Users\James\Desktop\PHPGit\DP2PHPClient\bin\Debug\DP2PHPClient.pdb
+C:\Users\James\Desktop\PHPGit\DP2PHPClient\bin\Debug\NetworkCommsDotNetComplete.pdb
+C:\Users\James\Desktop\PHPGit\DP2PHPClient\bin\Debug\NetworkCommsDotNetComplete.xml
+C:\Users\James\Desktop\PHPGit\DP2PHPClient\obj\Debug\DP2PHPClient.csprojResolveAssemblyReference.cache
+C:\Users\James\Desktop\PHPGit\DP2PHPClient\obj\Debug\DP2PHPClient.Main.resources
+C:\Users\James\Desktop\PHPGit\DP2PHPClient\obj\Debug\DP2PHPClient.Properties.Resources.resources
+C:\Users\James\Desktop\PHPGit\DP2PHPClient\obj\Debug\DP2PHPClient.csproj.GenerateResource.Cache
+C:\Users\James\Desktop\PHPGit\DP2PHPClient\obj\Debug\DP2PHPClient.exe
+C:\Users\James\Desktop\PHPGit\DP2PHPClient\obj\Debug\DP2PHPClient.pdb

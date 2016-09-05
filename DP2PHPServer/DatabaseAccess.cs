@@ -105,7 +105,7 @@ namespace DP2PHPServer
         }
 
         /// <summary>
-        /// Inserts data into the Stock table. ID it automatically generated. Returns 0 if failed.
+        /// Inserts data into the Stock table. ID is automatically generated. Returns 0 if failed.
         /// </summary>
         /// <param name="stockName">Stock name.</param>
         /// <param name="purchase">Purchased price.</param>
@@ -128,52 +128,38 @@ namespace DP2PHPServer
         {
             //Form the query.
             string query = "INSERT INTO " + table + " " + values;
-            int rowsAffected = 0;
 
-            //Open connection
-            if (this.OpenConnection() == true)
-            {
-                //Create command and assign the query and connection from the constructor.
-                MySqlCommand cmd = new MySqlCommand(query, connection);
+            return RunNonQueryCommand(query);
+        }
 
-                //Execute command.
-                rowsAffected = cmd.ExecuteNonQuery();
+        /// <summary>
+        /// Deletes data from the Stock table based on StockID. Deletes all if stock ID is -1. Returns 0 if failed.
+        /// </summary>
+        /// <param name="stockID">StockID to delete. Specify -1 to delete all.</param>
+        /// <returns>Number of rows added. Number of rows deleted. 0 if failed. As StockID is unique, will only every return one record.</returns>
+        public int Delete(int stockID)
+        {
+            //Calls DeleteCommand. Generates the query. The database connection is opened by DeleteCommand.
+            //Delete all stock for -1.
+            if (stockID == -1)
+                return DeleteCommand(DatabaseTable.Stock);
 
-                //Close connection.
-                this.CloseConnection();
-            }
-
-            //Will return 0 if the database failed to open.
-            return rowsAffected;
+            //Otherwise run the WHERE condition.
+            return DeleteCommand(DatabaseTable.Stock, "StockID="+stockID);
         }
 
         /// <summary>
         /// Runs a generic delete query. Table and condition must be specified.
         /// </summary>
         /// <param name="table">The table to delete from.</param>
-        /// <param name="values">The condition in the form " ([columns]) VALUES ([values])".</param>
+        /// <param name="values">The condition in the form "condition".</param>
         /// <returns>Number of rows deleted. 0 if failed.</returns>
         private int DeleteCommand(DatabaseTable table, string condition)
         {
             //Form the query.
             string query = "DELETE FROM " + table + " WHERE " + condition;
-            int rowsAffected = 0;
 
-            //Open connection
-            if (this.OpenConnection() == true)
-            {
-                //Create command and assign the query and connection from the constructor.
-                MySqlCommand cmd = new MySqlCommand(query, connection);
-
-                //Execute command.
-                rowsAffected = cmd.ExecuteNonQuery();
-
-                //Close connection.
-                this.CloseConnection();
-            }
-
-            //Will return 0 if the database failed to open.
-            return rowsAffected;
+            return RunNonQueryCommand(query);
         }
 
         /// <summary>
@@ -185,6 +171,17 @@ namespace DP2PHPServer
         {
             //Form the query.
             string query = "DELETE FROM " + table;
+
+            return RunNonQueryCommand(query);
+        }
+
+        /// <summary>
+        /// Generic run for commands that do not return data. Returns the rows affected.
+        /// </summary>
+        /// <param name="query">The query to run.</param>
+        /// <returns>Number of rows affected. Success or failure depends on command.</returns>
+        private int RunNonQueryCommand(string query)
+        {
             int rowsAffected = 0;
 
             //Open connection

@@ -60,9 +60,14 @@
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.txt_purchaseinsert = new System.Windows.Forms.TextBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.btn_delete = new System.Windows.Forms.Button();
+            this.label13 = new System.Windows.Forms.Label();
+            this.txt_deleteID = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -291,7 +296,7 @@
             this.groupBox3.Controls.Add(this.label11);
             this.groupBox3.Controls.Add(this.label12);
             this.groupBox3.Controls.Add(this.txt_purchaseinsert);
-            this.groupBox3.Location = new System.Drawing.Point(18, 293);
+            this.groupBox3.Location = new System.Drawing.Point(473, 12);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(440, 119);
             this.groupBox3.TabIndex = 20;
@@ -373,11 +378,51 @@
             this.txt_purchaseinsert.Size = new System.Drawing.Size(100, 20);
             this.txt_purchaseinsert.TabIndex = 14;
             // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.btn_delete);
+            this.groupBox4.Controls.Add(this.label13);
+            this.groupBox4.Controls.Add(this.txt_deleteID);
+            this.groupBox4.Location = new System.Drawing.Point(473, 161);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(184, 119);
+            this.groupBox4.TabIndex = 21;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Delete Record In Stock";
+            // 
+            // btn_delete
+            // 
+            this.btn_delete.AutoSize = true;
+            this.btn_delete.Location = new System.Drawing.Point(33, 52);
+            this.btn_delete.Name = "btn_delete";
+            this.btn_delete.Size = new System.Drawing.Size(109, 23);
+            this.btn_delete.TabIndex = 9;
+            this.btn_delete.Text = "Delete";
+            this.btn_delete.UseVisualStyleBackColor = true;
+            this.btn_delete.Click += new System.EventHandler(this.btn_delete_Click);
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(6, 25);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(46, 13);
+            this.label13.TabIndex = 11;
+            this.label13.Text = "StockID";
+            // 
+            // txt_deleteID
+            // 
+            this.txt_deleteID.Location = new System.Drawing.Point(70, 22);
+            this.txt_deleteID.Name = "txt_deleteID";
+            this.txt_deleteID.Size = new System.Drawing.Size(100, 20);
+            this.txt_deleteID.TabIndex = 12;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(470, 424);
+            this.ClientSize = new System.Drawing.Size(925, 427);
+            this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -389,6 +434,8 @@
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -427,6 +474,10 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox txt_purchaseinsert;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Button btn_delete;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox txt_deleteID;
     }
 }
 

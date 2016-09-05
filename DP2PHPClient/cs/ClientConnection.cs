@@ -97,7 +97,7 @@ namespace DP2PHPClient
 
         /// <summary>
         /// Sends a request to add the specified stock record to the database. Produces error messages if failed. Waits
-        /// for 5000ms.
+        /// for 10000ms.
         /// </summary>
         /// <param name="stockName">Name of new stock.</param>
         /// <param name="purchase">Purchase cost of new stock.</param>
@@ -109,7 +109,7 @@ namespace DP2PHPClient
             try
             {
                 //Send a request to insert stock, expecting a confirmation.
-                if (_connection.SendReceiveObject<StockRecord, bool>("InsertStockRecord", "ReturnInsertStockRecord", 5000,
+                if (_connection.SendReceiveObject<StockRecord, bool>("InsertStockRecord", "ReturnInsertStockRecord", 10000,
                     new StockRecord(0, stockName, purchase, sell, qty)))
                 {
                     return true;
@@ -131,14 +131,48 @@ namespace DP2PHPClient
         }
 
         /// <summary>
+        /// Sends a request to delete the specified stockID from the database. Produces error messages if failed. Waits
+        /// for 10000ms.
+        /// </summary>
+        /// <param name="stockID"></param>
+        /// <returns>The success of the delete command.</returns>
+        public bool DeleteStock(int stockID)
+        {
+            int rows = 0;
+
+            try
+            {
+                //Send a request to insert stock, expecting a confirmation. Also writes the number of rows deleted to rows.
+                if ((rows = _connection.SendReceiveObject<int, int>("DeleteStockRecord", "ReturnDeleteStockRecord", 10000, stockID)) != 0)
+                {
+                    View.SuccessNotify("Successfully deleted " + rows + " rows.", "Delete successful");
+                    return true;
+                }
+                //The server has failed to insert the stock in the database.
+                else
+                {
+                    View.ErrorNotify("Data could not be deleted from the database.\n Check the server for further details.",
+                        "Database Error");
+                }
+            }
+            catch (ExpectedReturnTimeoutException exception)
+            {
+                View.ErrorNotify("No confirmation recieved from server.\n Likly a connection issue, check the server status.",
+                    "Connection Error");
+            }
+
+            return false;
+        }
+
+        /// <summary>
         /// Requests the stock record of the specified ID from the business logic server. Assumed the
         /// connection has already been set up. Current has unhandled exceptions for timed out connections.
-        /// Timeout currently set at 5000ms.
+        /// Timeout currently set at 10000ms.
         /// </summary>
         /// <param name="stockID">The stock ID to request.</param>
         public StockRecord RequestStockInfo(int stockID)
         {
-            return _connection.SendReceiveObject<StockRecord>("GetStockRequest", "ReturnStockRecord", 5000);
+            return _connection.SendReceiveObject<StockRecord>("GetStockRequest", "ReturnStockRecord", 10000);
         }
 
     }
