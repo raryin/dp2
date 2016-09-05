@@ -8,3 +8,23 @@ c:\Users\James\Documents\Visual Studio 2015\Projects\DP2PHPSolution\DP2PHPServer
 c:\Users\James\Documents\Visual Studio 2015\Projects\DP2PHPSolution\DP2PHPServer\obj\Debug\DP2PHPServer.pdb
 C:\Users\James\documents\visual studio 2015\Projects\DP2PHPSolution\DP2PHPServer\bin\Debug\MySql.Data.dll
 C:\Users\James\documents\visual studio 2015\Projects\DP2PHPSolution\DP2PHPServer\bin\Debug\MySql.Data.xml
+E:\a_2016s2\SWE20003 Software Project Practices and Management\Visual Studio backup 5-09\Projects\DP2PHPSolution\DP2PHPServer\bin\Debug\DP2PHPServer.exe.config
+E:\a_2016s2\SWE20003 Software Project Practices and Management\Visual Studio backup 5-09\Projects\DP2PHPSolution\DP2PHPServer\obj\Debug\DP2PHPServer.exe
+E:\a_2016s2\SWE20003 Software Project Practices and Management\Visual Studio backup 5-09\Projects\DP2PHPSolution\DP2PHPServer\obj\Debug\DP2PHPServer.pdb
+E:\a_2016s2\SWE20003 Software Project Practices and Management\Visual Studio backup 5-09\Projects\DP2PHPSolution\DP2PHPServer\bin\Debug\DP2PHPServer.exe
+E:\a_2016s2\SWE20003 Software Project Practices and Management\Visual Studio backup 5-09\Projects\DP2PHPSolution\DP2PHPServer\bin\Debug\DP2PHPServer.pdb
+E:\a_2016s2\SWE20003 Software Project Practices and Management\Visual Studio backup 5-09\Projects\DP2PHPSolution\DP2PHPServer\bin\Debug\MySql.Data.dll
+E:\a_2016s2\SWE20003 Software Project Practices and Management\Visual Studio backup 5-09\Projects\DP2PHPSolution\DP2PHPServer\bin\Debug\MySql.Data.xml
+E:\a_2016s2\SWE20003 Software Project Practices and Management\Visual Studio backup 5-09\Projects\DP2PHPSolution\DP2PHPServer\bin\Debug\NetworkCommsDotNetComplete.pdb
+E:\a_2016s2\SWE20003 Software Project Practices and Management\Visual Studio backup 5-09\Projects\DP2PHPSolution\DP2PHPServer\bin\Debug\NetworkCommsDotNetComplete.xml
+E:\a_2016s2\SWE20003 Software Project Practices and Management\Visual Studio backup 5-09\Projects\DP2PHPSolution\DP2PHPServer\obj\Debug\DP2PHPServer.csprojResolveAssemblyReference.cache
+C:\Users\James\Desktop\PHPGit\DP2PHPServer\bin\Debug\DP2PHPServer.exe.config
+C:\Users\James\Desktop\PHPGit\DP2PHPServer\obj\Debug\DP2PHPServer.exe
+C:\Users\James\Desktop\PHPGit\DP2PHPServer\obj\Debug\DP2PHPServer.pdb
+C:\Users\James\Desktop\PHPGit\DP2PHPServer\bin\Debug\DP2PHPServer.exe
+C:\Users\James\Desktop\PHPGit\DP2PHPServer\bin\Debug\DP2PHPServer.pdb
+C:\Users\James\Desktop\PHPGit\DP2PHPServer\bin\Debug\MySql.Data.dll
+C:\Users\James\Desktop\PHPGit\DP2PHPServer\bin\Debug\MySql.Data.xml
+C:\Users\James\Desktop\PHPGit\DP2PHPServer\bin\Debug\NetworkCommsDotNetComplete.pdb
+C:\Users\James\Desktop\PHPGit\DP2PHPServer\bin\Debug\NetworkCommsDotNetComplete.xml
+C:\Users\James\Desktop\PHPGit\DP2PHPServer\obj\Debug\DP2PHPServer.csprojResolveAssemblyReference.cache

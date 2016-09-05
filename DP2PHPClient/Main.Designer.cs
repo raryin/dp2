@@ -32,7 +32,6 @@
             this.txt_ip = new System.Windows.Forms.TextBox();
             this.txt_port = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.btn_send = new System.Windows.Forms.Button();
             this.btn_shutdown = new System.Windows.Forms.Button();
             this.lbl_connectionState = new System.Windows.Forms.Label();
             this.btn_connect = new System.Windows.Forms.Button();
@@ -100,19 +99,9 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "Port";
             // 
-            // btn_send
-            // 
-            this.btn_send.Location = new System.Drawing.Point(207, 51);
-            this.btn_send.Name = "btn_send";
-            this.btn_send.Size = new System.Drawing.Size(75, 23);
-            this.btn_send.TabIndex = 4;
-            this.btn_send.Text = "Send";
-            this.btn_send.UseVisualStyleBackColor = true;
-            this.btn_send.Click += new System.EventHandler(this.btn_send_Click);
-            // 
             // btn_shutdown
             // 
-            this.btn_shutdown.Location = new System.Drawing.Point(207, 80);
+            this.btn_shutdown.Location = new System.Drawing.Point(207, 52);
             this.btn_shutdown.Name = "btn_shutdown";
             this.btn_shutdown.Size = new System.Drawing.Size(75, 23);
             this.btn_shutdown.TabIndex = 5;
@@ -283,7 +272,6 @@
             this.groupBox2.Controls.Add(this.btn_connect);
             this.groupBox2.Controls.Add(this.txt_port);
             this.groupBox2.Controls.Add(this.lbl_connectionState);
-            this.groupBox2.Controls.Add(this.btn_send);
             this.groupBox2.Controls.Add(this.btn_shutdown);
             this.groupBox2.Location = new System.Drawing.Point(16, 12);
             this.groupBox2.Name = "groupBox2";
@@ -411,7 +399,6 @@
         private System.Windows.Forms.TextBox txt_ip;
         private System.Windows.Forms.TextBox txt_port;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button btn_send;
         private System.Windows.Forms.Button btn_shutdown;
         private System.Windows.Forms.Label lbl_connectionState;
         private System.Windows.Forms.Button btn_connect;

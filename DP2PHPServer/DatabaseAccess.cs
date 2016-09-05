@@ -30,10 +30,15 @@ namespace DP2PHPServer
 
         public void Initialise()
         {
-            server = "sql6.freesqldatabase.com";
-            database = "sql6133003";
-            uid = "sql6133003";
-            password = "vv1FrnaEeT";
+            //server = "fdb13.biz.nf";
+            //database = "2195923_dp2";
+            //uid = "2195923_dp2";
+            //password = "swinburnedp2";
+
+            server = "db4free.net";
+            database = "dp2db";
+            uid = "dp2user";
+            password = "dp2000";
 
             string connectionString;
             connectionString = "SERVER=" + server + ";" + "DATABASE=" + database + ";" + "UID=" + uid + ";" + "PASSWORD=" + password + ";";
@@ -59,11 +64,14 @@ namespace DP2PHPServer
                 switch (ex.Number)
                 {
                     case 0:
-                        Console.WriteLine("Cannot connect to server.  Contact administrator");
+                        Console.WriteLine("Cannot connect to server. Contact administrator.");
                         break;
 
                     case 1045:
-                        Console.WriteLine("Invalid username/password, please try again");
+                        Console.WriteLine("Invalid username/password, please try again.");
+                        break;
+                    default:
+                        Console.WriteLine("Unknown error: " + ex.Number);
                         break;
                 }
                 return false;
@@ -86,15 +94,16 @@ namespace DP2PHPServer
         }
 
         //Insert statement
-        public void Insert(string stockName, double purchase, double sell, int qty)
+        public int Insert(string stockName, double purchase, double sell, int qty)
         {
-            InsertCommand(DatabaseTable.Stock, " (StockName, PurchaseCost, SellPrice, StockQty) VALUES('"+stockName+"', "+purchase+", "+sell+", "+qty+")");
+            return InsertCommand(DatabaseTable.Stock, " (StockName, PurchaseCost, SellPrice, StockQty) VALUES('"+stockName+"', "+purchase+", "+sell+", "+qty+")");
         }
             
 
-        private void InsertCommand(DatabaseTable table, string values)
+        private int InsertCommand(DatabaseTable table, string values)
         {
             string query = "INSERT INTO " + table + values;
+            int rowsAffected = 0;
 
             //open connection
             if (this.OpenConnection() == true)
@@ -103,11 +112,13 @@ namespace DP2PHPServer
                 MySqlCommand cmd = new MySqlCommand(query, connection);
 
                 //Execute command
-                cmd.ExecuteNonQuery();
+                rowsAffected = cmd.ExecuteNonQuery();
 
                 //close connection
                 this.CloseConnection();
             }
+
+            return rowsAffected;
         }
 
         //Update statement
@@ -149,13 +160,18 @@ namespace DP2PHPServer
         //Select statement
         public List<string>[] Select()
         {
-            string query = "SELECT * FROM tableinfo";
+            Console.WriteLine("Getting from db...");
+
+            //string query = "SELECT * FROM " + DatabaseTable.Stock;
+            string query = "SELECT * FROM Stock";
 
             //Create a list to store the result
-            List<string>[] list = new List<string>[3];
+            List<string>[] list = new List<string>[5];
             list[0] = new List<string>();
             list[1] = new List<string>();
             list[2] = new List<string>();
+            list[3] = new List<string>();
+            list[4] = new List<string>();
 
             //Open connection
             if (this.OpenConnection() == true)
@@ -168,9 +184,11 @@ namespace DP2PHPServer
                 //Read the data and store them in the list
                 while (dataReader.Read())
                 {
-                    list[0].Add(dataReader["id"] + "");
-                    list[1].Add(dataReader["name"] + "");
-                    list[2].Add(dataReader["age"] + "");
+                    list[0].Add(dataReader["StockID"] + "");
+                    list[1].Add(dataReader["StockName"] + "");
+                    list[2].Add(dataReader["PurchaseCost"] + "");
+                    list[3].Add(dataReader["SellPrice"] + "");
+                    list[4].Add(dataReader["StockQty"] + "");
                 }
 
                 //close Data Reader
@@ -178,6 +196,13 @@ namespace DP2PHPServer
 
                 //close Connection
                 this.CloseConnection();
+
+                Console.WriteLine("Fetching...");
+
+                for (int i = 0; i < list[0].Count; i++)
+                {
+                    Console.WriteLine(i + ": ID - " + list[0][i] + ", Name - " + list[1][i] + ", Purchase - " + list[2][i] + ", Sell - " + list[3][i] + ", Qty - " + list[4][i]);
+                }
 
                 //return list to be displayed
                 return list;

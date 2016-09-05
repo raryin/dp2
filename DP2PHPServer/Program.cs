@@ -10,9 +10,9 @@ namespace DP2PHPServer
     {
         static void Main(string[] args)
         {
-            //DatabaseAccess dbconnect = new DatabaseAccess();
+            DatabaseAccess dbconnect = new DatabaseAccess();
             
-            //dbconnect.Insert("New stock", 10.5, 15, 8);
+            dbconnect.Select();
 
             ServerHandler.CreateServer(System.Net.IPAddress.Any, 25565);
 

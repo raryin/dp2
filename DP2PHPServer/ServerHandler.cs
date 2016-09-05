@@ -31,7 +31,7 @@ namespace DP2PHPServer
             NetworkComms.AppendGlobalIncomingPacketHandler<string>("Message", PrintIncomingMessage);
             NetworkComms.AppendGlobalIncomingPacketHandler<string>("Hello", NewIncomingConnection);
             NetworkComms.AppendGlobalIncomingPacketHandler<int>("GetStockRequest", GetStockRecord);
-            NetworkComms.AppendGlobalIncomingPacketHandler<StockRecord>("InsertStock", InsertStock);
+            NetworkComms.AppendGlobalIncomingPacketHandler<StockRecord>("InsertStockRecord", InsertStock);
             //Start listening for incoming connections
             Connection.StartListening(ConnectionType.TCP, new System.Net.IPEndPoint(address, port));
 
@@ -102,7 +102,16 @@ namespace DP2PHPServer
         {
             Console.WriteLine("\nInserting: " + record.StockName + record.Purchase + record.CurrentSell + record.Quantity + " for connection: " + connection.ToString() + "'.");
             DatabaseAccess dbconnect = new DatabaseAccess();
-            dbconnect.Insert(record.StockName, record.Purchase, record.CurrentSell, record.Quantity);
+            if (dbconnect.Insert(record.StockName, record.Purchase, record.CurrentSell, record.Quantity) != 0)
+            {
+                Console.WriteLine("Success.");
+                connection.SendObject("ReturnInsertStockRecord", true);
+            }
+            else
+            {
+                Console.WriteLine("Failed.");
+                connection.SendObject("ReturnInsertStockRecord", false);
+            }
             Console.WriteLine("Done");
         }
 
