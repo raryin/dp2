@@ -48,6 +48,30 @@ namespace DP2PHPClient
 
     }
 
+    /// <summary>
+    /// A struct to be a list of StockRecords. Needed as lists cannot be sent directly over the client-server connection.
+    /// </summary>
+    [ProtoContract]
+    struct StockRecordList
+    {
+        [ProtoMember(1)]
+        List<StockRecord> _records;
+
+        public StockRecordList(List<StockRecord> records)
+        {
+            _records = records;
+        }
+
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+            foreach (StockRecord s in _records)
+                sb.AppendLine(string.Format("StockID: {0}; Stock Name: {1}; Purchase: {2}; Sell: {3}; Qty: {4}\n", s.StockID, s.StockName, s.Purchase, s.CurrentSell, s.Quantity));
+            return sb.ToString();
+        }
+
+    }
+
     class RecordHandler
     {
     }

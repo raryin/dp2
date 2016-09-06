@@ -119,6 +119,16 @@ namespace DP2PHPServer
         }
 
         /// <summary>
+        /// Overload to insert data into the Receipt table. ID is automatically generated. Returns 0 if failed.
+        /// </summary>
+        /// <returns>Number of rows added. 1 if successful, 0 otherwise.</returns>
+        public int Insert()
+        {
+            //Calls InsertCommand. Generates the query. The database connection is opened by InsertCommand.
+            return InsertCommand(DatabaseTable.Receipt, "VALUES()");
+        }
+
+        /// <summary>
         /// Runs a generic insert query. Table and values must be specified.
         /// </summary>
         /// <param name="table">The table to insert into.</param>
@@ -137,15 +147,15 @@ namespace DP2PHPServer
         /// </summary>
         /// <param name="stockID">StockID to delete. Specify -1 to delete all.</param>
         /// <returns>Number of rows added. Number of rows deleted. 0 if failed. As StockID is unique, will only every return one record.</returns>
-        public int Delete(int stockID)
+        public int Delete(DatabaseTable table, int stockID)
         {
             //Calls DeleteCommand. Generates the query. The database connection is opened by DeleteCommand.
             //Delete all stock for -1.
             if (stockID == -1)
-                return DeleteCommand(DatabaseTable.Stock);
+                return DeleteCommand(table);
 
             //Otherwise run the WHERE condition.
-            return DeleteCommand(DatabaseTable.Stock, "StockID="+stockID);
+            return DeleteCommand(table, "StockID="+stockID);
         }
 
         /// <summary>
@@ -176,6 +186,39 @@ namespace DP2PHPServer
         }
 
         /// <summary>
+        /// Updates a single stock item. Record specifies the details.
+        /// </summary>
+        /// <param name="table">The table to update from.</param>
+        /// <param name="record">Stock record. StockID indicates stock to change; Quantity indicates new amount.</param>
+        /// <returns>Number of rows updated. 0 if failed.</returns>
+        public int Update(DatabaseTable table, StockRecord record)
+        {
+
+            int stockID = record.StockID;
+            int qty = record.Quantity;
+
+            string query = "UPDATE " + table + " SET StockQty=" + qty + " WHERE StockID=" + stockID;
+
+            return RunNonQueryCommand(query);
+        }
+
+        /// <summary>
+        /// Updates a single stock item. Record specifies the details.
+        /// </summary>
+        /// <param name="table">The table to update from.</param>
+        /// <param name="record">Stock record. StockID indicates stock to change; Quantity indicates decrement amount.</param>
+        /// <returns>Number of rows updated. 0 if failed.</returns>
+        public int Decrement(DatabaseTable table, StockRecord record)
+        {
+
+            int stockID = record.StockID;
+            int qty = record.Quantity;
+
+            string query = "UPDATE " + table + " SET StockQty=StockQty-" + qty + " WHERE StockID=" + stockID + " AND StockQty > " + (qty-1);
+            return RunNonQueryCommand(query);
+        }
+
+        /// <summary>
         /// Generic run for commands that do not return data. Returns the rows affected.
         /// </summary>
         /// <param name="query">The query to run.</param>
@@ -201,36 +244,41 @@ namespace DP2PHPServer
             return rowsAffected;
         }
 
-        //Update statement
-        public void Update()
+        /// <summary>
+        /// Selects data from the Stock table based on StockID. Selects all if stock ID is -1. Returns 0 if failed.
+        /// </summary>
+        /// <param name="stockID">StockID to select. Specify -1 to select all.</param>
+        /// <returns>List of records selected.</returns>
+        public List<StockRecord> Select(DatabaseTable table, int stockID)
         {
-            string query = "UPDATE tableinfo SET name='Joe', age='22' WHERE name='John Smith'";
+            //Calls SelectCommand. Generates the query. The database connection is opened by SelectCommand.
+            //Delete all stock for -1.
+            if (stockID == -1)
+                return SelectCommand(DatabaseTable.Stock);
 
-            //Open connection
-            if (this.OpenConnection() == true)
-            {
-                //create mysql command
-                MySqlCommand cmd = new MySqlCommand();
-                //Assign the query using CommandText
-                cmd.CommandText = query;
-                //Assign the connection using Connection
-                cmd.Connection = connection;
-
-                //Execute query
-                cmd.ExecuteNonQuery();
-
-                //close connection
-                this.CloseConnection();
-            }
+            //Otherwise run the WHERE condition.
+            return SelectCommand(DatabaseTable.Stock, "StockID=" + stockID);
         }
 
-        //Select statement
-        public List<string>[] Select()
+        private List<StockRecord> SelectCommand(DatabaseTable table, string condition)
         {
-            Console.WriteLine("Getting from db...");
+            //Form the query.
+            string query = "SELECT * FROM " + table + " WHERE " + condition;
 
-            //string query = "SELECT * FROM " + DatabaseTable.Stock;
-            string query = "SELECT * FROM Stock";
+            return RunQueryCommand(query);
+        }
+
+        private List<StockRecord> SelectCommand(DatabaseTable table)
+        {
+            //Form the query.
+            string query = "SELECT * FROM " + table;
+
+            return RunQueryCommand(query);
+        }
+
+        private List<StockRecord> RunQueryCommand(string query)
+        {
+            Console.WriteLine("Getting stock from database...");
 
             //Create a list to store the result
             List<string>[] list = new List<string>[5];
@@ -239,6 +287,9 @@ namespace DP2PHPServer
             list[2] = new List<string>();
             list[3] = new List<string>();
             list[4] = new List<string>();
+
+            //Record for converted lists.
+            List<StockRecord> records = null;
 
             //Open connection
             if (this.OpenConnection() == true)
@@ -264,23 +315,26 @@ namespace DP2PHPServer
                 //close Connection
                 this.CloseConnection();
 
+                //Convert to proper records
+                records = DataWrapper.ConvertToRecord(list);
+
                 Console.WriteLine("Fetching...");
 
-                for (int i = 0; i < list[0].Count; i++)
+                for (int i = 0; i < records.Count; i++)
                 {
-                    Console.WriteLine(i + ": ID - " + list[0][i] + ", Name - " + list[1][i] + ", Purchase - " + list[2][i] + ", Sell - " + list[3][i] + ", Qty - " + list[4][i]);
+                    Console.WriteLine(i + ": " + records[i].ToString());
+                    //Console.WriteLine(i + ": ID - " + records[i].StockID + ", Name - " + records[i].StockName + ", Purchase - " + records[i].Purchase + ", Sell - " + records[i].CurrentSell + ", Qty - " + records[i].Quantity);
                 }
+            }
 
-                //return list to be displayed
-                return list;
-            }
-            else
-            {
-                return list;
-            }
+            //return list to be displayed
+            return records;
         }
 
-        //Count statement
+        /// <summary>
+        /// Count statement. Currently unused.
+        /// </summary>
+        /// <returns></returns>
         public int Count()
         {
             string query = "SELECT Count(*) FROM tableinfo";

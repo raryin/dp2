@@ -37,12 +37,24 @@ namespace DP2PHPClient
         
         private void btn_requestStock_Click(object sender, EventArgs e)
         {
-            StockRecord record = _connection.RequestStockInfo(int.Parse(txt_requestID.Text));
-            txt_stockID.Text = record.StockID.ToString();
-            txt_stockName.Text = record.StockName;
-            txt_purchase.Text = record.Purchase.ToString();
-            txt_sell.Text = record.CurrentSell.ToString();
-            txt_qty.Text = record.Quantity.ToString();
+            List<StockRecord> record = null;
+
+            if (txt_requestID.Text == "")
+                record = _connection.RequestStockInfo(-1);
+            else
+                record = _connection.RequestStockInfo(int.Parse(txt_requestID.Text));
+
+            if (record != null)
+            {
+                if (record.Count != 0)
+                {
+                    txt_stockID.Text = record[0].StockID.ToString();
+                    txt_stockName.Text = record[0].StockName;
+                    txt_purchase.Text = record[0].Purchase.ToString();
+                    txt_sell.Text = record[0].CurrentSell.ToString();
+                    txt_qty.Text = record[0].Quantity.ToString();
+                }
+            }
         }
 
         private void btn_insert_Click(object sender, EventArgs e)
@@ -57,5 +69,18 @@ namespace DP2PHPClient
             else
                 _connection.DeleteStock(int.Parse(txt_deleteID.Text));
         }
+
+        private void btn_update_Click(object sender, EventArgs e)
+        {
+            if ((txt_deleteID.Text != "") && (txt_updateqty.Text != ""))
+                _connection.UpdateStock(new StockRecord(int.Parse(txt_deleteID.Text), "", 0, 0, int.Parse(txt_updateqty.Text)));
+        }
+
+        private void btn_decrement_Click(object sender, EventArgs e)
+        {
+            if ((txt_deleteID.Text != "") && (txt_updateqty.Text != ""))
+                _connection.DecrementStock(new StockRecord(int.Parse(txt_deleteID.Text), "", 0, 0, int.Parse(txt_updateqty.Text)));
+        }
+
     }
 }

@@ -170,9 +170,101 @@ namespace DP2PHPClient
         /// Timeout currently set at 10000ms.
         /// </summary>
         /// <param name="stockID">The stock ID to request.</param>
-        public StockRecord RequestStockInfo(int stockID)
+        public List<StockRecord> RequestStockInfo(int stockID)
         {
-            return _connection.SendReceiveObject<StockRecord>("GetStockRequest", "ReturnStockRecord", 10000);
+            List<StockRecord> records = null;
+
+            try
+            {
+                //Send a request to insert stock, expecting a confirmation. Also writes the number of rows deleted to rows.
+                if ((records = _connection.SendReceiveObject<int, List<StockRecord>>("SelectStockRecord", "ReturnSelectStockRecord", 10000, stockID)) == null)
+                {
+                    View.ErrorNotify("Data could not be selected from the database.\n Check the server for further details.",
+                    "Database Error");
+                }
+
+                //The server has failed to insert the stock in the database.
+                else if (records.Count == 0)
+                {
+                    View.ErrorNotify("Data could not be selected from the database.\n Check the server for further details.",
+                    "Database Error");
+                }
+            }
+            catch (ExpectedReturnTimeoutException exception)
+            {
+                View.ErrorNotify("No confirmation recieved from server.\n Likly a connection issue, check the server status.",
+                    "Connection Error");
+            }
+
+            return records;
+        }
+
+        /// <summary>
+        /// Updates the stock record of the specified ID to the specified quantity. Assumed the
+        /// connection has already been set up. Current has unhandled exceptions for timed out connections.
+        /// Timeout currently set at 10000ms.
+        /// </summary>
+        /// <param name="stockID">The stock ID to request.</param>
+        public bool UpdateStock(StockRecord record)
+        {
+            int rows = 0;
+
+            try
+            {
+                //Send a request to update stock, expecting a confirmation. Also writes the number of rows updated to rows.
+                if ((rows = _connection.SendReceiveObject<StockRecord, int>("UpdateStockRecord", "ReturnUpdateStockRecord", 10000, record)) != 0)
+                {
+                    View.SuccessNotify("Successfully updated " + rows + " rows.", "Update successful");
+                    return true;
+                }
+                //The server has failed to insert the stock in the database.
+                else
+                {
+                    View.ErrorNotify("Data could not be updated in the database.\n Check the server for further details.",
+                        "Database Error");
+                }
+            }
+            catch (ExpectedReturnTimeoutException exception)
+            {
+                View.ErrorNotify("No confirmation recieved from server.\n Likly a connection issue, check the server status.",
+                    "Connection Error");
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Decrements the stock record of the specified ID by the specified quantity. Assumed the
+        /// connection has already been set up. Current has unhandled exceptions for timed out connections.
+        /// Timeout currently set at 10000ms.
+        /// </summary>
+        /// <param name="stockID">The stock ID to request.</param>
+        public bool DecrementStock(StockRecord record)
+        {
+            int rows = 0;
+
+            try
+            {
+                //Send a request to update stock, expecting a confirmation. Also writes the number of rows updated to rows.
+                if ((rows = _connection.SendReceiveObject<StockRecord, int>("DecrementStockRecord", "ReturnDecrementStockRecord", 10000, record)) != 0)
+                {
+                    View.SuccessNotify("Successfully decremented " + rows + " rows.", "Decrement successful");
+                    return true;
+                }
+                //The server has failed to insert the stock in the database.
+                else
+                {
+                    View.ErrorNotify("Data could not be updated in the database.\n Check the server for further details.",
+                        "Database Error");
+                }
+            }
+            catch (ExpectedReturnTimeoutException exception)
+            {
+                View.ErrorNotify("No confirmation recieved from server.\n Likly a connection issue, check the server status.",
+                    "Connection Error");
+            }
+
+            return false;
         }
 
     }

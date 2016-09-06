@@ -64,6 +64,10 @@
             this.btn_delete = new System.Windows.Forms.Button();
             this.label13 = new System.Windows.Forms.Label();
             this.txt_deleteID = new System.Windows.Forms.TextBox();
+            this.txt_updateqty = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.btn_update = new System.Windows.Forms.Button();
+            this.btn_decrement = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -298,7 +302,7 @@
             this.groupBox3.Controls.Add(this.txt_purchaseinsert);
             this.groupBox3.Location = new System.Drawing.Point(473, 12);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(440, 119);
+            this.groupBox3.Size = new System.Drawing.Size(396, 119);
             this.groupBox3.TabIndex = 20;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Insert Record Into Stock";
@@ -380,12 +384,16 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.btn_decrement);
+            this.groupBox4.Controls.Add(this.btn_update);
+            this.groupBox4.Controls.Add(this.txt_updateqty);
+            this.groupBox4.Controls.Add(this.label8);
             this.groupBox4.Controls.Add(this.btn_delete);
             this.groupBox4.Controls.Add(this.label13);
             this.groupBox4.Controls.Add(this.txt_deleteID);
             this.groupBox4.Location = new System.Drawing.Point(473, 161);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(184, 119);
+            this.groupBox4.Size = new System.Drawing.Size(396, 119);
             this.groupBox4.TabIndex = 21;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Delete Record In Stock";
@@ -417,11 +425,49 @@
             this.txt_deleteID.Size = new System.Drawing.Size(100, 20);
             this.txt_deleteID.TabIndex = 12;
             // 
+            // txt_updateqty
+            // 
+            this.txt_updateqty.Location = new System.Drawing.Point(276, 22);
+            this.txt_updateqty.Name = "txt_updateqty";
+            this.txt_updateqty.Size = new System.Drawing.Size(100, 20);
+            this.txt_updateqty.TabIndex = 20;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(212, 25);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(46, 13);
+            this.label8.TabIndex = 19;
+            this.label8.Text = "Quantity";
+            // 
+            // btn_update
+            // 
+            this.btn_update.AutoSize = true;
+            this.btn_update.Location = new System.Drawing.Point(257, 51);
+            this.btn_update.Name = "btn_update";
+            this.btn_update.Size = new System.Drawing.Size(109, 23);
+            this.btn_update.TabIndex = 21;
+            this.btn_update.Text = "Update";
+            this.btn_update.UseVisualStyleBackColor = true;
+            this.btn_update.Click += new System.EventHandler(this.btn_update_Click);
+            // 
+            // btn_decrement
+            // 
+            this.btn_decrement.AutoSize = true;
+            this.btn_decrement.Location = new System.Drawing.Point(257, 83);
+            this.btn_decrement.Name = "btn_decrement";
+            this.btn_decrement.Size = new System.Drawing.Size(109, 23);
+            this.btn_decrement.TabIndex = 22;
+            this.btn_decrement.Text = "Decrement";
+            this.btn_decrement.UseVisualStyleBackColor = true;
+            this.btn_decrement.Click += new System.EventHandler(this.btn_decrement_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(925, 427);
+            this.ClientSize = new System.Drawing.Size(884, 427);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -478,6 +524,10 @@
         private System.Windows.Forms.Button btn_delete;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox txt_deleteID;
+        private System.Windows.Forms.Button btn_update;
+        private System.Windows.Forms.TextBox txt_updateqty;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button btn_decrement;
     }
 }
 

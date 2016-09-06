@@ -47,6 +47,30 @@ namespace DP2PHPServer
         }
 
     }
+    
+    /// <summary>
+    /// A struct to be a list of StockRecords. Needed as lists cannot be sent directly over the client-server connection.
+    /// </summary>
+    [ProtoContract]
+    struct StockRecordList
+    {
+        [ProtoMember(1)]
+        List<StockRecord> _records;
+
+        public StockRecordList(List<StockRecord> records)
+        {
+            _records = records;
+        }
+
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+            foreach (StockRecord s in _records)
+                sb.AppendLine(string.Format("StockID: {0}; Stock Name: {1}; Purchase: {2}; Sell: {3}; Qty: {4}\n", s.StockID, s.StockName, s.Purchase, s.CurrentSell, s.Quantity));
+            return sb.ToString();
+        }
+
+    }
 
     /// <summary>
     /// Handles all communication with the database. Currently send dummy messages back in liu
@@ -65,5 +89,18 @@ namespace DP2PHPServer
 
             return record;
         }
+
+        public static List<StockRecord> ConvertToRecord(List<string>[] data)
+        {
+            List<StockRecord> records = new List<StockRecord>();
+
+            for (int i = 0; i < data[0].Count; i++)
+            {
+                records.Add(new StockRecord(int.Parse(data[0][i]), data[1][i], double.Parse(data[2][i]), double.Parse(data[3][i]), int.Parse(data[4][i])));
+            }
+
+            return records;
+        }
     }
+
 }

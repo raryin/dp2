@@ -33,6 +33,10 @@ namespace DP2PHPServer
             NetworkComms.AppendGlobalIncomingPacketHandler<int>("GetStockRequest", GetStockRecord);
             NetworkComms.AppendGlobalIncomingPacketHandler<StockRecord>("InsertStockRecord", InsertStock);
             NetworkComms.AppendGlobalIncomingPacketHandler<int>("DeleteStockRecord", DeleteStock);
+            NetworkComms.AppendGlobalIncomingPacketHandler<int>("SelectStockRecord", SelectStock);
+            NetworkComms.AppendGlobalIncomingPacketHandler<StockRecord>("UpdateStockRecord", UpdateStock);
+            NetworkComms.AppendGlobalIncomingPacketHandler<StockRecord>("DecrementStockRecord", DecrementStock);
+
             //Start listening for incoming connections
             Connection.StartListening(ConnectionType.TCP, new System.Net.IPEndPoint(address, port));
 
@@ -139,12 +143,72 @@ namespace DP2PHPServer
             int rows = 0;
             Console.WriteLine("\nDeleting: " + stockID + " for connection: " + connection.ToString() + "'.");
             DatabaseAccess dbconnect = new DatabaseAccess();
-            if ((rows = dbconnect.Delete(stockID)) != 0)
+            if ((rows = dbconnect.Delete(DatabaseTable.Stock, stockID)) != 0)
                 Console.WriteLine("Success.");
             else
                 Console.WriteLine("Failed.");
             
             connection.SendObject("ReturnDeleteStockRecord", rows);
+            Console.WriteLine("Done");
+        }
+
+        /// <summary>
+        /// Selects a record from the database.
+        /// </summary>
+        /// <param name="header">The packet header associated with the incoming message</param>
+        /// <param name="connection">The connection used by the incoming message</param>
+        /// <param name="stockID">StockID to select</param>
+        private static void SelectStock(PacketHeader header, Connection connection, int stockID)
+        {
+            List<StockRecord> records = null;
+            Console.WriteLine("\nSelecting: " + stockID + " for connection: " + connection.ToString() + "'.");
+            DatabaseAccess dbconnect = new DatabaseAccess();
+            if ((records = dbconnect.Select(DatabaseTable.Stock, stockID)) != null)
+                Console.WriteLine("Success.");
+            else
+                Console.WriteLine("Failed.");
+
+            connection.SendObject("ReturnSelectStockRecord", records);
+            Console.WriteLine("Done");
+        }
+
+        /// <summary>
+        /// Reduces the stock quantity for the specified items of the specified amounts.
+        /// </summary>
+        /// <param name="header">The packet header associated with the incoming message</param>
+        /// <param name="connection">The connection used by the incoming message</param>
+        /// <param name="record">Stock record. StockID indicates stock to decrement; Quantity indicates amount to decrement.</param>
+        private static void DecrementStock(PacketHeader header, Connection connection, StockRecord record)
+        {
+            int rows = 0;
+            Console.WriteLine("\nDecrementing: " + record.StockID + " by " + record.Quantity + " for connection: " + connection.ToString() + "'.");
+            DatabaseAccess dbconnect = new DatabaseAccess();
+            if ((rows = dbconnect.Decrement(DatabaseTable.Stock, record)) != 0)
+                Console.WriteLine("Success.");
+            else
+                Console.WriteLine("Failed.");
+
+            connection.SendObject("ReturnDecrementStockRecord", rows);
+            Console.WriteLine("Done");
+        }
+        
+        /// <summary>
+        /// Updates the stock quantity for the specified items of the specified amounts.
+        /// </summary>
+        /// <param name="header">The packet header associated with the incoming message</param>
+        /// <param name="connection">The connection used by the incoming message</param>
+        /// <param name="record">Stock record. StockID indicates stock to change; Quantity indicates new amount.</param>
+        private static void UpdateStock(PacketHeader header, Connection connection, StockRecord record)
+        {
+            int rows = 0;
+            Console.WriteLine("\nUpdating: " + record.StockID + " to " + record.Quantity + " for connection: " + connection.ToString() + "'.");
+            DatabaseAccess dbconnect = new DatabaseAccess();
+            if ((rows = dbconnect.Update(DatabaseTable.Stock, record)) != 0)
+                Console.WriteLine("Success.");
+            else
+                Console.WriteLine("Failed.");
+
+            connection.SendObject("ReturnDecrementStockRecord", rows);
             Console.WriteLine("Done");
         }
 
