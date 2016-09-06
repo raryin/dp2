@@ -7,13 +7,19 @@ using ProtoBuf;
 
 namespace DP2PHPServer
 {
+    [ProtoContract]
+    interface Record
+    {
+
+    }
+
     /// <summary>
     /// Struct to return the contents of a stock record from the database.
     /// ProtoContract is from NetworkCommsDotNet, allows the class to be serialized and sent over the
     /// connection.
     /// </summary>
     [ProtoContract]
-    struct StockRecord
+    struct StockRecord : Record
     {
         [ProtoMember(1)]
         public int StockID { get; set; }
@@ -47,26 +53,68 @@ namespace DP2PHPServer
         }
 
     }
-    
+
     /// <summary>
-    /// A struct to be a list of StockRecords. Needed as lists cannot be sent directly over the client-server connection.
+    /// Struct to return the contents of a receipt record from the database.
+    /// ProtoContract is from NetworkCommsDotNet, allows the class to be serialized and sent over the
+    /// connection.
     /// </summary>
     [ProtoContract]
-    struct StockRecordList
+    struct ReceiptRecord : Record
     {
         [ProtoMember(1)]
-        List<StockRecord> _records;
+        public int SaleID { get; set; }
 
-        public StockRecordList(List<StockRecord> records)
+        [ProtoMember(2)]
+        public DateTime Date { get; set; }
+
+        public ReceiptRecord(int saleID, DateTime date)
         {
-            _records = records;
+            SaleID = saleID;
+            Date = date;
         }
 
         public override string ToString()
         {
             var sb = new StringBuilder();
-            foreach (StockRecord s in _records)
-                sb.AppendLine(string.Format("StockID: {0}; Stock Name: {1}; Purchase: {2}; Sell: {3}; Qty: {4}\n", s.StockID, s.StockName, s.Purchase, s.CurrentSell, s.Quantity));
+            sb.AppendLine(string.Format("SaleID: {0}; Date: {1}", SaleID, Date));
+            return sb.ToString();
+        }
+
+    }
+
+    /// <summary>
+    /// Struct to return the contents of a receipt record from the database.
+    /// ProtoContract is from NetworkCommsDotNet, allows the class to be serialized and sent over the
+    /// connection.
+    /// </summary>
+    [ProtoContract]
+    struct ItemSaleRecord : Record
+    {
+        [ProtoMember(1)]
+        public int SaleID { get; set; }
+
+        [ProtoMember(2)]
+        public int StockID { get; set; }
+
+        [ProtoMember(3)]
+        public double PriceSold { get; set; }
+
+        [ProtoMember(4)]
+        public int Quantity { get; set; }
+
+        public ItemSaleRecord(int saleID, int stockID, double priceSold, int quantity)
+        {
+            SaleID = saleID;
+            StockID = stockID;
+            PriceSold = priceSold;
+            Quantity = quantity;
+        }
+
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+            sb.AppendLine(string.Format("SaleID: {0}; StockID: {1}; Price Sold: {2}; Quantity: {3}", SaleID, StockID, PriceSold, Quantity));
             return sb.ToString();
         }
 
@@ -79,24 +127,33 @@ namespace DP2PHPServer
     class DataWrapper
     {
         /// <summary>
-        /// Returns a dummy record for basic testing.
+        /// Converts from the format returned from the database into the Records format.
         /// </summary>
-        /// <param name="stockID"></param>
-        /// <returns>A dummy stock record.</returns>
-        public static StockRecord GetStockRecord(int stockID)
+        /// <param name="type">Type to change to.</param>
+        /// <param name="data">Database data.</param>
+        /// <returns>The converted data as a generic Record.</returns>
+        public static List<Record> ConvertToRecord(DatabaseTable type, List<string>[] data)
         {
-            StockRecord record = new StockRecord(0, "Dummy", 10, 15, 20);
+            List<Record> records = new List<Record>();
 
-            return record;
-        }
-
-        public static List<StockRecord> ConvertToRecord(List<string>[] data)
-        {
-            List<StockRecord> records = new List<StockRecord>();
-
-            for (int i = 0; i < data[0].Count; i++)
+            switch (type)
             {
-                records.Add(new StockRecord(int.Parse(data[0][i]), data[1][i], double.Parse(data[2][i]), double.Parse(data[3][i]), int.Parse(data[4][i])));
+                case DatabaseTable.Stock:
+                    for (int i = 0; i < data[0].Count; i++)
+                    {
+                        records.Add(new StockRecord(int.Parse(data[0][i]), data[1][i], double.Parse(data[2][i]), double.Parse(data[3][i]), int.Parse(data[4][i])));
+                    }
+
+                    break;
+
+                case DatabaseTable.Receipt:
+                    for (int i = 0; i < data[0].Count; i++)
+                    {
+                        records.Add(new ReceiptRecord(int.Parse(data[0][i]), DateTime.Parse(data[1][i])));
+                    }
+
+                    break;
+
             }
 
             return records;

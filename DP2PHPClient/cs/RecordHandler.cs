@@ -7,13 +7,19 @@ using System.Threading.Tasks;
 
 namespace DP2PHPClient
 {
+    [ProtoContract]
+    interface Record
+    {
+
+    }
+
     /// <summary>
     /// Struct to return the contents of a stock record from the database.
     /// ProtoContract is from NetworkCommsDotNet, allows the class to be serialized and sent over the
     /// connection.
     /// </summary>
     [ProtoContract]
-    struct StockRecord
+    struct StockRecord : Record
     {
         [ProtoMember(1)]
         public int StockID { get; set; }
@@ -49,24 +55,66 @@ namespace DP2PHPClient
     }
 
     /// <summary>
-    /// A struct to be a list of StockRecords. Needed as lists cannot be sent directly over the client-server connection.
+    /// Struct to return the contents of a receipt record from the database.
+    /// ProtoContract is from NetworkCommsDotNet, allows the class to be serialized and sent over the
+    /// connection.
     /// </summary>
     [ProtoContract]
-    struct StockRecordList
+    struct ReceiptRecord : Record
     {
         [ProtoMember(1)]
-        List<StockRecord> _records;
+        public int SaleID { get; set; }
 
-        public StockRecordList(List<StockRecord> records)
+        [ProtoMember(2)]
+        public DateTime Date { get; set; }
+
+        public ReceiptRecord(int saleID, DateTime date)
         {
-            _records = records;
+            SaleID = saleID;
+            Date = date;
         }
 
         public override string ToString()
         {
             var sb = new StringBuilder();
-            foreach (StockRecord s in _records)
-                sb.AppendLine(string.Format("StockID: {0}; Stock Name: {1}; Purchase: {2}; Sell: {3}; Qty: {4}\n", s.StockID, s.StockName, s.Purchase, s.CurrentSell, s.Quantity));
+            sb.AppendLine(string.Format("SaleID: {0}; Date: {1}", SaleID, Date));
+            return sb.ToString();
+        }
+
+    }
+
+    /// <summary>
+    /// Struct to return the contents of a receipt record from the database.
+    /// ProtoContract is from NetworkCommsDotNet, allows the class to be serialized and sent over the
+    /// connection.
+    /// </summary>
+    [ProtoContract]
+    struct ItemSaleRecord : Record
+    {
+        [ProtoMember(1)]
+        public int SaleID { get; set; }
+
+        [ProtoMember(2)]
+        public int StockID { get; set; }
+
+        [ProtoMember(3)]
+        public double PriceSold { get; set; }
+
+        [ProtoMember(4)]
+        public int Quantity { get; set; }
+
+        public ItemSaleRecord(int saleID, int stockID, double priceSold, int quantity)
+        {
+            SaleID = saleID;
+            StockID = stockID;
+            PriceSold = priceSold;
+            Quantity = quantity;
+        }
+
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+            sb.AppendLine(string.Format("SaleID: {0}; StockID: {1}; Price Sold: {2}; Quantity: {3}", SaleID, StockID, PriceSold, Quantity));
             return sb.ToString();
         }
 

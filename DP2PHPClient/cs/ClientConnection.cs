@@ -112,6 +112,7 @@ namespace DP2PHPClient
                 if (_connection.SendReceiveObject<StockRecord, bool>("InsertStockRecord", "ReturnInsertStockRecord", 10000,
                     new StockRecord(0, stockName, purchase, sell, qty)))
                 {
+                    View.SuccessNotify("Successfully added stock.", "Receipt successful");
                     return true;
                 }
                 //The server has failed to insert the stock in the database.
@@ -266,6 +267,37 @@ namespace DP2PHPClient
 
             return false;
         }
+        
+        /// <summary>
+        /// Sends a request to add the specified receipt record to the database with associated ItemSales.
+        /// Produces error messages if failed. Waits for 10000ms.
+        /// </summary>
+        /// <param name="records">List of ItemSales to add. ID is generated so is ignored in the record.</param>
+        /// <returns>The success of the insert command.</returns>
+        public bool InsertReceipt(List<ItemSaleRecord> records)
+        {
+            try
+            {
+                //Send a request to insert stock, expecting a confirmation.
+                if (_connection.SendReceiveObject<List<ItemSaleRecord>, bool>("InsertReceiptRecord", "ReturnInsertReceiptRecord", 10000, records))
+                {
+                    View.SuccessNotify("Successfully added receipt.", "Receipt successful");
+                    return true;
+                }
+                //The server has failed to insert the stock in the database.
+                else
+                {
+                    View.ErrorNotify("Data could not be added to the database.\n Check the server for further details.",
+                        "Database Error");
+                }
+            }
+            catch (ExpectedReturnTimeoutException exception)
+            {
+                View.ErrorNotify("No confirmation recieved from server.\n Likly a connection issue, check the server status.",
+                    "Connection Error");
+            }
 
+            return false;
+        }
     }
 }

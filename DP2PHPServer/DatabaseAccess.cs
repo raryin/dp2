@@ -47,7 +47,8 @@ namespace DP2PHPServer
             password = "dp2000";
 
             string connectionString;
-            connectionString = "SERVER=" + server + ";" + "DATABASE=" + database + ";" + "UID=" + uid + ";" + "PASSWORD=" + password + ";";
+            //Standard connection string, but need to add Allow User Variables=True to enabled the AddNewReceipt method to work.
+            connectionString = "SERVER=" + server + ";" + "DATABASE=" + database + ";" + "UID=" + uid + ";" + "PASSWORD=" + password + "; Allow User Variables=True";
 
             connection = new MySqlConnection(connectionString);
         }
@@ -119,6 +120,25 @@ namespace DP2PHPServer
         }
 
         /// <summary>
+        /// Method to add a new receipt and the associated itemsale records.
+        /// </summary>
+        /// <param name="itemSales">List of item sales to add. SaleID is generated, provided value is ignored.</param>
+        /// <returns>The number of rows added. Should equal @ItemSales+1, 0 if failed.</returns>
+        public int InsertNewReceipt(List<ItemSaleRecord> itemSales)
+        {
+            //Create a new receipt.
+            string query = "INSERT INTO Receipt VALUES();";
+            //Get the id of the reciept just inserted.
+            query += "SET @last_id = LAST_INSERT_ID();";
+            //Add the relevant itemsales with the matching id of the receipt inserted.
+            foreach (ItemSaleRecord i in itemSales)
+                query += "INSERT INTO ItemSale (SaleID, StockID, PriceSold, Quantity) VALUES (@last_id, " + i.StockID + ", " + i.PriceSold + ", " + i.Quantity + ");";
+
+            return RunNonQueryCommand(query);
+        }
+        
+        //TODO: change to private
+        /// <summary>
         /// Overload to insert data into the Receipt table. ID is automatically generated. Returns 0 if failed.
         /// </summary>
         /// <returns>Number of rows added. 1 if successful, 0 otherwise.</returns>
@@ -126,6 +146,21 @@ namespace DP2PHPServer
         {
             //Calls InsertCommand. Generates the query. The database connection is opened by InsertCommand.
             return InsertCommand(DatabaseTable.Receipt, "VALUES()");
+        }
+
+        //TODO: change to private
+        /// <summary>
+        /// Overload to insert data into the ItemSale table. Returns 0 if failed.
+        /// </summary>
+        /// <param name="saleID">SaleID</param>
+        /// <param name="stockID">StockID</param>
+        /// <param name="priceSold">Price sold as of transaction</param>
+        /// <param name="quantity">Quantity sold</param>
+        /// <returns>Number of rows added. 1 if successful, 0 otherwise.</returns>
+        public int Insert(int saleID, int stockID, double priceSold, int quantity)
+        {
+            //Calls InsertCommand. Generates the query. The database connection is opened by InsertCommand.
+            return InsertCommand(DatabaseTable.ItemSale, "(SaleID, StockID, PriceSold, Quantity) VALUES('" + saleID + "', " + stockID + ", " + priceSold + ", " + quantity + ")");
         }
 
         /// <summary>
@@ -232,9 +267,18 @@ namespace DP2PHPServer
             {
                 //Create command and assign the query and connection from the constructor.
                 MySqlCommand cmd = new MySqlCommand(query, connection);
+                //cmd.Parameters.Add("@last_id", MySqlDbType.Int16).Value = 0;
+                try
+                {
+                    //Execute command.
+                    rowsAffected = cmd.ExecuteNonQuery();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Ooops...");
 
-                //Execute command.
-                rowsAffected = cmd.ExecuteNonQuery();
+                    while (true);
+                }
 
                 //Close connection.
                 this.CloseConnection();
@@ -245,51 +289,54 @@ namespace DP2PHPServer
         }
 
         /// <summary>
-        /// Selects data from the Stock table based on StockID. Selects all if stock ID is -1. Returns 0 if failed.
+        /// Selects data from a table based on StockID. Selects all if stock ID is -1. Returns 0 if failed.
         /// </summary>
-        /// <param name="stockID">StockID to select. Specify -1 to select all.</param>
+        /// <param name="table">Table to select from.</param>
+        /// <param name="stockID">ID to select. Specify -1 to select all.</param>
         /// <returns>List of records selected.</returns>
-        public List<StockRecord> Select(DatabaseTable table, int stockID)
+        public List<Record> Select(DatabaseTable table, int id)
         {
             //Calls SelectCommand. Generates the query. The database connection is opened by SelectCommand.
             //Delete all stock for -1.
-            if (stockID == -1)
-                return SelectCommand(DatabaseTable.Stock);
+            if (id == -1)
+                return SelectCommand(table);
 
             //Otherwise run the WHERE condition.
-            return SelectCommand(DatabaseTable.Stock, "StockID=" + stockID);
+            switch (table)
+            {
+                case DatabaseTable.Stock:
+                    return SelectCommand(table, "StockID=" + id);
+                case DatabaseTable.Receipt:
+                    return SelectCommand(table, "SaleID=" + id);
+            }
+
+            //Fallthrough case, should never reach
+            return null;
         }
 
-        private List<StockRecord> SelectCommand(DatabaseTable table, string condition)
+        private List<Record> SelectCommand(DatabaseTable table, string condition)
         {
             //Form the query.
             string query = "SELECT * FROM " + table + " WHERE " + condition;
 
-            return RunQueryCommand(query);
+            return RunQueryCommand(table, query);
         }
 
-        private List<StockRecord> SelectCommand(DatabaseTable table)
+        private List<Record> SelectCommand(DatabaseTable table)
         {
             //Form the query.
             string query = "SELECT * FROM " + table;
 
-            return RunQueryCommand(query);
+            return RunQueryCommand(table, query);
         }
 
-        private List<StockRecord> RunQueryCommand(string query)
+        private List<Record> RunQueryCommand(DatabaseTable type, string query)
         {
-            Console.WriteLine("Getting stock from database...");
-
-            //Create a list to store the result
-            List<string>[] list = new List<string>[5];
-            list[0] = new List<string>();
-            list[1] = new List<string>();
-            list[2] = new List<string>();
-            list[3] = new List<string>();
-            list[4] = new List<string>();
+            Console.WriteLine("Query: " + query);
 
             //Record for converted lists.
-            List<StockRecord> records = null;
+            List<string>[] list = null;
+            List<Record> records = null;
 
             //Open connection
             if (this.OpenConnection() == true)
@@ -299,14 +346,45 @@ namespace DP2PHPServer
                 //Create a data reader and Execute the command
                 MySqlDataReader dataReader = cmd.ExecuteReader();
 
-                //Read the data and store them in the list
-                while (dataReader.Read())
+                switch (type)
                 {
-                    list[0].Add(dataReader["StockID"] + "");
-                    list[1].Add(dataReader["StockName"] + "");
-                    list[2].Add(dataReader["PurchaseCost"] + "");
-                    list[3].Add(dataReader["SellPrice"] + "");
-                    list[4].Add(dataReader["StockQty"] + "");
+                    case DatabaseTable.Stock:
+                        //Create a list to store the result
+                        list = new List<string>[5];
+
+                        list[0] = new List<string>();
+                        list[1] = new List<string>();
+                        list[2] = new List<string>();
+                        list[3] = new List<string>();
+                        list[4] = new List<string>();
+
+                        //Read the data and store them in the list
+                        while (dataReader.Read())
+                        {
+                            list[0].Add(dataReader["StockID"] + "");
+                            list[1].Add(dataReader["StockName"] + "");
+                            list[2].Add(dataReader["PurchaseCost"] + "");
+                            list[3].Add(dataReader["SellPrice"] + "");
+                            list[4].Add(dataReader["StockQty"] + "");
+                        }
+
+                        break;
+                        
+                    case DatabaseTable.Receipt:
+                        //Create a list to store the result
+                        list = new List<string>[2];
+
+                        list[0] = new List<string>();
+                        list[1] = new List<string>();
+
+                        //Read the data and store them in the list
+                        while (dataReader.Read())
+                        {
+                            list[0].Add(dataReader["SaleID"] + "");
+                            list[1].Add(dataReader["Date"] + "");
+                        }
+
+                        break;
                 }
 
                 //close Data Reader
@@ -316,14 +394,13 @@ namespace DP2PHPServer
                 this.CloseConnection();
 
                 //Convert to proper records
-                records = DataWrapper.ConvertToRecord(list);
+                records = DataWrapper.ConvertToRecord(type, list);
 
                 Console.WriteLine("Fetching...");
 
                 for (int i = 0; i < records.Count; i++)
                 {
                     Console.WriteLine(i + ": " + records[i].ToString());
-                    //Console.WriteLine(i + ": ID - " + records[i].StockID + ", Name - " + records[i].StockName + ", Purchase - " + records[i].Purchase + ", Sell - " + records[i].CurrentSell + ", Qty - " + records[i].Quantity);
                 }
             }
 

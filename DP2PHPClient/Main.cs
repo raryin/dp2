@@ -14,6 +14,9 @@ namespace DP2PHPClient
     {
         ClientConnectionManager _connection;
 
+        List<ItemSaleRecord> itemSales = new List<ItemSaleRecord>();
+        List<StockRecord> record = null;
+
         public Main()
         {
             InitializeComponent();
@@ -37,8 +40,6 @@ namespace DP2PHPClient
         
         private void btn_requestStock_Click(object sender, EventArgs e)
         {
-            List<StockRecord> record = null;
-
             if (txt_requestID.Text == "")
                 record = _connection.RequestStockInfo(-1);
             else
@@ -80,6 +81,20 @@ namespace DP2PHPClient
         {
             if ((txt_deleteID.Text != "") && (txt_updateqty.Text != ""))
                 _connection.DecrementStock(new StockRecord(int.Parse(txt_deleteID.Text), "", 0, 0, int.Parse(txt_updateqty.Text)));
+        }
+
+        private void btn_addItem_Click(object sender, EventArgs e)
+        {
+            itemSales.Add(new ItemSaleRecord(0, int.Parse(txt_receiptID.Text), double.Parse(txt_receiptsell.Text), int.Parse(txt_receiptqty.Text)));
+            txt_receiptsell.Text = "";
+            txt_receiptqty.Text = "";
+            txt_receiptID.Text = "";
+        }
+
+        private void btn_addSale_Click(object sender, EventArgs e)
+        {
+            _connection.InsertReceipt(itemSales);
+            itemSales.Clear();
         }
 
     }

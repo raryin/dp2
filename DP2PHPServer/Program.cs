@@ -12,7 +12,7 @@ namespace DP2PHPServer
         {
             DatabaseAccess dbconnect = new DatabaseAccess();
 
-            dbconnect.Insert();
+            dbconnect.Select(DatabaseTable.Receipt, -1);
 
             ServerHandler.CreateServer(System.Net.IPAddress.Any, 25565);
 

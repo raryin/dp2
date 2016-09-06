@@ -61,17 +61,27 @@
             this.label12 = new System.Windows.Forms.Label();
             this.txt_purchaseinsert = new System.Windows.Forms.TextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.btn_decrement = new System.Windows.Forms.Button();
+            this.btn_update = new System.Windows.Forms.Button();
+            this.txt_updateqty = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.btn_delete = new System.Windows.Forms.Button();
             this.label13 = new System.Windows.Forms.Label();
             this.txt_deleteID = new System.Windows.Forms.TextBox();
-            this.txt_updateqty = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.btn_update = new System.Windows.Forms.Button();
-            this.btn_decrement = new System.Windows.Forms.Button();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.btn_addSale = new System.Windows.Forms.Button();
+            this.txt_receiptqty = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.txt_receiptID = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.txt_receiptsell = new System.Windows.Forms.TextBox();
+            this.btn_addItem = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -398,6 +408,44 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Delete Record In Stock";
             // 
+            // btn_decrement
+            // 
+            this.btn_decrement.AutoSize = true;
+            this.btn_decrement.Location = new System.Drawing.Point(257, 83);
+            this.btn_decrement.Name = "btn_decrement";
+            this.btn_decrement.Size = new System.Drawing.Size(109, 23);
+            this.btn_decrement.TabIndex = 22;
+            this.btn_decrement.Text = "Decrement";
+            this.btn_decrement.UseVisualStyleBackColor = true;
+            this.btn_decrement.Click += new System.EventHandler(this.btn_decrement_Click);
+            // 
+            // btn_update
+            // 
+            this.btn_update.AutoSize = true;
+            this.btn_update.Location = new System.Drawing.Point(257, 51);
+            this.btn_update.Name = "btn_update";
+            this.btn_update.Size = new System.Drawing.Size(109, 23);
+            this.btn_update.TabIndex = 21;
+            this.btn_update.Text = "Update";
+            this.btn_update.UseVisualStyleBackColor = true;
+            this.btn_update.Click += new System.EventHandler(this.btn_update_Click);
+            // 
+            // txt_updateqty
+            // 
+            this.txt_updateqty.Location = new System.Drawing.Point(276, 22);
+            this.txt_updateqty.Name = "txt_updateqty";
+            this.txt_updateqty.Size = new System.Drawing.Size(100, 20);
+            this.txt_updateqty.TabIndex = 20;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(212, 25);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(46, 13);
+            this.label8.TabIndex = 19;
+            this.label8.Text = "Quantity";
+            // 
             // btn_delete
             // 
             this.btn_delete.AutoSize = true;
@@ -425,49 +473,99 @@
             this.txt_deleteID.Size = new System.Drawing.Size(100, 20);
             this.txt_deleteID.TabIndex = 12;
             // 
-            // txt_updateqty
+            // groupBox5
             // 
-            this.txt_updateqty.Location = new System.Drawing.Point(276, 22);
-            this.txt_updateqty.Name = "txt_updateqty";
-            this.txt_updateqty.Size = new System.Drawing.Size(100, 20);
-            this.txt_updateqty.TabIndex = 20;
+            this.groupBox5.Controls.Add(this.btn_addItem);
+            this.groupBox5.Controls.Add(this.btn_addSale);
+            this.groupBox5.Controls.Add(this.txt_receiptqty);
+            this.groupBox5.Controls.Add(this.label15);
+            this.groupBox5.Controls.Add(this.label16);
+            this.groupBox5.Controls.Add(this.txt_receiptID);
+            this.groupBox5.Controls.Add(this.label18);
+            this.groupBox5.Controls.Add(this.txt_receiptsell);
+            this.groupBox5.Location = new System.Drawing.Point(16, 309);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(440, 119);
+            this.groupBox5.TabIndex = 22;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Add Receipt";
             // 
-            // label8
+            // btn_addSale
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(212, 25);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(46, 13);
-            this.label8.TabIndex = 19;
-            this.label8.Text = "Quantity";
+            this.btn_addSale.AutoSize = true;
+            this.btn_addSale.Location = new System.Drawing.Point(266, 77);
+            this.btn_addSale.Name = "btn_addSale";
+            this.btn_addSale.Size = new System.Drawing.Size(109, 23);
+            this.btn_addSale.TabIndex = 9;
+            this.btn_addSale.Text = "Add Sale";
+            this.btn_addSale.UseVisualStyleBackColor = true;
+            this.btn_addSale.Click += new System.EventHandler(this.btn_addSale_Click);
             // 
-            // btn_update
+            // txt_receiptqty
             // 
-            this.btn_update.AutoSize = true;
-            this.btn_update.Location = new System.Drawing.Point(257, 51);
-            this.btn_update.Name = "btn_update";
-            this.btn_update.Size = new System.Drawing.Size(109, 23);
-            this.btn_update.TabIndex = 21;
-            this.btn_update.Text = "Update";
-            this.btn_update.UseVisualStyleBackColor = true;
-            this.btn_update.Click += new System.EventHandler(this.btn_update_Click);
+            this.txt_receiptqty.Location = new System.Drawing.Point(69, 54);
+            this.txt_receiptqty.Name = "txt_receiptqty";
+            this.txt_receiptqty.Size = new System.Drawing.Size(100, 20);
+            this.txt_receiptqty.TabIndex = 18;
             // 
-            // btn_decrement
+            // label15
             // 
-            this.btn_decrement.AutoSize = true;
-            this.btn_decrement.Location = new System.Drawing.Point(257, 83);
-            this.btn_decrement.Name = "btn_decrement";
-            this.btn_decrement.Size = new System.Drawing.Size(109, 23);
-            this.btn_decrement.TabIndex = 22;
-            this.btn_decrement.Text = "Decrement";
-            this.btn_decrement.UseVisualStyleBackColor = true;
-            this.btn_decrement.Click += new System.EventHandler(this.btn_decrement_Click);
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(5, 57);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(46, 13);
+            this.label15.TabIndex = 17;
+            this.label15.Text = "Quantity";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(6, 25);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(46, 13);
+            this.label16.TabIndex = 11;
+            this.label16.Text = "StockID";
+            // 
+            // txt_receiptID
+            // 
+            this.txt_receiptID.Location = new System.Drawing.Point(70, 22);
+            this.txt_receiptID.Name = "txt_receiptID";
+            this.txt_receiptID.Size = new System.Drawing.Size(100, 20);
+            this.txt_receiptID.TabIndex = 12;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(193, 25);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(52, 13);
+            this.label18.TabIndex = 13;
+            this.label18.Text = "SalePrice";
+            // 
+            // txt_receiptsell
+            // 
+            this.txt_receiptsell.Location = new System.Drawing.Point(275, 22);
+            this.txt_receiptsell.Name = "txt_receiptsell";
+            this.txt_receiptsell.Size = new System.Drawing.Size(100, 20);
+            this.txt_receiptsell.TabIndex = 14;
+            // 
+            // btn_addItem
+            // 
+            this.btn_addItem.AutoSize = true;
+            this.btn_addItem.Location = new System.Drawing.Point(264, 48);
+            this.btn_addItem.Name = "btn_addItem";
+            this.btn_addItem.Size = new System.Drawing.Size(120, 23);
+            this.btn_addItem.TabIndex = 19;
+            this.btn_addItem.Text = "Add New Item to Sale";
+            this.btn_addItem.UseVisualStyleBackColor = true;
+            this.btn_addItem.Click += new System.EventHandler(this.btn_addItem_Click);
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(884, 427);
+            this.ClientSize = new System.Drawing.Size(884, 479);
+            this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -482,6 +580,8 @@
             this.groupBox3.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -528,6 +628,15 @@
         private System.Windows.Forms.TextBox txt_updateqty;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button btn_decrement;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.Button btn_addItem;
+        private System.Windows.Forms.Button btn_addSale;
+        private System.Windows.Forms.TextBox txt_receiptqty;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.TextBox txt_receiptID;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.TextBox txt_receiptsell;
     }
 }
 

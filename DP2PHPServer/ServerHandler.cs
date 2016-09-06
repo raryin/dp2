@@ -30,12 +30,12 @@ namespace DP2PHPServer
             //<string>.
             NetworkComms.AppendGlobalIncomingPacketHandler<string>("Message", PrintIncomingMessage);
             NetworkComms.AppendGlobalIncomingPacketHandler<string>("Hello", NewIncomingConnection);
-            NetworkComms.AppendGlobalIncomingPacketHandler<int>("GetStockRequest", GetStockRecord);
             NetworkComms.AppendGlobalIncomingPacketHandler<StockRecord>("InsertStockRecord", InsertStock);
             NetworkComms.AppendGlobalIncomingPacketHandler<int>("DeleteStockRecord", DeleteStock);
             NetworkComms.AppendGlobalIncomingPacketHandler<int>("SelectStockRecord", SelectStock);
             NetworkComms.AppendGlobalIncomingPacketHandler<StockRecord>("UpdateStockRecord", UpdateStock);
             NetworkComms.AppendGlobalIncomingPacketHandler<StockRecord>("DecrementStockRecord", DecrementStock);
+            NetworkComms.AppendGlobalIncomingPacketHandler<List<ItemSaleRecord>>("InsertReceiptRecord", InsertReceipt);
 
             //Start listening for incoming connections
             Connection.StartListening(ConnectionType.TCP, new System.Net.IPEndPoint(address, port));
@@ -93,23 +93,6 @@ namespace DP2PHPServer
         }
 
         /// <summary>
-        /// Returns a stock record from the database.
-        /// </summary>
-        /// <param name="header">The packet header associated with the incoming message</param>
-        /// <param name="connection">The connection used by the incoming message</param>
-        /// <param name="stockID">StockID to call</param>
-        private static void GetStockRecord(PacketHeader header, Connection connection, int stockID)
-        {
-            //Get the requested stock record from the database.
-            StockRecord record = DataWrapper.GetStockRecord(stockID);
-
-            Console.WriteLine("\nSending info about stock item: " + record.ToString() + " to connection: " + connection.ToString() + "'.");
-
-            //Send the record back to the client.
-            connection.SendObject("ReturnStockRecord", record);
-        }
-
-        /// <summary>
         /// Inserts a stock record into the database.
         /// </summary>
         /// <param name="header">The packet header associated with the incoming message</param>
@@ -160,7 +143,7 @@ namespace DP2PHPServer
         /// <param name="stockID">StockID to select</param>
         private static void SelectStock(PacketHeader header, Connection connection, int stockID)
         {
-            List<StockRecord> records = null;
+            List<Record> records = null;
             Console.WriteLine("\nSelecting: " + stockID + " for connection: " + connection.ToString() + "'.");
             DatabaseAccess dbconnect = new DatabaseAccess();
             if ((records = dbconnect.Select(DatabaseTable.Stock, stockID)) != null)
@@ -209,6 +192,29 @@ namespace DP2PHPServer
                 Console.WriteLine("Failed.");
 
             connection.SendObject("ReturnDecrementStockRecord", rows);
+            Console.WriteLine("Done");
+        }
+
+        /// <summary>
+        /// Inserts a stock record into the database.
+        /// </summary>
+        /// <param name="header">The packet header associated with the incoming message</param>
+        /// <param name="connection">The connection used by the incoming message</param>
+        /// <param name="record">The record to insert</param>
+        private static void InsertReceipt(PacketHeader header, Connection connection, List<ItemSaleRecord> records)
+        {
+            Console.WriteLine("\nInserting a new receipt with " + records.Count + " ItemSale(s) for connection: " + connection.ToString() + "'.");
+            DatabaseAccess dbconnect = new DatabaseAccess();
+            if ((dbconnect.InsertNewReceipt(records)) != 0)
+            {
+                Console.WriteLine("Success.");
+                connection.SendObject("ReturnInsertReceiptRecord", true);
+            }
+            else
+            {
+                Console.WriteLine("Failed.");
+                connection.SendObject("ReturnInsertReceiptRecord", false);
+            }
             Console.WriteLine("Done");
         }
 
