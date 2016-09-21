@@ -299,5 +299,55 @@ namespace DP2PHPClient
 
             return false;
         }
+
+
+		/////////TEST SHELLS////////////
+
+		/// <summary>
+		/// Sends a request to delete the specified receipt record from the database with associated ItemSales.
+		/// Produces error messages if failed. Waits for 10000ms.
+		/// </summary>
+		/// <param name="SaleID">SaleID (receipt) to delete from the database.</param>
+		/// <returns>The success of the delete operation.</returns>
+		public bool DeleteReceipt(int SaleID)
+		{
+			return false; //force fail for test case until implementation complete
+		}
+
+		/// <summary>
+		/// Sends a request to add the specified receipt record to the database with associated ItemSales.
+		/// Produces error messages if failed. Waits for 10000ms.
+		/// </summary>
+		/// <param name="records">List of ItemSales to add. ID is generated so is ignored in the record.</param>
+		/// <returns>The success of the insert command.</returns>
+		public List<ReceiptRecord> RequestReceiptInfo(int SaleID)
+		{
+			List<ReceiptRecord> n = new List<ReceiptRecord>();
+			return n; //force fail for test case until implementation complete
+		}
+
+		/// <summary>
+		/// Sends a request to update the receipt record with the specified SaleID.
+		/// Produces error messages if failed. Waits for 10000ms.
+		/// </summary>
+		/// <param name="SaleID">The receipt to update.</param>
+		/// <returns>The success of the update command.</returns>
+		public bool UpdateReceipt(int SaleID)
+		{
+			return false; //force fail for test case until implementation complete
+		}
+
+
+		/// <summary>
+		/// Sends a request to display the receipt record with the specified SaleID.
+		/// Produces error messages if failed. Waits for 10000ms.
+		/// </summary>
+		/// <param name="SaleID">The receipt to display.</param>
+		/// <returns>The success of the insert command.</returns>
+		public bool DisplayReceipt(int SaleID)
+		{
+			return false; //force fail for test case until implementation complete
+		}
+
     }
 }
