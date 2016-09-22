@@ -28,3 +28,6 @@ C:\Users\James\Desktop\PHPGit\DP2PHPServer\bin\Debug\MySql.Data.xml
 C:\Users\James\Desktop\PHPGit\DP2PHPServer\bin\Debug\NetworkCommsDotNetComplete.pdb
 C:\Users\James\Desktop\PHPGit\DP2PHPServer\bin\Debug\NetworkCommsDotNetComplete.xml
 C:\Users\James\Desktop\PHPGit\DP2PHPServer\obj\Debug\DP2PHPServer.csprojResolveAssemblyReference.cache
+C:\Users\Yasser\Documents\GitHub\dp2\DP2PHPServer\bin\Debug\DP2PHPServer.exe.config
+C:\Users\Yasser\Documents\GitHub\dp2\DP2PHPServer\obj\Debug\DP2PHPServer.exe
+C:\Users\Yasser\Documents\GitHub\dp2\DP2PHPServer\obj\Debug\DP2PHPServer.pdb
