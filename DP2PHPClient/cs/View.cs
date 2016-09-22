@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace DP2PHPClient
 {
-    static class View
+    public static class View
     {
         /// <summary>
         /// Shows a message box for error messages. Expects no return value.

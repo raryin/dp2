@@ -16,7 +16,7 @@ namespace DP2PHPClient
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Main());
+            Application.Run(new screens.LandingPage());
         }
     }
 }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace DP2PHPClient
 {
     [ProtoContract]
-    interface Record
+    public interface Record
     {
 
     }
@@ -19,7 +19,7 @@ namespace DP2PHPClient
     /// connection.
     /// </summary>
     [ProtoContract]
-    struct StockRecord : Record
+    public struct StockRecord : Record
     {
         [ProtoMember(1)]
         public int StockID { get; set; }
@@ -60,7 +60,7 @@ namespace DP2PHPClient
     /// connection.
     /// </summary>
     [ProtoContract]
-    struct ReceiptRecord : Record
+    public struct ReceiptRecord : Record
     {
         [ProtoMember(1)]
         public int SaleID { get; set; }
@@ -89,7 +89,7 @@ namespace DP2PHPClient
     /// connection.
     /// </summary>
     [ProtoContract]
-    struct ItemSaleRecord : Record
+    public struct ItemSaleRecord : Record
     {
         [ProtoMember(1)]
         public int SaleID { get; set; }
@@ -120,7 +120,7 @@ namespace DP2PHPClient
 
     }
 
-    class RecordHandler
+    public class RecordHandler
     {
     }
 }

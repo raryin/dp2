@@ -20,3 +20,8 @@ C:\Users\James\Desktop\PHPGit\DP2PHPClient\obj\Debug\DP2PHPClient.Properties.Res
 C:\Users\James\Desktop\PHPGit\DP2PHPClient\obj\Debug\DP2PHPClient.csproj.GenerateResource.Cache
 C:\Users\James\Desktop\PHPGit\DP2PHPClient\obj\Debug\DP2PHPClient.exe
 C:\Users\James\Desktop\PHPGit\DP2PHPClient\obj\Debug\DP2PHPClient.pdb
+C:\Users\James\Desktop\PHPGit\DP2PHPClient\bin\Debug\nunit.framework.dll
+C:\Users\James\Desktop\PHPGit\DP2PHPClient\bin\Debug\nunit.framework.xml
+C:\Users\James\Desktop\PHPGit\DP2PHPClient\obj\Debug\DP2PHPClient.screens.LandingPage.resources
+C:\Users\James\Desktop\PHPGit\DP2PHPClient\obj\Debug\DP2PHPClient.screens.Sales.resources
+C:\Users\James\Desktop\PHPGit\DP2PHPClient\obj\Debug\DP2PHPClient.screens.SalesView.resources

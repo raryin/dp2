@@ -15,7 +15,7 @@ namespace DP2PHPClient
     /// and recieving messages. Modified from:
     /// http://www.networkcomms.net/synchronous-send-and-receive/
     /// </summary>
-    class ClientConnectionManager
+    public class ClientConnectionManager
     {
         private ConnectionInfo _connectionInfo;
         private TCPConnection _connection;

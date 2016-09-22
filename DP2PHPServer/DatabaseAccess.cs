@@ -57,7 +57,7 @@ namespace DP2PHPServer
         /// Opens the connection to the database. Returns true if successful. Prints an error message otherwise.
         /// </summary>
         /// <returns>The success.</returns>
-        public bool OpenConnection()
+        private bool OpenConnection()
         {
             try
             {
@@ -91,7 +91,7 @@ namespace DP2PHPServer
         /// Closes the connection to the database. Returns true if successful. Prints an error message otherwise.
         /// </summary>
         /// <returns>The success.</returns>
-        public bool CloseConnection()
+        private bool CloseConnection()
         {
             try
             {
@@ -142,7 +142,7 @@ namespace DP2PHPServer
         /// Overload to insert data into the Receipt table. ID is automatically generated. Returns 0 if failed.
         /// </summary>
         /// <returns>Number of rows added. 1 if successful, 0 otherwise.</returns>
-        public int Insert()
+        private int Insert()
         {
             //Calls InsertCommand. Generates the query. The database connection is opened by InsertCommand.
             return InsertCommand(DatabaseTable.Receipt, "VALUES()");
@@ -157,7 +157,7 @@ namespace DP2PHPServer
         /// <param name="priceSold">Price sold as of transaction</param>
         /// <param name="quantity">Quantity sold</param>
         /// <returns>Number of rows added. 1 if successful, 0 otherwise.</returns>
-        public int Insert(int saleID, int stockID, double priceSold, int quantity)
+        private int Insert(int saleID, int stockID, double priceSold, int quantity)
         {
             //Calls InsertCommand. Generates the query. The database connection is opened by InsertCommand.
             return InsertCommand(DatabaseTable.ItemSale, "(SaleID, StockID, PriceSold, Quantity) VALUES('" + saleID + "', " + stockID + ", " + priceSold + ", " + quantity + ")");

@@ -82,7 +82,7 @@ namespace DP2PHPServer
         }
 
         /// <summary>
-        /// Writes the provided message to the console window
+        /// Writes the provided message to the console window. Can be removed in future revisions.
         /// </summary>
         /// <param name="header">The packet header associated with the incoming message</param>
         /// <param name="connection">The connection used by the incoming message</param>

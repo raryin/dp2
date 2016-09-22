@@ -32,9 +32,17 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="NetworkCommsDotNetComplete">
       <HintPath>..\..\..\..\..\Desktop\comms\DLLs\Net40\Merged\NetworkCommsDotNetComplete.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=3.4.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.3.4.1\lib\net45\nunit.framework.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -61,6 +69,24 @@
     <Compile Include="cs\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="cs\RecordHandler.cs" />
+    <Compile Include="screens\LandingPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="screens\LandingPage.Designer.cs">
+      <DependentUpon>LandingPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="screens\Sales.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="screens\Sales.Designer.cs">
+      <DependentUpon>Sales.cs</DependentUpon>
+    </Compile>
+    <Compile Include="screens\SalesView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="screens\SalesView.Designer.cs">
+      <DependentUpon>SalesView.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
@@ -73,6 +99,16 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="screens\LandingPage.resx">
+      <DependentUpon>LandingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="screens\Sales.resx">
+      <DependentUpon>Sales.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="screens\SalesView.resx">
+      <DependentUpon>SalesView.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
