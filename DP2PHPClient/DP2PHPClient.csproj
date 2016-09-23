@@ -69,6 +69,24 @@
     <Compile Include="cs\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="cs\RecordHandler.cs" />
+    <Compile Include="screens\InventoryDelete.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="screens\InventoryDelete.Designer.cs">
+      <DependentUpon>InventoryDelete.cs</DependentUpon>
+    </Compile>
+    <Compile Include="screens\InventoryQuantityDel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="screens\InventoryQuantityDel.Designer.cs">
+      <DependentUpon>InventoryQuantityDel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="screens\InventoryEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="screens\InventoryEdit.Designer.cs">
+      <DependentUpon>InventoryEdit.cs</DependentUpon>
+    </Compile>
     <Compile Include="screens\LandingPage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -86,6 +104,12 @@
     </Compile>
     <Compile Include="screens\Sales.Designer.cs">
       <DependentUpon>Sales.cs</DependentUpon>
+    </Compile>
+    <Compile Include="screens\InventoryNew.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="screens\InventoryNew.Designer.cs">
+      <DependentUpon>InventoryNew.cs</DependentUpon>
     </Compile>
     <Compile Include="screens\SalesView.cs">
       <SubType>Form</SubType>
@@ -105,6 +129,15 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="screens\InventoryDelete.resx">
+      <DependentUpon>InventoryDelete.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="screens\InventoryQuantityDel.resx">
+      <DependentUpon>InventoryQuantityDel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="screens\InventoryEdit.resx">
+      <DependentUpon>InventoryEdit.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="screens\LandingPage.resx">
       <DependentUpon>LandingPage.cs</DependentUpon>
     </EmbeddedResource>
@@ -113,6 +146,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="screens\Sales.resx">
       <DependentUpon>Sales.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="screens\InventoryNew.resx">
+      <DependentUpon>InventoryNew.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="screens\SalesView.resx">
       <DependentUpon>SalesView.cs</DependentUpon>

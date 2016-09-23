@@ -57,5 +57,10 @@ namespace DP2PHPClient.screens
 
         }
 
+        private void tb_inventory_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            new screens.Inventory(_connection).Show();
+        }
     }
 }

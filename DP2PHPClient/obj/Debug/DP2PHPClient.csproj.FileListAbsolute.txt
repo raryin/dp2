@@ -25,3 +25,8 @@ C:\Users\James\Desktop\PHPGit\DP2PHPClient\bin\Debug\nunit.framework.xml
 C:\Users\James\Desktop\PHPGit\DP2PHPClient\obj\Debug\DP2PHPClient.screens.LandingPage.resources
 C:\Users\James\Desktop\PHPGit\DP2PHPClient\obj\Debug\DP2PHPClient.screens.Sales.resources
 C:\Users\James\Desktop\PHPGit\DP2PHPClient\obj\Debug\DP2PHPClient.screens.SalesView.resources
+C:\Users\James\Desktop\PHPGit\DP2PHPClient\obj\Debug\DP2PHPClient.screens.Inventory.resources
+C:\Users\James\Desktop\PHPGit\DP2PHPClient\obj\Debug\DP2PHPClient.screens.InventoryNew.resources
+C:\Users\James\Desktop\PHPGit\DP2PHPClient\obj\Debug\DP2PHPClient.screens.InventoryEdit.resources
+C:\Users\James\Desktop\PHPGit\DP2PHPClient\obj\Debug\DP2PHPClient.screens.InventoryDelete.resources
+C:\Users\James\Desktop\PHPGit\DP2PHPClient\obj\Debug\DP2PHPClient.screens.InventoryQuantityDel.resources

@@ -35,16 +35,16 @@
             this.tb_report = new System.Windows.Forms.ToolStripTextBox();
             this.tb_help = new System.Windows.Forms.ToolStripTextBox();
             this.dg_data = new System.Windows.Forms.DataGridView();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.txt_search = new System.Windows.Forms.TextBox();
-            this.btn_search = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.clm_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clm_date = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clm_view = new System.Windows.Forms.DataGridViewButtonColumn();
             this.clm_edit = new System.Windows.Forms.DataGridViewButtonColumn();
             this.clm_delete = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.txt_search = new System.Windows.Forms.TextBox();
+            this.btn_search = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dg_data)).BeginInit();
             this.SuspendLayout();
@@ -75,14 +75,13 @@
             // 
             // tb_inventory
             // 
-            this.tb_inventory.Enabled = false;
             this.tb_inventory.Name = "tb_inventory";
             this.tb_inventory.Size = new System.Drawing.Size(100, 25);
             this.tb_inventory.Text = "Inventory";
+            this.tb_inventory.Click += new System.EventHandler(this.tb_inventory_Click);
             // 
             // tb_sales
             // 
-            this.tb_sales.Enabled = false;
             this.tb_sales.Name = "tb_sales";
             this.tb_sales.Size = new System.Drawing.Size(100, 25);
             this.tb_sales.Text = "Sales";
@@ -112,9 +111,49 @@
             this.clm_delete});
             this.dg_data.Location = new System.Drawing.Point(77, 155);
             this.dg_data.Name = "dg_data";
-            this.dg_data.Size = new System.Drawing.Size(777, 204);
+            this.dg_data.Size = new System.Drawing.Size(777, 446);
             this.dg_data.TabIndex = 3;
             this.dg_data.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dg_data_CellContentClick_1);
+            // 
+            // clm_id
+            // 
+            this.clm_id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.clm_id.HeaderText = "Invoice ID";
+            this.clm_id.Name = "clm_id";
+            this.clm_id.ReadOnly = true;
+            this.clm_id.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // clm_date
+            // 
+            this.clm_date.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.clm_date.HeaderText = "Date";
+            this.clm_date.Name = "clm_date";
+            this.clm_date.ReadOnly = true;
+            this.clm_date.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // clm_view
+            // 
+            this.clm_view.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.clm_view.HeaderText = "";
+            this.clm_view.Name = "clm_view";
+            this.clm_view.ReadOnly = true;
+            this.clm_view.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // clm_edit
+            // 
+            this.clm_edit.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.clm_edit.HeaderText = "";
+            this.clm_edit.Name = "clm_edit";
+            this.clm_edit.ReadOnly = true;
+            this.clm_edit.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // clm_delete
+            // 
+            this.clm_delete.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.clm_delete.HeaderText = "";
+            this.clm_delete.Name = "clm_delete";
+            this.clm_delete.ReadOnly = true;
+            this.clm_delete.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
             // comboBox1
             // 
@@ -167,46 +206,6 @@
             this.label3.Size = new System.Drawing.Size(57, 19);
             this.label3.TabIndex = 8;
             this.label3.Text = "Sort by:";
-            // 
-            // clm_id
-            // 
-            this.clm_id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.clm_id.HeaderText = "Invoice ID";
-            this.clm_id.Name = "clm_id";
-            this.clm_id.ReadOnly = true;
-            this.clm_id.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            // 
-            // clm_date
-            // 
-            this.clm_date.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.clm_date.HeaderText = "Date";
-            this.clm_date.Name = "clm_date";
-            this.clm_date.ReadOnly = true;
-            this.clm_date.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            // 
-            // clm_view
-            // 
-            this.clm_view.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.clm_view.HeaderText = "";
-            this.clm_view.Name = "clm_view";
-            this.clm_view.ReadOnly = true;
-            this.clm_view.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            // 
-            // clm_edit
-            // 
-            this.clm_edit.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.clm_edit.HeaderText = "";
-            this.clm_edit.Name = "clm_edit";
-            this.clm_edit.ReadOnly = true;
-            this.clm_edit.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            // 
-            // clm_delete
-            // 
-            this.clm_delete.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.clm_delete.HeaderText = "";
-            this.clm_delete.Name = "clm_delete";
-            this.clm_delete.ReadOnly = true;
-            this.clm_delete.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
             // Sales
             // 

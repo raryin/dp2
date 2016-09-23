@@ -35,9 +35,6 @@
             this.tb_report = new System.Windows.Forms.ToolStripTextBox();
             this.tb_help = new System.Windows.Forms.ToolStripTextBox();
             this.dg_data = new System.Windows.Forms.DataGridView();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
             this.clm_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clm_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clm_cost = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -45,6 +42,10 @@
             this.clm_qty = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clm_add = new System.Windows.Forms.DataGridViewButtonColumn();
             this.clm_delete = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.btn_new = new System.Windows.Forms.Button();
+            this.btn_edit = new System.Windows.Forms.Button();
+            this.btn_delete = new System.Windows.Forms.Button();
+            this.btn_refresh = new System.Windows.Forms.Button();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dg_data)).BeginInit();
             this.SuspendLayout();
@@ -75,14 +76,12 @@
             // 
             // tb_inventory
             // 
-            this.tb_inventory.Enabled = false;
             this.tb_inventory.Name = "tb_inventory";
             this.tb_inventory.Size = new System.Drawing.Size(100, 25);
             this.tb_inventory.Text = "Inventory";
             // 
             // tb_sales
             // 
-            this.tb_sales.Enabled = false;
             this.tb_sales.Name = "tb_sales";
             this.tb_sales.Size = new System.Drawing.Size(100, 25);
             this.tb_sales.Text = "Sales";
@@ -114,39 +113,9 @@
             this.clm_delete});
             this.dg_data.Location = new System.Drawing.Point(79, 172);
             this.dg_data.Name = "dg_data";
-            this.dg_data.Size = new System.Drawing.Size(777, 204);
+            this.dg_data.Size = new System.Drawing.Size(777, 428);
             this.dg_data.TabIndex = 3;
             this.dg_data.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dg_data_CellContentClick_1);
-            // 
-            // button1
-            // 
-            this.button1.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(278, 114);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(114, 38);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "New Item";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(415, 114);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(114, 38);
-            this.button2.TabIndex = 5;
-            this.button2.Text = "Edit Item";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
-            this.button3.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.Location = new System.Drawing.Point(550, 114);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(114, 38);
-            this.button3.TabIndex = 6;
-            this.button3.Text = "Delete Item";
-            this.button3.UseVisualStyleBackColor = true;
             // 
             // clm_id
             // 
@@ -205,15 +174,60 @@
             this.clm_delete.ReadOnly = true;
             this.clm_delete.Width = 21;
             // 
+            // btn_new
+            // 
+            this.btn_new.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_new.Location = new System.Drawing.Point(207, 113);
+            this.btn_new.Name = "btn_new";
+            this.btn_new.Size = new System.Drawing.Size(114, 38);
+            this.btn_new.TabIndex = 4;
+            this.btn_new.Text = "New Item";
+            this.btn_new.UseVisualStyleBackColor = true;
+            this.btn_new.Click += new System.EventHandler(this.btn_new_Click);
+            // 
+            // btn_edit
+            // 
+            this.btn_edit.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_edit.Location = new System.Drawing.Point(344, 113);
+            this.btn_edit.Name = "btn_edit";
+            this.btn_edit.Size = new System.Drawing.Size(114, 38);
+            this.btn_edit.TabIndex = 5;
+            this.btn_edit.Text = "Edit Item";
+            this.btn_edit.UseVisualStyleBackColor = true;
+            this.btn_edit.Click += new System.EventHandler(this.btn_edit_Click);
+            // 
+            // btn_delete
+            // 
+            this.btn_delete.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_delete.Location = new System.Drawing.Point(479, 113);
+            this.btn_delete.Name = "btn_delete";
+            this.btn_delete.Size = new System.Drawing.Size(114, 38);
+            this.btn_delete.TabIndex = 6;
+            this.btn_delete.Text = "Delete Item";
+            this.btn_delete.UseVisualStyleBackColor = true;
+            this.btn_delete.Click += new System.EventHandler(this.btn_delete_Click);
+            // 
+            // btn_refresh
+            // 
+            this.btn_refresh.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_refresh.Location = new System.Drawing.Point(619, 113);
+            this.btn_refresh.Name = "btn_refresh";
+            this.btn_refresh.Size = new System.Drawing.Size(114, 38);
+            this.btn_refresh.TabIndex = 7;
+            this.btn_refresh.Text = "Refresh";
+            this.btn_refresh.UseVisualStyleBackColor = true;
+            this.btn_refresh.Click += new System.EventHandler(this.btn_refresh_Click);
+            // 
             // Inventory
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightSeaGreen;
             this.ClientSize = new System.Drawing.Size(934, 631);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btn_refresh);
+            this.Controls.Add(this.btn_delete);
+            this.Controls.Add(this.btn_edit);
+            this.Controls.Add(this.btn_new);
             this.Controls.Add(this.dg_data);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.label1);
@@ -243,8 +257,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn clm_qty;
         private System.Windows.Forms.DataGridViewButtonColumn clm_add;
         private System.Windows.Forms.DataGridViewButtonColumn clm_delete;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btn_new;
+        private System.Windows.Forms.Button btn_edit;
+        private System.Windows.Forms.Button btn_delete;
+        private System.Windows.Forms.Button btn_refresh;
     }
 }
