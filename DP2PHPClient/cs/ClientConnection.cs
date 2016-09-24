@@ -348,6 +348,17 @@ namespace DP2PHPClient
 		{
 			return false; //force fail for test case until implementation complete
 		}
+		
+		//SPRINT 2
+		public double PredictNextMonthSales(List<int> StockID)
+		{
+			return 0.0; //force fail for test case until implementation complete
+		}
+		
+		public double PredictNextMonthProfit(List<int> StockID)
+		{
+			return 0.0; //force fail for test case until implementation complete
+		}
 
     }
 }

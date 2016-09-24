@@ -191,5 +191,37 @@ namespace DP2PHPClient
 
 
 		}
+		
+		
+		
+		
+		//SPRINT 2
+		[Test ()]
+		public void TestPredictNextMonthSales()
+		{
+			ClientConnectionManager p = new ClientConnectionManager("127.0.0.1",25565);
+			Assert.IsTrue(p.ConnectToServer());
+			
+			List<int> s = new List<int>();
+			s.Add(1);
+			s.Add(2);
+			s.Add(3);
+			double t = p.PredictNextMonthSales(s);
+			Assert.IsTrue(t.Equals(0));
+		}
+		
+		[Test ()]
+		public void TestPredictNextMonthProfit()
+		{
+			ClientConnectionManager p = new ClientConnectionManager("127.0.0.1",25565);
+			Assert.IsTrue(p.ConnectToServer());
+			
+			List<int> s = new List<int>();
+			s.Add(1);
+			s.Add(2);
+			s.Add(3);
+			double t = p.PredictNextMonthProfit(s);
+			Assert.IsTrue(t.Equals(0));
+		}
 	}
 }
