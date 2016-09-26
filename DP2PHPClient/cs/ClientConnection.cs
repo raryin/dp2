@@ -171,6 +171,7 @@ namespace DP2PHPClient
         /// Timeout currently set at 10000ms.
         /// </summary>
         /// <param name="stockID">The stock ID to request.</param>
+        /// <returns>List of stock records that match the request.</returns>
         public List<StockRecord> RequestStockInfo(int stockID)
         {
             List<StockRecord> records = null;
