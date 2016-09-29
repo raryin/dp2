@@ -16,6 +16,7 @@ namespace DP2PHPClient
 
         List<ItemSaleRecord> itemSales = new List<ItemSaleRecord>();
         List<StockRecord> record = null;
+        List<Record> recordList = new List<Record>();
 
         public Main()
         {
@@ -85,7 +86,7 @@ namespace DP2PHPClient
 
         private void btn_addItem_Click(object sender, EventArgs e)
         {
-            itemSales.Add(new ItemSaleRecord(0, int.Parse(txt_receiptID.Text), double.Parse(txt_receiptsell.Text), int.Parse(txt_receiptqty.Text)));
+            itemSales.Add(new ItemSaleRecord(0, int.Parse(txt_receiptID.Text), double.Parse(txt_receiptsell.Text), int.Parse(txt_receiptqty.Text), ""));
             txt_receiptsell.Text = "";
             txt_receiptqty.Text = "";
             txt_receiptID.Text = "";
@@ -95,6 +96,46 @@ namespace DP2PHPClient
         {
             _connection.InsertReceipt(itemSales);
             itemSales.Clear();
+        }
+
+        private void btn_requestReceipt_Click(object sender, EventArgs e)
+        {
+            if (txt_receiptRequestBox.Text != "")
+            {
+                if ((recordList = _connection.RequestReceiptInfo(int.Parse(txt_receiptRequestBox.Text))) != null)
+                {
+                    txt_requestReceiptName.Text = ((ItemSaleRecord)recordList[0]).Name;
+                    txt_requestReceiptQty.Text = ((ItemSaleRecord)recordList[0]).Quantity.ToString();
+                    txt_requestReceiptSell.Text = ((ItemSaleRecord)recordList[0]).PriceSold.ToString();
+                    txt_requestReceiptNo.Text = "0";
+                }
+            }
+            else
+            {
+                if ((recordList = _connection.RequestReceiptInfo()) != null)
+                {
+                    txt_requestReceiptDate.Text = ((ReceiptRecord)recordList[0]).Date.ToString();
+                    txt_requestReceiptID.Text = ((ReceiptRecord)recordList[0]).SaleID.ToString();
+                }
+            }
+            
+        }
+
+        private void btn_requestReceiptNext_Click(object sender, EventArgs e)
+        {
+            if (recordList.Count > 1)
+            {
+                int i = 0;
+                if ((i = int.Parse(txt_requestReceiptNo.Text)) < recordList.Count -1)
+                    txt_requestReceiptNo.Text = (++i).ToString();
+                else
+                    txt_requestReceiptNo.Text = (i=0).ToString();
+
+                txt_requestReceiptName.Text = ((ItemSaleRecord)recordList[i]).Name;
+                txt_requestReceiptQty.Text = ((ItemSaleRecord)recordList[i]).Quantity.ToString();
+                txt_requestReceiptSell.Text = ((ItemSaleRecord)recordList[i]).PriceSold.ToString();
+            }
+
         }
 
     }

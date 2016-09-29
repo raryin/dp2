@@ -316,24 +316,93 @@ namespace DP2PHPClient
 		}
 
 		/// <summary>
-		/// Sends a request to add the specified receipt record to the database with associated ItemSales.
-		/// Produces error messages if failed. Waits for 10000ms.
+		/// Sends a request for details of a receipt. Returns the list of associated ItemSale records if a specific
+        /// id is specified, or returns a list of all reciepts if -1 is provided.
 		/// </summary>
-		/// <param name="records">List of ItemSales to add. ID is generated so is ignored in the record.</param>
-		/// <returns>The success of the insert command.</returns>
-		public List<ReceiptRecord> RequestReceiptInfo(int SaleID)
+		/// <param name="id">ID requested</param>
+		/// <returns>List of ReceiptRecords or ItemSaleRecords. Null if query fails.</returns>
+		public List<Record> RequestReceiptInfo(int SaleID)
 		{
-			List<ReceiptRecord> n = new List<ReceiptRecord>();
-			return n; //force fail for test case until implementation complete
-		}
+            List<Record> records = null;
 
-		/// <summary>
-		/// Sends a request to update the receipt record with the specified SaleID.
-		/// Produces error messages if failed. Waits for 10000ms.
-		/// </summary>
-		/// <param name="SaleID">The receipt to update.</param>
-		/// <returns>The success of the update command.</returns>
-		public bool UpdateReceipt(int SaleID)
+            try
+            {
+
+                //Request is for all Receipt records
+                if (SaleID == -1)
+                {
+                    List<ReceiptRecord> temp;
+
+                    //Send a request for Receipt records, expecting a list of records.
+                    if ((temp = _connection.SendReceiveObject<int, List<ReceiptRecord>>("GetAllReceipt", "ReturnGetAllReceipt", 10000, SaleID)) == null)
+                    {
+                        View.ErrorNotify("Data could not be selected from the database.\n Check the server for further details.",
+                        "Database Error");
+                    }
+                    //The server has failed to retrieve the stock in the database.
+                    else if (temp.Count == 0)
+                    {
+                        View.ErrorNotify("Data could not be selected from the database.\n Check the server for further details.",
+                        "Database Error");
+                    }
+                    else
+                    {
+                        records = new List<Record>();
+                        foreach (ReceiptRecord r in temp)
+                            records.Add(r);
+                    }
+                }
+                //Request is for full Receipt record
+                else
+                {
+                    List<ItemSaleRecord> temp;
+
+                    //Send a request for Receipt records, expecting a list of records.
+                    if ((temp = _connection.SendReceiveObject<int, List<ItemSaleRecord>>("GetFullReceipt", "ReturnGetFullReceipt", 10000, SaleID)) == null)
+                    {
+                        View.ErrorNotify("Data could not be selected from the database.\n Check the server for further details.",
+                        "Database Error");
+                    }
+                    //The server has failed to retrieve the stock in the database.
+                    else if (temp.Count == 0)
+                    {
+                        View.ErrorNotify("Data could not be selected from the database.\n Check the server for further details.",
+                        "Database Error");
+                    }
+                    else
+                    {
+                        records = new List<Record>();
+                        foreach (ItemSaleRecord r in temp)
+                            records.Add(r);
+                    }
+                }
+                
+            }
+            catch (ExpectedReturnTimeoutException exception)
+            {
+                View.ErrorNotify("No confirmation recieved from server.\n Likly a connection issue, check the server status.",
+                    "Connection Error");
+            }
+
+            return records;
+        }
+
+        /// <summary>
+        /// Overload for RequestReceiptInfo.
+        /// </summary>
+        /// <returns>Returns the full list of ReceiptRecords</returns>
+        public List<Record> RequestReceiptInfo()
+        {
+            return RequestReceiptInfo(-1);
+        }
+
+        /// <summary>
+        /// Sends a request to update the receipt record with the specified SaleID.
+        /// Produces error messages if failed. Waits for 10000ms.
+        /// </summary>
+        /// <param name="SaleID">The receipt to update.</param>
+        /// <returns>The success of the update command.</returns>
+        public bool UpdateReceipt(int SaleID)
 		{
 			return false; //force fail for test case until implementation complete
 		}

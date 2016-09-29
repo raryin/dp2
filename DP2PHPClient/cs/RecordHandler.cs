@@ -161,7 +161,6 @@ namespace DP2PHPClient
             sb.AppendLine(string.Format("SaleID: {0}; StockID: {1}; Price Sold: {2}; Quantity: {3}; Name: {4}", SaleID, StockID, PriceSold, Quantity, Name));
             return sb.ToString();
         }
-
     }
 
     class RecordHandler
