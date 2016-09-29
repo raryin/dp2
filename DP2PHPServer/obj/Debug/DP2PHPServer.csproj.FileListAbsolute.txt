@@ -1,0 +1,12 @@
+C:\Users\James\Desktop\PHPGit\DP2PHPServer\bin\Debug\DP2PHPServer.exe.config
+C:\Users\James\Desktop\PHPGit\DP2PHPServer\bin\Debug\DP2PHPServer.exe
+C:\Users\James\Desktop\PHPGit\DP2PHPServer\bin\Debug\DP2PHPServer.pdb
+C:\Users\James\Desktop\PHPGit\DP2PHPServer\bin\Debug\MySql.Data.dll
+C:\Users\James\Desktop\PHPGit\DP2PHPServer\bin\Debug\nunit.framework.dll
+C:\Users\James\Desktop\PHPGit\DP2PHPServer\bin\Debug\MySql.Data.xml
+C:\Users\James\Desktop\PHPGit\DP2PHPServer\bin\Debug\NetworkCommsDotNetComplete.pdb
+C:\Users\James\Desktop\PHPGit\DP2PHPServer\bin\Debug\NetworkCommsDotNetComplete.xml
+C:\Users\James\Desktop\PHPGit\DP2PHPServer\bin\Debug\nunit.framework.xml
+C:\Users\James\Desktop\PHPGit\DP2PHPServer\obj\Debug\DP2PHPServer.csprojResolveAssemblyReference.cache
+C:\Users\James\Desktop\PHPGit\DP2PHPServer\obj\Debug\DP2PHPServer.exe
+C:\Users\James\Desktop\PHPGit\DP2PHPServer\obj\Debug\DP2PHPServer.pdb
