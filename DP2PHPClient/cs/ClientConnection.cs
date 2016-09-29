@@ -171,6 +171,7 @@ namespace DP2PHPClient
         /// Timeout currently set at 10000ms.
         /// </summary>
         /// <param name="stockID">The stock ID to request.</param>
+        /// <returns>List of stock records that match the request.</returns>
         public List<StockRecord> RequestStockInfo(int stockID)
         {
             List<StockRecord> records = null;
@@ -299,5 +300,135 @@ namespace DP2PHPClient
 
             return false;
         }
+
+
+		/////////TEST SHELLS////////////
+
+		/// <summary>
+		/// Sends a request to delete the specified receipt record from the database with associated ItemSales.
+		/// Produces error messages if failed. Waits for 10000ms.
+		/// </summary>
+		/// <param name="SaleID">SaleID (receipt) to delete from the database.</param>
+		/// <returns>The success of the delete operation.</returns>
+		public bool DeleteReceipt(int SaleID)
+		{
+			return false; //force fail for test case until implementation complete
+		}
+
+		/// <summary>
+		/// Sends a request for details of a receipt. Returns the list of associated ItemSale records if a specific
+        /// id is specified, or returns a list of all reciepts if -1 is provided.
+		/// </summary>
+		/// <param name="id">ID requested</param>
+		/// <returns>List of ReceiptRecords or ItemSaleRecords. Null if query fails.</returns>
+		public List<Record> RequestReceiptInfo(int SaleID)
+		{
+            List<Record> records = null;
+
+            try
+            {
+
+                //Request is for all Receipt records
+                if (SaleID == -1)
+                {
+                    List<ReceiptRecord> temp;
+
+                    //Send a request for Receipt records, expecting a list of records.
+                    if ((temp = _connection.SendReceiveObject<int, List<ReceiptRecord>>("GetAllReceipt", "ReturnGetAllReceipt", 10000, SaleID)) == null)
+                    {
+                        View.ErrorNotify("Data could not be selected from the database.\n Check the server for further details.",
+                        "Database Error");
+                    }
+                    //The server has failed to retrieve the stock in the database.
+                    else if (temp.Count == 0)
+                    {
+                        View.ErrorNotify("Data could not be selected from the database.\n Check the server for further details.",
+                        "Database Error");
+                    }
+                    else
+                    {
+                        records = new List<Record>();
+                        foreach (ReceiptRecord r in temp)
+                            records.Add(r);
+                    }
+                }
+                //Request is for full Receipt record
+                else
+                {
+                    List<ItemSaleRecord> temp;
+
+                    //Send a request for Receipt records, expecting a list of records.
+                    if ((temp = _connection.SendReceiveObject<int, List<ItemSaleRecord>>("GetFullReceipt", "ReturnGetFullReceipt", 10000, SaleID)) == null)
+                    {
+                        View.ErrorNotify("Data could not be selected from the database.\n Check the server for further details.",
+                        "Database Error");
+                    }
+                    //The server has failed to retrieve the stock in the database.
+                    else if (temp.Count == 0)
+                    {
+                        View.ErrorNotify("Data could not be selected from the database.\n Check the server for further details.",
+                        "Database Error");
+                    }
+                    else
+                    {
+                        records = new List<Record>();
+                        foreach (ItemSaleRecord r in temp)
+                            records.Add(r);
+                    }
+                }
+                
+            }
+            catch (ExpectedReturnTimeoutException exception)
+            {
+                View.ErrorNotify("No confirmation recieved from server.\n Likly a connection issue, check the server status.",
+                    "Connection Error");
+            }
+
+            return records;
+        }
+
+        /// <summary>
+        /// Overload for RequestReceiptInfo.
+        /// </summary>
+        /// <returns>Returns the full list of ReceiptRecords</returns>
+        public List<Record> RequestReceiptInfo()
+        {
+            return RequestReceiptInfo(-1);
+        }
+
+        /// <summary>
+        /// Sends a request to update the receipt record with the specified SaleID.
+        /// Produces error messages if failed. Waits for 10000ms.
+        /// </summary>
+        /// <param name="SaleID">The receipt to update.</param>
+        /// <returns>The success of the update command.</returns>
+        public bool UpdateReceipt(int SaleID)
+		{
+			return false; //force fail for test case until implementation complete
+		}
+
+
+		/// <summary>
+		/// Sends a request to display the receipt record with the specified SaleID.
+		/// Produces error messages if failed. Waits for 10000ms.
+		/// </summary>
+		/// <param name="SaleID">The receipt to display.</param>
+		/// <returns>The success of the insert command.</returns>
+		public bool DisplayReceipt(int SaleID)
+		{
+			return false; //force fail for test case until implementation complete
+		}
+		
+		//SPRINT 2
+		public double PredictNextMonthSales(List<int> StockID)
+		{
+			return 0.0; //force fail for test case until implementation complete
+		}
+		
+		public double PredictNextMonthProfit(List<int> StockID)
+		{
+			return 0.0; //force fail for test case until implementation complete
+		}
+
     }
 }

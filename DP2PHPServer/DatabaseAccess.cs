@@ -308,6 +308,9 @@ namespace DP2PHPServer
                     return SelectCommand(table, "StockID=" + id);
                 case DatabaseTable.Receipt:
                     return SelectCommand(table, "SaleID=" + id);
+                case DatabaseTable.ItemSale:
+                    //Needs a custom query for a JOIN command, so does not use the Select method
+                    return RunQueryCommand(table, "SELECT ItemSale.SaleID, ItemSale.StockID, ItemSale.PriceSold, ItemSale.Quantity, Stock.StockName FROM ItemSale INNER JOIN Stock ON ItemSale.StockID=Stock.StockID WHERE ItemSale.SaleID="+id);
             }
 
             //Fallthrough case, should never reach
@@ -382,6 +385,28 @@ namespace DP2PHPServer
                         {
                             list[0].Add(dataReader["SaleID"] + "");
                             list[1].Add(dataReader["Date"] + "");
+                        }
+
+                        break;
+
+                    case DatabaseTable.ItemSale:
+                        //Create a list to store the result
+                        list = new List<string>[5];
+
+                        list[0] = new List<string>();
+                        list[1] = new List<string>();
+                        list[2] = new List<string>();
+                        list[3] = new List<string>();
+                        list[4] = new List<string>();
+
+                        //Read the data and store them in the list
+                        while (dataReader.Read())
+                        {
+                            list[0].Add(dataReader["SaleID"] + "");
+                            list[1].Add(dataReader["StockID"] + "");
+                            list[2].Add(dataReader["PriceSold"] + "");
+                            list[3].Add(dataReader["Quantity"] + "");
+                            list[4].Add(dataReader["StockName"] + "");
                         }
 
                         break;

@@ -36,6 +36,8 @@ namespace DP2PHPServer
             NetworkComms.AppendGlobalIncomingPacketHandler<StockRecord>("UpdateStockRecord", UpdateStock);
             NetworkComms.AppendGlobalIncomingPacketHandler<StockRecord>("DecrementStockRecord", DecrementStock);
             NetworkComms.AppendGlobalIncomingPacketHandler<List<ItemSaleRecord>>("InsertReceiptRecord", InsertReceipt);
+            NetworkComms.AppendGlobalIncomingPacketHandler<int>("GetAllReceipt", GetAllReceipt);
+            NetworkComms.AppendGlobalIncomingPacketHandler<int>("GetFullReceipt", GetFullReceipt);
 
             //Start listening for incoming connections
             Connection.StartListening(ConnectionType.TCP, new System.Net.IPEndPoint(address, port));
@@ -215,6 +217,51 @@ namespace DP2PHPServer
                 Console.WriteLine("Failed.");
                 connection.SendObject("ReturnInsertReceiptRecord", false);
             }
+            Console.WriteLine("Done");
+        }
+
+        /// <summary>
+        /// Selects all records from the receipt table.
+        /// </summary>
+        /// <param name="header">The packet header associated with the incoming message</param>
+        /// <param name="connection">The connection used by the incoming message</param>
+        /// <param name="id">Unused</param>
+        private static void GetAllReceipt(PacketHeader header, Connection connection, int id)
+        {
+            Console.WriteLine("\nGetting all receipts for connection: " + connection.ToString() + "'.");
+
+            List<Record> records = null;
+
+            DatabaseAccess dbconnect = new DatabaseAccess();
+            if ((records = dbconnect.Select(DatabaseTable.Receipt, -1)) != null)
+                Console.WriteLine("Success.");
+            else
+                Console.WriteLine("Failed.");
+
+            connection.SendObject("ReturnGetAllReceipt", records);
+            Console.WriteLine("Done");
+
+        }
+
+        /// <summary>
+        /// Selects a record and all the associated ItemSale records.
+        /// </summary>
+        /// <param name="header">The packet header associated with the incoming message</param>
+        /// <param name="connection">The connection used by the incoming message</param>
+        /// <param name="id">Unused</param>
+        private static void GetFullReceipt(PacketHeader header, Connection connection, int id)
+        {
+            Console.WriteLine("\nGetting full receipt " + id + " for connection: " + connection.ToString() + "'.");
+
+            List<Record> records = null;
+            
+            DatabaseAccess dbconnect = new DatabaseAccess();
+            if ((records = dbconnect.Select(DatabaseTable.ItemSale, id)) != null)
+                Console.WriteLine("Success.");
+            else
+                Console.WriteLine("Failed.");
+
+            connection.SendObject("ReturnGetFullReceipt", records);
             Console.WriteLine("Done");
         }
 

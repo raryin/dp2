@@ -69,6 +69,7 @@
             this.label13 = new System.Windows.Forms.Label();
             this.txt_deleteID = new System.Windows.Forms.TextBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.btn_addItem = new System.Windows.Forms.Button();
             this.btn_addSale = new System.Windows.Forms.Button();
             this.txt_receiptqty = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
@@ -76,12 +77,28 @@
             this.txt_receiptID = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
             this.txt_receiptsell = new System.Windows.Forms.TextBox();
-            this.btn_addItem = new System.Windows.Forms.Button();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.btn_requestReceiptNext = new System.Windows.Forms.Button();
+            this.txt_requestReceiptName = new System.Windows.Forms.TextBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.txt_receiptRequestBox = new System.Windows.Forms.TextBox();
+            this.btn_requestReceipt = new System.Windows.Forms.Button();
+            this.label14 = new System.Windows.Forms.Label();
+            this.txt_requestReceiptQty = new System.Windows.Forms.TextBox();
+            this.txt_requestReceiptID = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.txt_requestReceiptSell = new System.Windows.Forms.TextBox();
+            this.txt_requestReceiptDate = new System.Windows.Forms.TextBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.txt_requestReceiptNo = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
+            this.groupBox6.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -490,6 +507,17 @@
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Add Receipt";
             // 
+            // btn_addItem
+            // 
+            this.btn_addItem.AutoSize = true;
+            this.btn_addItem.Location = new System.Drawing.Point(264, 48);
+            this.btn_addItem.Name = "btn_addItem";
+            this.btn_addItem.Size = new System.Drawing.Size(120, 23);
+            this.btn_addItem.TabIndex = 19;
+            this.btn_addItem.Text = "Add New Item to Sale";
+            this.btn_addItem.UseVisualStyleBackColor = true;
+            this.btn_addItem.Click += new System.EventHandler(this.btn_addItem_Click);
+            // 
             // btn_addSale
             // 
             this.btn_addSale.AutoSize = true;
@@ -549,22 +577,166 @@
             this.txt_receiptsell.Size = new System.Drawing.Size(100, 20);
             this.txt_receiptsell.TabIndex = 14;
             // 
-            // btn_addItem
+            // groupBox6
             // 
-            this.btn_addItem.AutoSize = true;
-            this.btn_addItem.Location = new System.Drawing.Point(264, 48);
-            this.btn_addItem.Name = "btn_addItem";
-            this.btn_addItem.Size = new System.Drawing.Size(120, 23);
-            this.btn_addItem.TabIndex = 19;
-            this.btn_addItem.Text = "Add New Item to Sale";
-            this.btn_addItem.UseVisualStyleBackColor = true;
-            this.btn_addItem.Click += new System.EventHandler(this.btn_addItem_Click);
+            this.groupBox6.Controls.Add(this.btn_requestReceiptNext);
+            this.groupBox6.Controls.Add(this.txt_requestReceiptName);
+            this.groupBox6.Controls.Add(this.label22);
+            this.groupBox6.Controls.Add(this.txt_receiptRequestBox);
+            this.groupBox6.Controls.Add(this.btn_requestReceipt);
+            this.groupBox6.Controls.Add(this.label14);
+            this.groupBox6.Controls.Add(this.txt_requestReceiptQty);
+            this.groupBox6.Controls.Add(this.txt_requestReceiptID);
+            this.groupBox6.Controls.Add(this.label17);
+            this.groupBox6.Controls.Add(this.label19);
+            this.groupBox6.Controls.Add(this.txt_requestReceiptSell);
+            this.groupBox6.Controls.Add(this.txt_requestReceiptDate);
+            this.groupBox6.Controls.Add(this.label20);
+            this.groupBox6.Controls.Add(this.label21);
+            this.groupBox6.Controls.Add(this.txt_requestReceiptNo);
+            this.groupBox6.Location = new System.Drawing.Point(473, 309);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(396, 158);
+            this.groupBox6.TabIndex = 20;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Record Info";
+            // 
+            // btn_requestReceiptNext
+            // 
+            this.btn_requestReceiptNext.Location = new System.Drawing.Point(183, 84);
+            this.btn_requestReceiptNext.Name = "btn_requestReceiptNext";
+            this.btn_requestReceiptNext.Size = new System.Drawing.Size(75, 23);
+            this.btn_requestReceiptNext.TabIndex = 21;
+            this.btn_requestReceiptNext.Text = "NextItem";
+            this.btn_requestReceiptNext.UseVisualStyleBackColor = true;
+            this.btn_requestReceiptNext.Click += new System.EventHandler(this.btn_requestReceiptNext_Click);
+            // 
+            // txt_requestReceiptName
+            // 
+            this.txt_requestReceiptName.Enabled = false;
+            this.txt_requestReceiptName.Location = new System.Drawing.Point(70, 117);
+            this.txt_requestReceiptName.Name = "txt_requestReceiptName";
+            this.txt_requestReceiptName.Size = new System.Drawing.Size(100, 20);
+            this.txt_requestReceiptName.TabIndex = 20;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(6, 120);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(58, 13);
+            this.label22.TabIndex = 19;
+            this.label22.Text = "Item Name";
+            // 
+            // txt_receiptRequestBox
+            // 
+            this.txt_receiptRequestBox.Location = new System.Drawing.Point(275, 86);
+            this.txt_receiptRequestBox.Name = "txt_receiptRequestBox";
+            this.txt_receiptRequestBox.Size = new System.Drawing.Size(48, 20);
+            this.txt_receiptRequestBox.TabIndex = 9;
+            // 
+            // btn_requestReceipt
+            // 
+            this.btn_requestReceipt.AutoSize = true;
+            this.btn_requestReceipt.Location = new System.Drawing.Point(248, 114);
+            this.btn_requestReceipt.Name = "btn_requestReceipt";
+            this.btn_requestReceipt.Size = new System.Drawing.Size(118, 23);
+            this.btn_requestReceipt.TabIndex = 9;
+            this.btn_requestReceipt.Text = "Request Receipt Info";
+            this.btn_requestReceipt.UseVisualStyleBackColor = true;
+            this.btn_requestReceipt.Click += new System.EventHandler(this.btn_requestReceipt_Click);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(6, 25);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(55, 13);
+            this.label14.TabIndex = 9;
+            this.label14.Text = "ReceiptID";
+            // 
+            // txt_requestReceiptQty
+            // 
+            this.txt_requestReceiptQty.Enabled = false;
+            this.txt_requestReceiptQty.Location = new System.Drawing.Point(69, 86);
+            this.txt_requestReceiptQty.Name = "txt_requestReceiptQty";
+            this.txt_requestReceiptQty.Size = new System.Drawing.Size(100, 20);
+            this.txt_requestReceiptQty.TabIndex = 18;
+            // 
+            // txt_requestReceiptID
+            // 
+            this.txt_requestReceiptID.Enabled = false;
+            this.txt_requestReceiptID.Location = new System.Drawing.Point(70, 22);
+            this.txt_requestReceiptID.Name = "txt_requestReceiptID";
+            this.txt_requestReceiptID.Size = new System.Drawing.Size(100, 20);
+            this.txt_requestReceiptID.TabIndex = 10;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(5, 89);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(69, 13);
+            this.label17.TabIndex = 17;
+            this.label17.Text = "Item Quantity";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(6, 57);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(30, 13);
+            this.label19.TabIndex = 11;
+            this.label19.Text = "Date";
+            // 
+            // txt_requestReceiptSell
+            // 
+            this.txt_requestReceiptSell.Enabled = false;
+            this.txt_requestReceiptSell.Location = new System.Drawing.Point(275, 54);
+            this.txt_requestReceiptSell.Name = "txt_requestReceiptSell";
+            this.txt_requestReceiptSell.Size = new System.Drawing.Size(100, 20);
+            this.txt_requestReceiptSell.TabIndex = 16;
+            // 
+            // txt_requestReceiptDate
+            // 
+            this.txt_requestReceiptDate.Enabled = false;
+            this.txt_requestReceiptDate.Location = new System.Drawing.Point(70, 54);
+            this.txt_requestReceiptDate.Name = "txt_requestReceiptDate";
+            this.txt_requestReceiptDate.Size = new System.Drawing.Size(100, 20);
+            this.txt_requestReceiptDate.TabIndex = 12;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(193, 57);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(74, 13);
+            this.label20.TabIndex = 15;
+            this.label20.Text = "Item Sell Price";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(193, 25);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(44, 13);
+            this.label21.TabIndex = 13;
+            this.label21.Text = "Item No";
+            // 
+            // txt_requestReceiptNo
+            // 
+            this.txt_requestReceiptNo.Enabled = false;
+            this.txt_requestReceiptNo.Location = new System.Drawing.Point(275, 22);
+            this.txt_requestReceiptNo.Name = "txt_requestReceiptNo";
+            this.txt_requestReceiptNo.Size = new System.Drawing.Size(100, 20);
+            this.txt_requestReceiptNo.TabIndex = 14;
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(884, 479);
+            this.ClientSize = new System.Drawing.Size(883, 479);
+            this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
@@ -582,6 +754,8 @@
             this.groupBox4.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -637,6 +811,22 @@
         private System.Windows.Forms.TextBox txt_receiptID;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.TextBox txt_receiptsell;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.TextBox txt_requestReceiptName;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.TextBox txt_receiptRequestBox;
+        private System.Windows.Forms.Button btn_requestReceipt;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox txt_requestReceiptQty;
+        private System.Windows.Forms.TextBox txt_requestReceiptID;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.TextBox txt_requestReceiptSell;
+        private System.Windows.Forms.TextBox txt_requestReceiptDate;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.TextBox txt_requestReceiptNo;
+        private System.Windows.Forms.Button btn_requestReceiptNext;
     }
 }
 
