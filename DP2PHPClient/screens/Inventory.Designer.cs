@@ -85,6 +85,7 @@
             this.tb_sales.Name = "tb_sales";
             this.tb_sales.Size = new System.Drawing.Size(100, 25);
             this.tb_sales.Text = "Sales";
+            this.tb_sales.Click += new System.EventHandler(this.tb_sales_Click);
             // 
             // tb_report
             // 

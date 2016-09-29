@@ -96,5 +96,11 @@ namespace DP2PHPClient.screens
         {
             new screens.InventoryDelete(_connection, records).Show();
         }
+
+        private void tb_sales_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            new screens.Sales(_connection).Show();
+        }
     }
 }

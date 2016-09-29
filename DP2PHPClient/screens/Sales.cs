@@ -14,25 +14,46 @@ namespace DP2PHPClient.screens
     {
         ClientConnectionManager _connection;
 
+        List<ReceiptRecord> records = new List<ReceiptRecord>();
+
         public Sales(ClientConnectionManager connection)
         {
             InitializeComponent();
 
             _connection = connection;
 
-            string[] row = new string[] { "1", "1/1/2016", "View", "Edit", "Delete" };
-            dg_data.Rows.Add(row);
-            row = new string[] { "2", "1/1/2016", "View", "Edit", "Delete" };
-            dg_data.Rows.Add(row);
-            row = new string[] { "3", "1/1/2016", "View", "Edit", "Delete" };
-            dg_data.Rows.Add(row);
-            row = new string[] { "4", "1/1/2016", "View", "Edit", "Delete" };
-            dg_data.Rows.Add(row);
+            UpdateList();
         }
 
         private void label2_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void UpdateList()
+        {
+            //Request full receipt list
+            List<Record> temp = _connection.RequestReceiptInfo();
+            //Since it is received as a generic "Records" list, must be converted to "Receipts" list.
+            records.Clear();
+            if (temp != null)
+            {
+                foreach (Record r in temp)
+                    records.Add((ReceiptRecord)r);
+            }
+
+            //Dummy string array to hold rows of records
+            string[] row = null;
+
+            //First clear the grid
+            dg_data.Rows.Clear();
+
+            //Insert each entry from the database into the grid.
+            foreach (ReceiptRecord r in records)
+            {
+                row = new string[] { r.SaleID.ToString(), r.Date.ToString(), "View", "Edit", "Delete" };
+                dg_data.Rows.Add(row);
+            }
         }
 
         private void dg_data_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
@@ -43,11 +64,13 @@ namespace DP2PHPClient.screens
             {
                 switch (e.ColumnIndex)
                 {
-                    case 2:
-                        new screens.SalesView().Show();
+                    case 2: //View
+                        //Pass the ID to view and the date of the sale.
+                        //The date is passed so the database doesn't need to retrieve it again.
+                        new screens.SalesView(_connection, records[e.RowIndex].SaleID, records[e.RowIndex].Date).Show();
                         break;
-                    case 3:
-                    case 4:
+                    case 3: //Edit
+                    case 4: //Delete
                         MessageBox.Show("Clicked Column: " + e.ColumnIndex + ", Row: " + e.RowIndex, "Unassigned action");
                         break;
                     default:

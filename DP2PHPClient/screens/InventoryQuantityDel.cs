@@ -25,9 +25,9 @@ namespace DP2PHPClient.screens
 
             foreach (StockRecord s in _items)
                 cmb_name.Items.Add(s.StockName);
-            
+
             if ((selected >= 0) && (selected < _items.Count))
-                cmb_name.SelectedItem = selected;
+                cmb_name.SelectedIndex = selected;
         }
 
         private void btn_edit_Click(object sender, EventArgs e)
