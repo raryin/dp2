@@ -12,7 +12,8 @@ namespace DP2PHPServer
         {
             DatabaseAccess dbconnect = new DatabaseAccess();
 
-            dbconnect.Select(DatabaseTable.ItemSale, 8);
+            dbconnect.DeleteItemSale(20);
+            dbconnect.DeleteReceipt(20);
 
             ServerHandler.CreateServer(System.Net.IPAddress.Any, 25565);
 
