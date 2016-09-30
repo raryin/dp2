@@ -93,6 +93,7 @@ namespace DP2PHPClient.screens
 
         private void btn_debug_Click(object sender, EventArgs e)
         {
+
         }
     }
 }
