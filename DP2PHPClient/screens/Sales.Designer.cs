@@ -45,6 +45,8 @@
             this.btn_search = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.btn_refresh = new System.Windows.Forms.Button();
+            this.btn_debug = new System.Windows.Forms.Button();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dg_data)).BeginInit();
             this.SuspendLayout();
@@ -207,12 +209,36 @@
             this.label3.TabIndex = 8;
             this.label3.Text = "Sort by:";
             // 
+            // btn_refresh
+            // 
+            this.btn_refresh.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_refresh.Location = new System.Drawing.Point(438, 105);
+            this.btn_refresh.Name = "btn_refresh";
+            this.btn_refresh.Size = new System.Drawing.Size(74, 31);
+            this.btn_refresh.TabIndex = 9;
+            this.btn_refresh.Text = "Refresh";
+            this.btn_refresh.UseVisualStyleBackColor = true;
+            this.btn_refresh.Click += new System.EventHandler(this.btn_refresh_Click);
+            // 
+            // btn_debug
+            // 
+            this.btn_debug.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_debug.Location = new System.Drawing.Point(835, 40);
+            this.btn_debug.Name = "btn_debug";
+            this.btn_debug.Size = new System.Drawing.Size(74, 31);
+            this.btn_debug.TabIndex = 10;
+            this.btn_debug.Text = "Debug";
+            this.btn_debug.UseVisualStyleBackColor = true;
+            this.btn_debug.Click += new System.EventHandler(this.btn_debug_Click);
+            // 
             // Sales
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightSeaGreen;
             this.ClientSize = new System.Drawing.Size(934, 631);
+            this.Controls.Add(this.btn_debug);
+            this.Controls.Add(this.btn_refresh);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btn_search);
@@ -250,5 +276,7 @@
         private System.Windows.Forms.DataGridViewButtonColumn clm_view;
         private System.Windows.Forms.DataGridViewButtonColumn clm_edit;
         private System.Windows.Forms.DataGridViewButtonColumn clm_delete;
+        private System.Windows.Forms.Button btn_refresh;
+        private System.Windows.Forms.Button btn_debug;
     }
 }

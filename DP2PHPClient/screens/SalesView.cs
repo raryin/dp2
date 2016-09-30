@@ -15,6 +15,7 @@ namespace DP2PHPClient.screens
         ClientConnectionManager _connection;
         List<ItemSaleRecord> _items = new List<ItemSaleRecord>();
         DateTime _date;
+        int _selected;
 
         public SalesView(ClientConnectionManager connection, int selected, DateTime date)
         {
@@ -22,6 +23,7 @@ namespace DP2PHPClient.screens
 
             _connection = connection;
             _date = date;
+            _selected = selected;
 
             //Get the list of itemsales associated with the receipt
             List<Record> temp = _connection.RequestReceiptInfo(selected);
@@ -47,6 +49,12 @@ namespace DP2PHPClient.screens
                 dg_data.Rows.Add(row);
             }
 
+        }
+
+        private void btn_delete_Click(object sender, EventArgs e)
+        {
+            _connection.DeleteReceipt(_selected);
+            this.Close();
         }
 
     }

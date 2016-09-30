@@ -71,7 +71,7 @@ namespace DP2PHPClient.screens
                         break;
                     case 3: //Edit
                     case 4: //Delete
-                        MessageBox.Show("Clicked Column: " + e.ColumnIndex + ", Row: " + e.RowIndex, "Unassigned action");
+                        _connection.DeleteReceipt(records[e.RowIndex].SaleID);
                         break;
                     default:
                         break;
@@ -84,6 +84,15 @@ namespace DP2PHPClient.screens
         {
             this.Hide();
             new screens.Inventory(_connection).Show();
+        }
+
+        private void btn_refresh_Click(object sender, EventArgs e)
+        {
+            UpdateList();
+        }
+
+        private void btn_debug_Click(object sender, EventArgs e)
+        {
         }
     }
 }

@@ -29,14 +29,14 @@
         private void InitializeComponent()
         {
             this.dg_data = new System.Windows.Forms.DataGridView();
-            this.label1 = new System.Windows.Forms.Label();
-            this.btn_edit = new System.Windows.Forms.Button();
-            this.btn_delete = new System.Windows.Forms.Button();
             this.clm_no = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clm_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clm_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clm_qty = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clm_price = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label1 = new System.Windows.Forms.Label();
+            this.btn_edit = new System.Windows.Forms.Button();
+            this.btn_delete = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dg_data)).BeginInit();
             this.SuspendLayout();
             // 
@@ -53,37 +53,6 @@
             this.dg_data.Name = "dg_data";
             this.dg_data.Size = new System.Drawing.Size(679, 275);
             this.dg_data.TabIndex = 5;
-            // 
-            // label1
-            // 
-            this.label1.Font = new System.Drawing.Font("Calibri", 33F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(0, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(735, 54);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "View Sale";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // btn_edit
-            // 
-            this.btn_edit.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_edit.Location = new System.Drawing.Point(201, 385);
-            this.btn_edit.Name = "btn_edit";
-            this.btn_edit.Size = new System.Drawing.Size(91, 36);
-            this.btn_edit.TabIndex = 6;
-            this.btn_edit.Text = "Edit";
-            this.btn_edit.UseVisualStyleBackColor = true;
-            // 
-            // btn_delete
-            // 
-            this.btn_delete.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_delete.Location = new System.Drawing.Point(417, 385);
-            this.btn_delete.Name = "btn_delete";
-            this.btn_delete.Size = new System.Drawing.Size(91, 36);
-            this.btn_delete.TabIndex = 7;
-            this.btn_delete.Text = "Delete";
-            this.btn_delete.UseVisualStyleBackColor = true;
             // 
             // clm_no
             // 
@@ -128,6 +97,38 @@
             this.clm_price.ReadOnly = true;
             this.clm_price.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.clm_price.Width = 56;
+            // 
+            // label1
+            // 
+            this.label1.Font = new System.Drawing.Font("Calibri", 33F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(0, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(735, 54);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "View Sale";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btn_edit
+            // 
+            this.btn_edit.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_edit.Location = new System.Drawing.Point(201, 385);
+            this.btn_edit.Name = "btn_edit";
+            this.btn_edit.Size = new System.Drawing.Size(91, 36);
+            this.btn_edit.TabIndex = 6;
+            this.btn_edit.Text = "Edit";
+            this.btn_edit.UseVisualStyleBackColor = true;
+            // 
+            // btn_delete
+            // 
+            this.btn_delete.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_delete.Location = new System.Drawing.Point(417, 385);
+            this.btn_delete.Name = "btn_delete";
+            this.btn_delete.Size = new System.Drawing.Size(91, 36);
+            this.btn_delete.TabIndex = 7;
+            this.btn_delete.Text = "Delete";
+            this.btn_delete.UseVisualStyleBackColor = true;
+            this.btn_delete.Click += new System.EventHandler(this.btn_delete_Click);
             // 
             // SalesView
             // 
