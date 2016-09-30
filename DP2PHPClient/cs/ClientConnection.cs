@@ -300,10 +300,7 @@ namespace DP2PHPClient
 
             return false;
         }
-
-
-		/////////TEST SHELLS////////////
-
+        
 		/// <summary>
 		/// Sends a request to delete the specified receipt record from the database with associated ItemSales.
 		/// Produces error messages if failed. Waits for 10000ms.
@@ -311,9 +308,32 @@ namespace DP2PHPClient
 		/// <param name="SaleID">SaleID (receipt) to delete from the database.</param>
 		/// <returns>The success of the delete operation.</returns>
 		public bool DeleteReceipt(int SaleID)
-		{
-			return false; //force fail for test case until implementation complete
-		}
+        {
+            int rows = 0;
+
+            try
+            {
+                //Send a request to insert stock, expecting a confirmation. Also writes the number of rows deleted to rows.
+                if ((rows = _connection.SendReceiveObject<int, int>("DeleteReceiptRecord", "ReturnDeleteReceiptRecord", 10000, SaleID)) != 0)
+                {
+                    View.SuccessNotify("Successfully deleted " + rows + " rows.", "Delete successful");
+                    return true;
+                }
+                //The server has failed to insert the stock in the database.
+                else
+                {
+                    View.ErrorNotify("Data could not be deleted from the database.\n Check the server for further details.",
+                        "Database Error");
+                }
+            }
+            catch (ExpectedReturnTimeoutException exception)
+            {
+                View.ErrorNotify("No confirmation recieved from server.\n Likly a connection issue, check the server status.",
+                    "Connection Error");
+            }
+
+            return false;
+        }
 
 		/// <summary>
 		/// Sends a request for details of a receipt. Returns the list of associated ItemSale records if a specific
@@ -386,6 +406,9 @@ namespace DP2PHPClient
 
             return records;
         }
+
+
+        /////////TEST SHELLS////////////
 
         /// <summary>
         /// Overload for RequestReceiptInfo.

@@ -38,6 +38,7 @@ namespace DP2PHPServer
             NetworkComms.AppendGlobalIncomingPacketHandler<List<ItemSaleRecord>>("InsertReceiptRecord", InsertReceipt);
             NetworkComms.AppendGlobalIncomingPacketHandler<int>("GetAllReceipt", GetAllReceipt);
             NetworkComms.AppendGlobalIncomingPacketHandler<int>("GetFullReceipt", GetFullReceipt);
+            NetworkComms.AppendGlobalIncomingPacketHandler<int>("DeleteReceiptRecord", DeleteReceipt);
 
             //Start listening for incoming connections
             Connection.StartListening(ConnectionType.TCP, new System.Net.IPEndPoint(address, port));
@@ -128,7 +129,7 @@ namespace DP2PHPServer
             int rows = 0;
             Console.WriteLine("\nDeleting: " + stockID + " for connection: " + connection.ToString() + "'.");
             DatabaseAccess dbconnect = new DatabaseAccess();
-            if ((rows = dbconnect.Delete(DatabaseTable.Stock, stockID)) != 0)
+            if ((rows = dbconnect.DeleteStock(stockID)) != 0)
                 Console.WriteLine("Success.");
             else
                 Console.WriteLine("Failed.");
@@ -262,6 +263,31 @@ namespace DP2PHPServer
                 Console.WriteLine("Failed.");
 
             connection.SendObject("ReturnGetFullReceipt", records);
+            Console.WriteLine("Done");
+        }
+
+        /// <summary>
+        /// Deletes a receipt record from the database along with all associated itemsale records.
+        /// </summary>
+        /// <param name="header">The packet header associated with the incoming message</param>
+        /// <param name="connection">The connection used by the incoming message</param>
+        /// <param name="stockID">ReceiptID to delete</param>
+        private static void DeleteReceipt(PacketHeader header, Connection connection, int stockID)
+        {
+            int rows = 0;
+            Console.WriteLine("\nDeleting: " + stockID + " for connection: " + connection.ToString() + "'.");
+            DatabaseAccess dbconnect = new DatabaseAccess();
+            if ((rows = dbconnect.DeleteItemSale(stockID)) != 0)
+                Console.WriteLine("Success deleting ItemSales.");
+            else
+                Console.WriteLine("Failed.");
+
+            if ((rows = dbconnect.DeleteReceipt(stockID)) != 0)
+                Console.WriteLine("Success deleting Receipt.");
+            else
+                Console.WriteLine("Failed.");
+
+            connection.SendObject("ReturnDeleteReceiptRecord", rows);
             Console.WriteLine("Done");
         }
 

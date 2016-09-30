@@ -182,15 +182,47 @@ namespace DP2PHPServer
         /// </summary>
         /// <param name="stockID">StockID to delete. Specify -1 to delete all.</param>
         /// <returns>Number of rows added. Number of rows deleted. 0 if failed. As StockID is unique, will only every return one record.</returns>
-        public int Delete(DatabaseTable table, int stockID)
+        public int DeleteStock(int stockID)
         {
             //Calls DeleteCommand. Generates the query. The database connection is opened by DeleteCommand.
             //Delete all stock for -1.
             if (stockID == -1)
-                return DeleteCommand(table);
+                return DeleteCommand(DatabaseTable.Stock);
 
             //Otherwise run the WHERE condition.
-            return DeleteCommand(table, "StockID="+stockID);
+            return DeleteCommand(DatabaseTable.Stock, "StockID="+stockID);
+        }
+
+        /// <summary>
+        /// Deletes data from the ItemSale table based on SaleID. Deletes all if saleID is -1. Returns 0 if failed.
+        /// </summary>
+        /// <param name="saleID">SaleID to delete. Specify -1 to delete all.</param>
+        /// <returns>Number of rows added. Number of rows deleted. 0 if failed or if the receipt had no items.</returns>
+        public int DeleteItemSale(int saleID)
+        {
+            //Calls DeleteCommand. Generates the query. The database connection is opened by DeleteCommand.
+            //Delete all stock for -1.
+            if (saleID == -1)
+                return DeleteCommand(DatabaseTable.ItemSale);
+
+            //Otherwise run the WHERE condition.
+            return DeleteCommand(DatabaseTable.ItemSale, "SaleID=" + saleID);
+        }
+
+        /// <summary>
+        /// Deletes data from the Receipt table based on SaleID. Deletes all if saleID is -1. Returns 0 if failed.
+        /// </summary>
+        /// <param name="saleID">SaleID to delete. Specify -1 to delete all.</param>
+        /// <returns>Number of rows added. Number of rows deleted. 0 if failed or if the receipt had no items.</returns>
+        public int DeleteReceipt(int saleID)
+        {
+            //Calls DeleteCommand. Generates the query. The database connection is opened by DeleteCommand.
+            //Delete all stock for -1.
+            if (saleID == -1)
+                return DeleteCommand(DatabaseTable.Receipt);
+
+            //Otherwise run the WHERE condition.
+            return DeleteCommand(DatabaseTable.Receipt, "SaleID=" + saleID);
         }
 
         /// <summary>
