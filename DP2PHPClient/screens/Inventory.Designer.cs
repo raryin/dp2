@@ -103,6 +103,7 @@
             // 
             // dg_data
             // 
+            this.dg_data.AllowUserToAddRows = false;
             this.dg_data.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dg_data.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.clm_id,
@@ -165,7 +166,7 @@
             this.clm_add.HeaderText = "";
             this.clm_add.Name = "clm_add";
             this.clm_add.ReadOnly = true;
-            this.clm_add.Width = 21;
+            this.clm_add.Width = 5;
             // 
             // clm_delete
             // 
@@ -173,7 +174,7 @@
             this.clm_delete.HeaderText = "";
             this.clm_delete.Name = "clm_delete";
             this.clm_delete.ReadOnly = true;
-            this.clm_delete.Width = 21;
+            this.clm_delete.Width = 5;
             // 
             // btn_new
             // 

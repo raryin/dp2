@@ -104,6 +104,7 @@
             // 
             // dg_data
             // 
+            this.dg_data.AllowUserToAddRows = false;
             this.dg_data.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dg_data.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.clm_id,
