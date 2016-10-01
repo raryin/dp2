@@ -45,6 +45,15 @@ namespace DP2PHPClient
             Quantity = quantity;
         }
 
+        public StockRecord(int stockId, double purchase, double currentSell, int quantity)
+        {
+            StockID = stockId;
+            StockName = "";
+            Purchase = purchase;
+            CurrentSell = currentSell;
+            Quantity = quantity;
+        }
+
         public override string ToString()
         {
             var sb = new StringBuilder();
