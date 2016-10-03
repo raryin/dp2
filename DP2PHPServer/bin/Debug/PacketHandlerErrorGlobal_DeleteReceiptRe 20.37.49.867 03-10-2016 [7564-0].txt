@@ -1,0 +1,34 @@
+Base Exception Type: System.Net.Sockets.SocketException (0x80004005): A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond
+   at System.Net.Sockets.Socket.Receive(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags)
+   at System.Net.Sockets.NetworkStream.Read(Byte[] buffer, Int32 offset, Int32 size)
+Inner Exception Type: System.IO.IOException: Unable to read data from the transport connection: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond. ---> System.Net.Sockets.SocketException: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond
+   at System.Net.Sockets.Socket.Receive(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags)
+   at System.Net.Sockets.NetworkStream.Read(Byte[] buffer, Int32 offset, Int32 size)
+   --- End of inner exception stack trace ---
+   at System.Net.Sockets.NetworkStream.Read(Byte[] buffer, Int32 offset, Int32 size)
+   at MySql.Data.Common.MyNetworkStream.Read(Byte[] buffer, Int32 offset, Int32 count)
+
+Stack Trace:    at MySql.Data.Common.MyNetworkStream.Read(Byte[] buffer, Int32 offset, Int32 count)
+   at MySql.Data.MySqlClient.TimedStream.Read(Byte[] buffer, Int32 offset, Int32 count)
+   at System.IO.BufferedStream.Read(Byte[] array, Int32 offset, Int32 count)
+   at MySql.Data.MySqlClient.MySqlStream.ReadFully(Stream stream, Byte[] buffer, Int32 offset, Int32 count)
+   at MySql.Data.MySqlClient.MySqlStream.LoadPacket()
+   at MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   at MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.ReadPacket()
+   at MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.Authenticate(Boolean reset)
+   at MySql.Data.MySqlClient.NativeDriver.Authenticate(String authMethod, Boolean reset)
+   at MySql.Data.MySqlClient.NativeDriver.Open()
+   at MySql.Data.MySqlClient.Driver.Open()
+   at MySql.Data.MySqlClient.Driver.Create(MySqlConnectionStringBuilder settings)
+   at MySql.Data.MySqlClient.MySqlPool.CreateNewPooledConnection()
+   at MySql.Data.MySqlClient.MySqlPool.GetPooledConnection()
+   at MySql.Data.MySqlClient.MySqlPool.TryToGetDriver()
+   at MySql.Data.MySqlClient.MySqlPool.GetConnection()
+   at MySql.Data.MySqlClient.MySqlConnection.Open()
+   at DP2PHPServer.DatabaseAccess.OpenConnection() in C:\Users\James\Desktop\PHPGit\DP2PHPServer\DatabaseAccess.cs:line 64
+   at DP2PHPServer.DatabaseAccess.RunNonQueryCommand(String query) in C:\Users\James\Desktop\PHPGit\DP2PHPServer\DatabaseAccess.cs:line 298
+   at DP2PHPServer.DatabaseAccess.DeleteCommand(DatabaseTable table) in C:\Users\James\Desktop\PHPGit\DP2PHPServer\DatabaseAccess.cs:line 252
+   at DP2PHPServer.DatabaseAccess.DeleteItemSale(Int32 saleID) in C:\Users\James\Desktop\PHPGit\DP2PHPServer\DatabaseAccess.cs:line 206
+   at DP2PHPServer.ServerHandler.DeleteReceipt(PacketHeader header, Connection connection, Int32 stockID) in C:\Users\James\Desktop\PHPGit\DP2PHPServer\ServerHandler.cs:line 280
+   at NetworkCommsDotNet.Tools.PacketTypeHandlerDelegateWrapper`1.Process(PacketHeader packetHeader, Connection connection, Object obj) in c:\Users\Karnifexx\Documents\Visual Studio 2010\Projects\networkcomms.net\NetworkCommsDotNet\Tools\PacketUnwrappers.cs:line 85
+   at NetworkCommsDotNet.NetworkComms.TriggerGlobalPacketHandlers(PacketHeader packetHeader, Connection connection, Object returnObject, Boolean ignoreUnknownPacketTypeOverride) in c:\Users\Karnifexx\Documents\Visual Studio 2010\Projects\networkcomms.net\NetworkCommsDotNet\NetworkComms.cs:line 746

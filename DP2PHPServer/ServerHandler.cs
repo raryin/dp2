@@ -194,7 +194,7 @@ namespace DP2PHPServer
             else
                 Console.WriteLine("Failed.");
 
-            connection.SendObject("ReturnDecrementStockRecord", rows);
+            connection.SendObject("ReturnUpdateStockRecord", rows);
             Console.WriteLine("Done");
         }
 

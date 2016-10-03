@@ -16,7 +16,7 @@ namespace DP2PHPClient
         /// <param name="caption">Caption for the error.</param>
         static public void ErrorNotify(string text, string caption)
         {
-            MessageBox.Show(text, caption, MessageBoxButtons.OK);
+            //MessageBox.Show(text, caption, MessageBoxButtons.OK);
         }
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace DP2PHPClient
         /// <param name="caption">Caption for the message.</param>
         static public void SuccessNotify(string text, string caption)
         {
-            MessageBox.Show(text, caption, MessageBoxButtons.OK);
+            //MessageBox.Show(text, caption, MessageBoxButtons.OK);
         }
 
     }

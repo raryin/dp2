@@ -174,7 +174,7 @@ namespace DP2PHPClient
         /// <returns>List of stock records that match the request.</returns>
         public List<StockRecord> RequestStockInfo(int stockID)
         {
-            List<StockRecord> records = null;
+            List<StockRecord> records = new List<StockRecord>();
 
             try
             {
@@ -343,7 +343,7 @@ namespace DP2PHPClient
 		/// <returns>List of ReceiptRecords or ItemSaleRecords. Null if query fails.</returns>
 		public List<Record> RequestReceiptInfo(int SaleID)
 		{
-            List<Record> records = null;
+            List<Record> records = new List<Record>();
 
             try
             {
@@ -439,7 +439,17 @@ namespace DP2PHPClient
 		/// <returns>The success of the insert command.</returns>
 		public bool DisplayReceipt(int SaleID)
 		{
-			return false; //force fail for test case until implementation complete
+            try
+            {
+                if (RequestReceiptInfo(SaleID).Count != 0)
+                    return true;
+
+                return false;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
 		}
 		
 		//SPRINT 2

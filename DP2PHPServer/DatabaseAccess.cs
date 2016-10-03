@@ -299,7 +299,6 @@ namespace DP2PHPServer
             {
                 //Create command and assign the query and connection from the constructor.
                 MySqlCommand cmd = new MySqlCommand(query, connection);
-                //cmd.Parameters.Add("@last_id", MySqlDbType.Int16).Value = 0;
                 try
                 {
                     //Execute command.
@@ -307,9 +306,7 @@ namespace DP2PHPServer
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine("Ooops...");
-
-                    while (true);
+                    Console.WriteLine("Query Failed.");
                 }
 
                 //Close connection.

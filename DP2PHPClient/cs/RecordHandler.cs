@@ -164,6 +164,15 @@ namespace DP2PHPClient
             Name = name;
         }
 
+        public ItemSaleRecord(int saleID, int stockID, double priceSold, int quantity)
+        {
+            SaleID = saleID;
+            StockID = stockID;
+            PriceSold = priceSold;
+            Quantity = quantity;
+            Name = "";
+        }
+
         public override string ToString()
         {
             var sb = new StringBuilder();
