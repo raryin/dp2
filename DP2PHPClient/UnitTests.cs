@@ -1,6 +1,7 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using NUnit.Framework;
+using System.Diagnostics;
 
 namespace DP2PHPClient
 {
@@ -209,8 +210,12 @@ namespace DP2PHPClient
 			s.Add(1);
 			s.Add(2);
 			s.Add(3);
+			var watch = System.Diagnostics.Stopwatch.StartNew();
 			double t = p.PredictNextMonthSales(s);
+			watch.Stop();
 			Assert.IsTrue(t.Equals(0));
+			var elapsedMs = watch.ElapsedMilliseconds;
+			Assert.IsTrue(elapsedMs<30000);
 		}
 		
 		[Test ()]
@@ -223,8 +228,13 @@ namespace DP2PHPClient
 			s.Add(1);
 			s.Add(2);
 			s.Add(3);
+
+			var watch = System.Diagnostics.Stopwatch.StartNew();
 			double t = p.PredictNextMonthProfit(s);
+			watch.Stop();
 			Assert.IsTrue(t.Equals(0));
+			var elapsedMs = watch.ElapsedMilliseconds;
+			Assert.IsTrue(elapsedMs<30000);
 		}
 	}
 }
