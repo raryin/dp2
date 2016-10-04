@@ -39,6 +39,7 @@ namespace DP2PHPServer
             NetworkComms.AppendGlobalIncomingPacketHandler<int>("GetAllReceipt", GetAllReceipt);
             NetworkComms.AppendGlobalIncomingPacketHandler<int>("GetFullReceipt", GetFullReceipt);
             NetworkComms.AppendGlobalIncomingPacketHandler<int>("DeleteReceiptRecord", DeleteReceipt);
+            NetworkComms.AppendGlobalIncomingPacketHandler<List<int>>("PredictSales", PredictSales);
 
             //Start listening for incoming connections
             Connection.StartListening(ConnectionType.TCP, new System.Net.IPEndPoint(address, port));
@@ -133,7 +134,7 @@ namespace DP2PHPServer
                 Console.WriteLine("Success.");
             else
                 Console.WriteLine("Failed.");
-            
+
             connection.SendObject("ReturnDeleteStockRecord", rows);
             Console.WriteLine("Done");
         }
@@ -177,7 +178,7 @@ namespace DP2PHPServer
             connection.SendObject("ReturnDecrementStockRecord", rows);
             Console.WriteLine("Done");
         }
-        
+
         /// <summary>
         /// Updates the stock quantity for the specified items of the specified amounts.
         /// </summary>
@@ -255,7 +256,7 @@ namespace DP2PHPServer
             Console.WriteLine("\nGetting full receipt " + id + " for connection: " + connection.ToString() + "'.");
 
             List<Record> records = null;
-            
+
             DatabaseAccess dbconnect = new DatabaseAccess();
             if ((records = dbconnect.Select(DatabaseTable.ItemSale, id)) != null)
                 Console.WriteLine("Success.");
@@ -289,6 +290,22 @@ namespace DP2PHPServer
 
             connection.SendObject("ReturnDeleteReceiptRecord", rows);
             Console.WriteLine("Done");
+        }
+
+        private static void PredictSales(PacketHeader header, Connection connection, List<int> IDs)
+        {
+            List<double> records = new List<double>();
+            Console.WriteLine("\nPredicting sales of: " + IDs.Count + " items for connection: " + connection.ToString() + "'.");
+
+            DatabaseAccess dbconnect = new DatabaseAccess();
+            if ((records = dbconnect.PredictSales(IDs)).Count != 0)
+                Console.WriteLine("Success in predictions.");
+            else
+                Console.WriteLine("Failed.");
+
+            connection.SendObject("ReturnPredictSales", records);
+            Console.WriteLine("Done");
+
         }
 
     }

@@ -45,6 +45,9 @@ namespace DP2PHPClient.screens
                     case 6: //Delete Quantity
                         new screens.InventoryQuantityDel(_connection, records, e.RowIndex).Show();
                         break;
+                    case 7: //Predict
+                        new screens.InventoryPredict(_connection, records, e.RowIndex).Show();
+                        break;
                     default:
                         break;
                 }
@@ -71,7 +74,7 @@ namespace DP2PHPClient.screens
             //Insert each entry from the database into the grid.
             foreach (StockRecord s in records)
             {
-                row = new string[] { s.StockID.ToString(), s.StockName, s.Purchase.ToString(), s.CurrentSell.ToString(), s.Quantity.ToString(), "Add", "Delete" };
+                row = new string[] { s.StockID.ToString(), s.StockName, s.Purchase.ToString(), s.CurrentSell.ToString(), s.Quantity.ToString(), "Add", "Delete", "Predict" };
                 dg_data.Rows.Add(row);
             }
 

@@ -198,33 +198,43 @@ namespace DP2PHPServer
         {
             List<Record> records = new List<Record>();
 
-            switch (type)
+            if (data.Length != 0)
             {
-                case DatabaseTable.Stock:
-                    for (int i = 0; i < data[0].Count; i++)
+                try
+                {
+                    switch (type)
                     {
-                        records.Add(new StockRecord(int.Parse(data[0][i]), data[1][i], double.Parse(data[2][i]), double.Parse(data[3][i]), int.Parse(data[4][i])));
+                        case DatabaseTable.Stock:
+                            for (int i = 0; i < data[0].Count; i++)
+                            {
+                                records.Add(new StockRecord(int.Parse(data[0][i]), data[1][i], double.Parse(data[2][i]), double.Parse(data[3][i]), int.Parse(data[4][i])));
+                            }
+
+                            break;
+
+                        case DatabaseTable.Receipt:
+                            for (int i = 0; i < data[0].Count; i++)
+                            {
+                                records.Add(new ReceiptRecord(int.Parse(data[0][i]), DateTime.Parse(data[1][i])));
+                            }
+
+                            break;
+
+                        case DatabaseTable.ItemSale:
+                            for (int i = 0; i < data[0].Count; i++)
+                            {
+                                records.Add(new ItemSaleRecord(int.Parse(data[0][i]), int.Parse(data[1][i]), double.Parse(data[2][i]), int.Parse(data[3][i]), data[4][i]));
+                            }
+
+                            break;
                     }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Could not read database data. Did the query return NULL values?");
+                }
 
-                    break;
-
-                case DatabaseTable.Receipt:
-                    for (int i = 0; i < data[0].Count; i++)
-                    {
-                        records.Add(new ReceiptRecord(int.Parse(data[0][i]), DateTime.Parse(data[1][i])));
-                    }
-
-                    break;
-
-                case DatabaseTable.ItemSale:
-                    for (int i = 0; i < data[0].Count; i++)
-                    {
-                        records.Add(new ItemSaleRecord(int.Parse(data[0][i]), int.Parse(data[1][i]), double.Parse(data[2][i]), int.Parse(data[3][i]), data[4][i]));
-                    }
-
-                    break;
-
-            }
+        }
 
             return records;
         }

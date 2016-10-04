@@ -58,6 +58,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="cs\ClientConnection.cs" />
+    <Compile Include="screens\InventoryPredict.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="screens\InventoryPredict.Designer.cs">
+      <DependentUpon>InventoryPredict.cs</DependentUpon>
+    </Compile>
     <Compile Include="UnitTests.cs" />
     <Compile Include="cs\View.cs" />
     <Compile Include="Main.cs">
@@ -130,6 +136,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="screens\InventoryPredict.resx">
+      <DependentUpon>InventoryPredict.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="screens\InventoryDelete.resx">
       <DependentUpon>InventoryDelete.cs</DependentUpon>
     </EmbeddedResource>

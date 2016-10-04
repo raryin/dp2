@@ -35,6 +35,10 @@
             this.tb_report = new System.Windows.Forms.ToolStripTextBox();
             this.tb_help = new System.Windows.Forms.ToolStripTextBox();
             this.dg_data = new System.Windows.Forms.DataGridView();
+            this.btn_new = new System.Windows.Forms.Button();
+            this.btn_edit = new System.Windows.Forms.Button();
+            this.btn_delete = new System.Windows.Forms.Button();
+            this.btn_refresh = new System.Windows.Forms.Button();
             this.clm_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clm_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clm_cost = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -42,10 +46,7 @@
             this.clm_qty = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clm_add = new System.Windows.Forms.DataGridViewButtonColumn();
             this.clm_delete = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.btn_new = new System.Windows.Forms.Button();
-            this.btn_edit = new System.Windows.Forms.Button();
-            this.btn_delete = new System.Windows.Forms.Button();
-            this.btn_refresh = new System.Windows.Forms.Button();
+            this.clm_predict = new System.Windows.Forms.DataGridViewButtonColumn();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dg_data)).BeginInit();
             this.SuspendLayout();
@@ -112,12 +113,57 @@
             this.clm_sale,
             this.clm_qty,
             this.clm_add,
-            this.clm_delete});
+            this.clm_delete,
+            this.clm_predict});
             this.dg_data.Location = new System.Drawing.Point(79, 172);
             this.dg_data.Name = "dg_data";
             this.dg_data.Size = new System.Drawing.Size(777, 428);
             this.dg_data.TabIndex = 3;
             this.dg_data.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dg_data_CellContentClick_1);
+            // 
+            // btn_new
+            // 
+            this.btn_new.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_new.Location = new System.Drawing.Point(207, 113);
+            this.btn_new.Name = "btn_new";
+            this.btn_new.Size = new System.Drawing.Size(114, 38);
+            this.btn_new.TabIndex = 4;
+            this.btn_new.Text = "New Item";
+            this.btn_new.UseVisualStyleBackColor = true;
+            this.btn_new.Click += new System.EventHandler(this.btn_new_Click);
+            // 
+            // btn_edit
+            // 
+            this.btn_edit.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_edit.Location = new System.Drawing.Point(344, 113);
+            this.btn_edit.Name = "btn_edit";
+            this.btn_edit.Size = new System.Drawing.Size(114, 38);
+            this.btn_edit.TabIndex = 5;
+            this.btn_edit.Text = "Edit Item";
+            this.btn_edit.UseVisualStyleBackColor = true;
+            this.btn_edit.Click += new System.EventHandler(this.btn_edit_Click);
+            // 
+            // btn_delete
+            // 
+            this.btn_delete.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_delete.Location = new System.Drawing.Point(479, 113);
+            this.btn_delete.Name = "btn_delete";
+            this.btn_delete.Size = new System.Drawing.Size(114, 38);
+            this.btn_delete.TabIndex = 6;
+            this.btn_delete.Text = "Delete Item";
+            this.btn_delete.UseVisualStyleBackColor = true;
+            this.btn_delete.Click += new System.EventHandler(this.btn_delete_Click);
+            // 
+            // btn_refresh
+            // 
+            this.btn_refresh.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_refresh.Location = new System.Drawing.Point(619, 113);
+            this.btn_refresh.Name = "btn_refresh";
+            this.btn_refresh.Size = new System.Drawing.Size(114, 38);
+            this.btn_refresh.TabIndex = 7;
+            this.btn_refresh.Text = "Refresh";
+            this.btn_refresh.UseVisualStyleBackColor = true;
+            this.btn_refresh.Click += new System.EventHandler(this.btn_refresh_Click);
             // 
             // clm_id
             // 
@@ -176,49 +222,12 @@
             this.clm_delete.ReadOnly = true;
             this.clm_delete.Width = 5;
             // 
-            // btn_new
+            // clm_predict
             // 
-            this.btn_new.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_new.Location = new System.Drawing.Point(207, 113);
-            this.btn_new.Name = "btn_new";
-            this.btn_new.Size = new System.Drawing.Size(114, 38);
-            this.btn_new.TabIndex = 4;
-            this.btn_new.Text = "New Item";
-            this.btn_new.UseVisualStyleBackColor = true;
-            this.btn_new.Click += new System.EventHandler(this.btn_new_Click);
-            // 
-            // btn_edit
-            // 
-            this.btn_edit.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_edit.Location = new System.Drawing.Point(344, 113);
-            this.btn_edit.Name = "btn_edit";
-            this.btn_edit.Size = new System.Drawing.Size(114, 38);
-            this.btn_edit.TabIndex = 5;
-            this.btn_edit.Text = "Edit Item";
-            this.btn_edit.UseVisualStyleBackColor = true;
-            this.btn_edit.Click += new System.EventHandler(this.btn_edit_Click);
-            // 
-            // btn_delete
-            // 
-            this.btn_delete.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_delete.Location = new System.Drawing.Point(479, 113);
-            this.btn_delete.Name = "btn_delete";
-            this.btn_delete.Size = new System.Drawing.Size(114, 38);
-            this.btn_delete.TabIndex = 6;
-            this.btn_delete.Text = "Delete Item";
-            this.btn_delete.UseVisualStyleBackColor = true;
-            this.btn_delete.Click += new System.EventHandler(this.btn_delete_Click);
-            // 
-            // btn_refresh
-            // 
-            this.btn_refresh.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_refresh.Location = new System.Drawing.Point(619, 113);
-            this.btn_refresh.Name = "btn_refresh";
-            this.btn_refresh.Size = new System.Drawing.Size(114, 38);
-            this.btn_refresh.TabIndex = 7;
-            this.btn_refresh.Text = "Refresh";
-            this.btn_refresh.UseVisualStyleBackColor = true;
-            this.btn_refresh.Click += new System.EventHandler(this.btn_refresh_Click);
+            this.clm_predict.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.clm_predict.HeaderText = "";
+            this.clm_predict.Name = "clm_predict";
+            this.clm_predict.Width = 5;
             // 
             // Inventory
             // 
@@ -252,6 +261,10 @@
         private System.Windows.Forms.ToolStripTextBox tb_report;
         private System.Windows.Forms.ToolStripTextBox tb_help;
         private System.Windows.Forms.DataGridView dg_data;
+        private System.Windows.Forms.Button btn_new;
+        private System.Windows.Forms.Button btn_edit;
+        private System.Windows.Forms.Button btn_delete;
+        private System.Windows.Forms.Button btn_refresh;
         private System.Windows.Forms.DataGridViewTextBoxColumn clm_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn clm_name;
         private System.Windows.Forms.DataGridViewTextBoxColumn clm_cost;
@@ -259,9 +272,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn clm_qty;
         private System.Windows.Forms.DataGridViewButtonColumn clm_add;
         private System.Windows.Forms.DataGridViewButtonColumn clm_delete;
-        private System.Windows.Forms.Button btn_new;
-        private System.Windows.Forms.Button btn_edit;
-        private System.Windows.Forms.Button btn_delete;
-        private System.Windows.Forms.Button btn_refresh;
+        private System.Windows.Forms.DataGridViewButtonColumn clm_predict;
     }
 }

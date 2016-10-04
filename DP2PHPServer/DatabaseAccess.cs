@@ -401,7 +401,7 @@ namespace DP2PHPServer
                         }
 
                         break;
-                        
+
                     case DatabaseTable.Receipt:
                         //Create a list to store the result
                         list = new List<string>[2];
@@ -462,6 +462,104 @@ namespace DP2PHPServer
             return records;
         }
 
+        /// <summary>
+        /// Predicts the next month of sales by getting the total sales and the date of the first
+        /// sale. This calculates the average sales per day, which is used to estimate the sales over
+        /// the next 30 days.
+        /// </summary>
+        /// <param name="ItemIDs">List of item ids to check.</param>
+        /// <returns>The estimates list of sales. Returns empty list if failed.</returns>
+        public List<double> PredictSales(List<int> ItemIDs)
+        {
+            List<double> returnDict = new List<double>();
+
+            foreach (int i in ItemIDs)
+            {
+                double salesPerDay = 0;
+                int totalSales = 0;
+                int daysSinceFirstSale = 0;
+                
+                totalSales = GetTotalSales(i);
+                daysSinceFirstSale = GetDaysSinceFirstSale(i);
+
+                if (totalSales == -1)
+                {
+                    Console.WriteLine("Could not predict sales. Could not get total sales.");
+                    break;
+                }
+
+                //Calculate average sales per day
+                salesPerDay = (double)totalSales / (double)daysSinceFirstSale;
+
+                //Predict next month of sales by salesPerDay * 30.
+                returnDict.Add(salesPerDay * 30);
+
+                Console.WriteLine("Predicting {0} as {1}", i, salesPerDay * 30);
+            }
+
+            return returnDict;
+        }
+
+        /// <summary>
+        /// Gets the total sales for the item provided. Gets from the ItemSale table.
+        /// </summary>
+        /// <param name="ItemID">Item to check.</param>
+        /// <returns>The total number of recorded quantity sold. Returns -1 if failed.</returns>
+        private int GetTotalSales(int ItemID)
+        {
+            //Requests a list of Receipt Records that includes the specified stock item. Sorted by oldest to newest.
+            List<Record> returnQuery = RunQueryCommand(DatabaseTable.ItemSale, "SELECT ItemSale.SaleID, ItemSale.StockID, ItemSale.PriceSold, SUM(ItemSale.Quantity) AS Quantity, Stock.StockName FROM ItemSale INNER JOIN Stock ON ItemSale.StockID=Stock.StockID WHERE ItemSale.StockID=" + ItemID);
+
+            if (returnQuery.Count != 0)
+            {
+                Console.WriteLine("Total sales of {0} is {1}", ItemID, ((ItemSaleRecord)returnQuery[0]).Quantity);
+
+                //Returns the date of the first record in the list.
+                return ((ItemSaleRecord)returnQuery[0]).Quantity;
+            }
+
+            Console.WriteLine("Could not get Date/Time data.");
+            return -1;
+    }
+
+        /// <summary>
+        /// Gets the date of the first recorded item sale and subtracts it from now to
+        /// determine the total days since first sale.
+        /// </summary>
+        /// <param name="ItemID">The ID to check</param>
+        /// <returns>Days since first sale.</returns>
+        private int GetDaysSinceFirstSale(int ItemID)
+        {
+            //Use Timespan to calculate the days since first sale.
+            TimeSpan span = DateTime.Now.Subtract(GetFirstSale(ItemID));
+
+            Console.WriteLine("{0} sold between {1}", ItemID, span.Days);
+
+            return span.Days;
+        }
+
+        /// <summary>
+        /// Gets the DateTime of the first sale recorded.
+        /// </summary>
+        /// <param name="ItemID">Item to check</param>
+        /// <returns>The first date recorded, returns 0 if failed.</returns>
+        private DateTime GetFirstSale(int ItemID)
+        {
+            //Requests a list of Receipt Records that includes the specified stock item. Sorted by oldest to newest.
+            List<Record> returnQuery = RunQueryCommand(DatabaseTable.Receipt, "SELECT ItemSale.SaleID, Receipt.Date, ItemSale.StockID FROM ItemSale INNER JOIN Receipt ON ItemSale.SaleID = Receipt.SaleID WHERE ItemSale.StockID = " + ItemID + " ORDER BY Receipt.Date ASC");
+
+            if (returnQuery.Count != 0)
+            {
+                Console.WriteLine("First {0} sold on {1}", ItemID, ((ReceiptRecord)returnQuery[0]).Date);
+
+                //Returns the date of the first record in the list.
+                return ((ReceiptRecord)returnQuery[0]).Date;
+            }
+
+            Console.WriteLine("Could not get Date/Time data.");
+            return new DateTime(0);
+        }
+        
         /// <summary>
         /// Count statement. Currently unused.
         /// </summary>
