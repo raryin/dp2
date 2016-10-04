@@ -15,12 +15,15 @@ namespace DP2PHPClient.screens
         ClientConnectionManager _connection;
 
         List<ReceiptRecord> records = new List<ReceiptRecord>();
+        List<StockRecord> _stockrecords = new List<StockRecord>();
 
         public Sales(ClientConnectionManager connection)
         {
             InitializeComponent();
 
             _connection = connection;
+
+            _stockrecords = _connection.RequestStockInfo(-1);
 
             UpdateList();
         }
@@ -70,6 +73,7 @@ namespace DP2PHPClient.screens
                         new screens.SalesView(_connection, records[e.RowIndex].SaleID, records[e.RowIndex].Date).Show();
                         break;
                     case 3: //Edit
+                        break;
                     case 4: //Delete
                         _connection.DeleteReceipt(records[e.RowIndex].SaleID);
                         break;
@@ -93,7 +97,7 @@ namespace DP2PHPClient.screens
 
         private void btn_debug_Click(object sender, EventArgs e)
         {
-
+            new screens.SalesAdd(_connection, _stockrecords).Show();
         }
     }
 }

@@ -481,9 +481,31 @@ namespace DP2PHPClient
 		}
 		
 		public double PredictNextMonthProfit(List<int> StockID)
-		{
-			return 0.0; //force fail for test case until implementation complete
-		}
+        {
+            List<double> temp = new List<double>();
+
+            double totalSales = 0;
+
+            //Send a request for Receipt records, expecting a list of records.
+            if ((temp = _connection.SendReceiveObject<List<int>, List<double>>("PredictProfit", "ReturnPredictProfit", 10000, StockID)) == null)
+            {
+                View.ErrorNotify("Data could not be selected from the database.\n Check the server for further details.",
+                "Database Error");
+            }
+            //The server has failed to retrieve the stock in the database.
+            else if (temp.Count == 0)
+            {
+                View.ErrorNotify("Data could not be selected from the database.\n Check the server for further details.",
+                "Database Error");
+            }
+            else
+            {
+                foreach (double d in temp)
+                    totalSales += d;
+            }
+
+            return totalSales;
+        }
 
     }
 }

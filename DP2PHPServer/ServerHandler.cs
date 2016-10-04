@@ -40,6 +40,7 @@ namespace DP2PHPServer
             NetworkComms.AppendGlobalIncomingPacketHandler<int>("GetFullReceipt", GetFullReceipt);
             NetworkComms.AppendGlobalIncomingPacketHandler<int>("DeleteReceiptRecord", DeleteReceipt);
             NetworkComms.AppendGlobalIncomingPacketHandler<List<int>>("PredictSales", PredictSales);
+            NetworkComms.AppendGlobalIncomingPacketHandler<List<int>>("PredictProfit", PredictProfit);
 
             //Start listening for incoming connections
             Connection.StartListening(ConnectionType.TCP, new System.Net.IPEndPoint(address, port));
@@ -304,6 +305,22 @@ namespace DP2PHPServer
                 Console.WriteLine("Failed.");
 
             connection.SendObject("ReturnPredictSales", records);
+            Console.WriteLine("Done");
+
+        }
+
+        private static void PredictProfit(PacketHeader header, Connection connection, List<int> IDs)
+        {
+            List<double> records = new List<double>();
+            Console.WriteLine("\nPredicting profits of: " + IDs.Count + " items for connection: " + connection.ToString() + "'.");
+
+            DatabaseAccess dbconnect = new DatabaseAccess();
+            if ((records = dbconnect.PredictSales(IDs)).Count != 0)
+                Console.WriteLine("Success in predictions.");
+            else
+                Console.WriteLine("Failed.");
+
+            connection.SendObject("ReturnPredictProfit", records);
             Console.WriteLine("Done");
 
         }

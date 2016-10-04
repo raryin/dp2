@@ -213,7 +213,7 @@
             // btn_refresh
             // 
             this.btn_refresh.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_refresh.Location = new System.Drawing.Point(438, 105);
+            this.btn_refresh.Location = new System.Drawing.Point(364, 105);
             this.btn_refresh.Name = "btn_refresh";
             this.btn_refresh.Size = new System.Drawing.Size(74, 31);
             this.btn_refresh.TabIndex = 9;
@@ -224,11 +224,11 @@
             // btn_debug
             // 
             this.btn_debug.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_debug.Location = new System.Drawing.Point(835, 40);
+            this.btn_debug.Location = new System.Drawing.Point(502, 105);
             this.btn_debug.Name = "btn_debug";
-            this.btn_debug.Size = new System.Drawing.Size(74, 31);
+            this.btn_debug.Size = new System.Drawing.Size(137, 31);
             this.btn_debug.TabIndex = 10;
-            this.btn_debug.Text = "Debug";
+            this.btn_debug.Text = "Add new sale";
             this.btn_debug.UseVisualStyleBackColor = true;
             this.btn_debug.Click += new System.EventHandler(this.btn_debug_Click);
             // 

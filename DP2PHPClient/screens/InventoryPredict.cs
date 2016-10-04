@@ -44,11 +44,17 @@ namespace DP2PHPClient.screens
             IDs.Add(_items[selected].StockID);
 
             txt_sales.Text = PredictSales(IDs).ToString();
+            txt_profits.Text = PredictProfit(IDs).ToString();
         }
 
         private double PredictSales(List<int> IDs)
         {
             return _connection.PredictNextMonthSales(IDs);
+        }
+
+        private double PredictProfit(List<int> IDs)
+        {
+            return _connection.PredictNextMonthProfit(IDs);
         }
 
         private void btn_edit_Click(object sender, EventArgs e)

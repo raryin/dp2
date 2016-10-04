@@ -31,3 +31,4 @@ C:\Users\James\Desktop\PHPGit\DP2PHPClient\obj\Debug\DP2PHPClient.screens.Invent
 C:\Users\James\Desktop\PHPGit\DP2PHPClient\obj\Debug\DP2PHPClient.screens.InventoryDelete.resources
 C:\Users\James\Desktop\PHPGit\DP2PHPClient\obj\Debug\DP2PHPClient.screens.InventoryQuantityDel.resources
 C:\Users\James\Desktop\PHPGit\DP2PHPClient\obj\Debug\DP2PHPClient.screens.InventoryPredict.resources
+C:\Users\James\Desktop\PHPGit\DP2PHPClient\obj\Debug\DP2PHPClient.screens.SalesAdd.resources

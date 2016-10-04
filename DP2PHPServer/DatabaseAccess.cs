@@ -501,6 +501,44 @@ namespace DP2PHPServer
         }
 
         /// <summary>
+        /// Predicts the next month of sales by getting the total sales and the date of the first
+        /// sale. This calculates the average sales per day, which is used to estimate the sales over
+        /// the next 30 days.
+        /// </summary>
+        /// <param name="ItemIDs">List of item ids to check.</param>
+        /// <returns>The estimates list of sales. Returns empty list if failed.</returns>
+        public List<double> PredictProfits(List<int> ItemIDs)
+        {
+            List<double> returnDict = new List<double>();
+
+            foreach (int i in ItemIDs)
+            {
+                double salesPerDay = 0;
+                double priceSum = 0;
+                int daysSinceFirstSale = 0;
+
+                priceSum = GetTotalSalePrice(i);
+                daysSinceFirstSale = GetDaysSinceFirstSale(i);
+
+                if (priceSum == -1)
+                {
+                    Console.WriteLine("Could not predict profits. Could not get price sum.");
+                    break;
+                }
+
+                //Calculate average sales per day
+                salesPerDay = (double)priceSum / (double)daysSinceFirstSale;
+
+                //Predict next month of sales by salesPerDay * 30.
+                returnDict.Add(salesPerDay * 30);
+
+                Console.WriteLine("Predicting {0} as {1}", i, salesPerDay * 30);
+            }
+
+            return returnDict;
+        }
+
+        /// <summary>
         /// Gets the total sales for the item provided. Gets from the ItemSale table.
         /// </summary>
         /// <param name="ItemID">Item to check.</param>
@@ -514,13 +552,35 @@ namespace DP2PHPServer
             {
                 Console.WriteLine("Total sales of {0} is {1}", ItemID, ((ItemSaleRecord)returnQuery[0]).Quantity);
 
-                //Returns the date of the first record in the list.
+                //Returns total sales of the item.
                 return ((ItemSaleRecord)returnQuery[0]).Quantity;
             }
 
-            Console.WriteLine("Could not get Date/Time data.");
+            Console.WriteLine("Could not get sales data.");
             return -1;
-    }
+        }
+
+        /// <summary>
+        /// Gets the total selling price for the item provided. Gets from the ItemSale table.
+        /// </summary>
+        /// <param name="ItemID">Item to check.</param>
+        /// <returns>The sum of sale prices. Returns -1 if failed.</returns>
+        private double GetTotalSalePrice(int ItemID)
+        {
+            //Requests a list of Receipt Records that includes the specified stock item. Sorted by oldest to newest.
+            List<Record> returnQuery = RunQueryCommand(DatabaseTable.ItemSale, "SELECT ItemSale.SaleID, ItemSale.StockID, SUM(ItemSale.PriceSold) AS PriceSold, ItemSale.Quantity, Stock.StockName FROM ItemSale INNER JOIN Stock ON ItemSale.StockID=Stock.StockID WHERE ItemSale.StockID=" + ItemID);
+
+            if (returnQuery.Count != 0)
+            {
+                Console.WriteLine("Total sales of {0} is {1}", ItemID, ((ItemSaleRecord)returnQuery[0]).Quantity);
+
+                //Returns total sales of the item.
+                return ((ItemSaleRecord)returnQuery[0]).PriceSold;
+            }
+
+            Console.WriteLine("Could not get sale price data.");
+            return -1;
+        }
 
         /// <summary>
         /// Gets the date of the first recorded item sale and subtracts it from now to

@@ -64,6 +64,12 @@
     <Compile Include="screens\InventoryPredict.Designer.cs">
       <DependentUpon>InventoryPredict.cs</DependentUpon>
     </Compile>
+    <Compile Include="screens\SalesAdd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="screens\SalesAdd.Designer.cs">
+      <DependentUpon>SalesAdd.cs</DependentUpon>
+    </Compile>
     <Compile Include="UnitTests.cs" />
     <Compile Include="cs\View.cs" />
     <Compile Include="Main.cs">
@@ -159,6 +165,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="screens\InventoryNew.resx">
       <DependentUpon>InventoryNew.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="screens\SalesAdd.resx">
+      <DependentUpon>SalesAdd.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="screens\SalesView.resx">
       <DependentUpon>SalesView.cs</DependentUpon>
