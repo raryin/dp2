@@ -12,51 +12,15 @@ namespace DP2PHPClient.screens
 {
     public partial class Sales : Form
     {
-        ClientConnectionManager _connection;
+        private Model _model;
 
-        List<ReceiptRecord> records = new List<ReceiptRecord>();
-        List<StockRecord> _stockrecords = new List<StockRecord>();
-
-        public Sales(ClientConnectionManager connection)
+        public Sales(Model model)
         {
             InitializeComponent();
 
-            _connection = connection;
+            _model = model;
 
-            _stockrecords = _connection.RequestStockInfo(-1);
-
-            UpdateList();
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void UpdateList()
-        {
-            //Request full receipt list
-            List<Record> temp = _connection.RequestReceiptInfo();
-            //Since it is received as a generic "Records" list, must be converted to "Receipts" list.
-            records.Clear();
-            if (temp != null)
-            {
-                foreach (Record r in temp)
-                    records.Add((ReceiptRecord)r);
-            }
-
-            //Dummy string array to hold rows of records
-            string[] row = null;
-
-            //First clear the grid
-            dg_data.Rows.Clear();
-
-            //Insert each entry from the database into the grid.
-            foreach (ReceiptRecord r in records)
-            {
-                row = new string[] { r.SaleID.ToString(), r.Date.ToString(), "View", "Edit", "Delete" };
-                dg_data.Rows.Add(row);
-            }
+            _model.RefreshReceiptList(dg_data);
         }
 
         private void dg_data_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
@@ -70,12 +34,13 @@ namespace DP2PHPClient.screens
                     case 2: //View
                         //Pass the ID to view and the date of the sale.
                         //The date is passed so the database doesn't need to retrieve it again.
-                        new screens.SalesView(_connection, records[e.RowIndex].SaleID, records[e.RowIndex].Date).Show();
+                        _model.OpenScreen(new SalesView(_model, e.RowIndex));
                         break;
                     case 3: //Edit
+                        //Not implemented
                         break;
                     case 4: //Delete
-                        _connection.DeleteReceipt(records[e.RowIndex].SaleID);
+                        _model.DeleteReceipt(e.RowIndex);
                         break;
                     default:
                         break;
@@ -86,18 +51,18 @@ namespace DP2PHPClient.screens
 
         private void tb_inventory_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            new screens.Inventory(_connection).Show();
+            _model.UpdateScreen(new screens.Inventory(_model));
         }
 
         private void btn_refresh_Click(object sender, EventArgs e)
         {
-            UpdateList();
+            _model.UpdateStoredReceipts();
+            _model.RefreshReceiptList(dg_data);
         }
 
         private void btn_debug_Click(object sender, EventArgs e)
         {
-            new screens.SalesAdd(_connection, _stockrecords).Show();
+            _model.OpenScreen(new screens.SalesAdd(_model));
         }
     }
 }

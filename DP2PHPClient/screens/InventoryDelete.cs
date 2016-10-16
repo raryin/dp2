@@ -12,35 +12,32 @@ namespace DP2PHPClient.screens
 {
     public partial class InventoryDelete : Form
     {
-        ClientConnectionManager _connection;
-        List<StockRecord> _items;
+        Model _model;
 
-        public InventoryDelete(ClientConnectionManager connection, List<StockRecord> items)
+        public InventoryDelete(Model model)
         {
             InitializeComponent();
-            _connection = connection;
-            _items = items;
 
-            foreach (StockRecord s in _items)
-                cmb_name.Items.Add(s.StockName);
+            _model = model;
+
+            _model.PopulateComboBox(cmb_name);
         }
         
-        public InventoryDelete(ClientConnectionManager connection, List<StockRecord> items, int selected)
+        public InventoryDelete(Model model, int selected)
         {
             InitializeComponent();
-            _connection = connection;
-            _items = items;
 
-            foreach (StockRecord s in _items)
-                cmb_name.Items.Add(s.StockName);
+            _model = model;
 
-            if ((selected >= 0) && (selected < _items.Count))
+            _model.PopulateComboBox(cmb_name);
+
+            if ((selected >= 0) && (selected < cmb_name.Items.Count))
                 cmb_name.SelectedItem = selected;
         }
 
         private void btn_edit_Click(object sender, EventArgs e)
         {
-            _connection.DeleteStock(_items[cmb_name.SelectedIndex].StockID);
+            _model.DeleteStock(cmb_name.SelectedIndex);
             this.Close();
         }
 

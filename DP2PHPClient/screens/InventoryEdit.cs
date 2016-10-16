@@ -12,44 +12,36 @@ namespace DP2PHPClient.screens
 {
     public partial class InventoryEdit : Form
     {
-        ClientConnectionManager _connection;
-        List<StockRecord> _items;
+        Model _model;
 
-        public InventoryEdit(ClientConnectionManager connection, List<StockRecord> items)
+        public InventoryEdit(Model model)
         {
             InitializeComponent();
-            _connection = connection;
-            _items = items;
 
-            foreach (StockRecord s in _items)
-                cmb_name.Items.Add(s.StockName);
+            _model = model;
+
+            _model.PopulateComboBox(cmb_name);
         }
 
-        public InventoryEdit(ClientConnectionManager connection, List<StockRecord> items, int selected)
+        public InventoryEdit(Model model, int selected)
         {
             InitializeComponent();
-            _connection = connection;
-            _items = items;
+
+            _model = model;
+
+            _model.PopulateComboBox(cmb_name);
 
             cmb_name.Enabled = false;
 
-            foreach (StockRecord s in _items)
-                cmb_name.Items.Add(s.StockName);
-
-            if ((selected >= 0) && (selected < _items.Count))
+            if ((selected >= 0) && (selected < cmb_name.Items.Count))
                 cmb_name.SelectedIndex = selected;
         }
 
         private void btn_edit_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Item: " + cmb_name.SelectedItem + ", Text: " + cmb_name.SelectedText + ", Value: " + cmb_name.SelectedValue);
-            _connection.UpdateStock(new StockRecord(_items[cmb_name.SelectedIndex].StockID, cmb_name.Text, 0, 0, int.Parse(txt_qty.Text)));
+            _model.RefreshStockList(cmb_name.SelectedIndex, int.Parse(txt_qty.Text));
+
             this.Close();
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

@@ -15,7 +15,7 @@ namespace DP2PHPServer
     /// method to begin the program. Modified from the example at:
     /// http://www.networkcomms.net/how-to-create-a-client-server-application-in-minutes/
     /// </summary>
-    static class ServerHandler
+    static class ServerConnectionManager
     {
         /// <summary>
         /// Starts the server at the designated IP address and port. Also sets up all the required handlers
@@ -28,7 +28,6 @@ namespace DP2PHPServer
             //Trigger the method PrintIncomingMessage when a packet of type 'Message' (defined in the Client
             //is received. We expect the incoming object to be a string which we state explicitly by using
             //<string>.
-            NetworkComms.AppendGlobalIncomingPacketHandler<string>("Message", PrintIncomingMessage);
             NetworkComms.AppendGlobalIncomingPacketHandler<string>("Hello", NewIncomingConnection);
             NetworkComms.AppendGlobalIncomingPacketHandler<StockRecord>("InsertStockRecord", InsertStock);
             NetworkComms.AppendGlobalIncomingPacketHandler<int>("DeleteStockRecord", DeleteStock);
@@ -39,8 +38,8 @@ namespace DP2PHPServer
             NetworkComms.AppendGlobalIncomingPacketHandler<int>("GetAllReceipt", GetAllReceipt);
             NetworkComms.AppendGlobalIncomingPacketHandler<int>("GetFullReceipt", GetFullReceipt);
             NetworkComms.AppendGlobalIncomingPacketHandler<int>("DeleteReceiptRecord", DeleteReceipt);
-            NetworkComms.AppendGlobalIncomingPacketHandler<List<int>>("PredictSales", PredictSales);
-            NetworkComms.AppendGlobalIncomingPacketHandler<List<int>>("PredictProfit", PredictProfit);
+            NetworkComms.AppendGlobalIncomingPacketHandler<List<int>>("PredictSales", PredictNextMonthSales);
+            NetworkComms.AppendGlobalIncomingPacketHandler<List<int>>("PredictProfit", PredictNextMonthProfit);
 
             //Start listening for incoming connections
             Connection.StartListening(ConnectionType.TCP, new System.Net.IPEndPoint(address, port));
@@ -84,17 +83,6 @@ namespace DP2PHPServer
         private static void NewIncomingConnection(PacketHeader header, Connection connection, string message)
         {
             Console.WriteLine("\nA new connection detected from " + connection.ToString() + ".");
-        }
-
-        /// <summary>
-        /// Writes the provided message to the console window. Can be removed in future revisions.
-        /// </summary>
-        /// <param name="header">The packet header associated with the incoming message</param>
-        /// <param name="connection">The connection used by the incoming message</param>
-        /// <param name="message">The message to be printed to the console</param>
-        private static void PrintIncomingMessage(PacketHeader header, Connection connection, string message)
-        {
-            Console.WriteLine("\nA message was received from " + connection.ToString() + " which said '" + message + "'.");
         }
 
         /// <summary>
@@ -293,7 +281,7 @@ namespace DP2PHPServer
             Console.WriteLine("Done");
         }
 
-        private static void PredictSales(PacketHeader header, Connection connection, List<int> IDs)
+        private static void PredictNextMonthSales(PacketHeader header, Connection connection, List<int> IDs)
         {
             List<double> records = new List<double>();
             Console.WriteLine("\nPredicting sales of: " + IDs.Count + " items for connection: " + connection.ToString() + "'.");
@@ -309,7 +297,7 @@ namespace DP2PHPServer
 
         }
 
-        private static void PredictProfit(PacketHeader header, Connection connection, List<int> IDs)
+        private static void PredictNextMonthProfit(PacketHeader header, Connection connection, List<int> IDs)
         {
             List<double> records = new List<double>();
             Console.WriteLine("\nPredicting profits of: " + IDs.Count + " items for connection: " + connection.ToString() + "'.");

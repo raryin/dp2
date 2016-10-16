@@ -12,58 +12,33 @@ namespace DP2PHPClient.screens
 {
     public partial class InventoryPredict : Form
     {
-        ClientConnectionManager _connection;
-        List<StockRecord> _items;
+        Model _model;
 
-        public InventoryPredict(ClientConnectionManager connection, List<StockRecord> items)
+        public InventoryPredict(Model model)
         {
             InitializeComponent();
-            _connection = connection;
-            _items = items;
 
-            foreach (StockRecord s in _items)
-                cmb_name.Items.Add(s.StockName);
+            _model = model;
+
+            _model.PopulateComboBox(cmb_name);
         }
         
-        public InventoryPredict(ClientConnectionManager connection, List<StockRecord> items, int selected)
+        public InventoryPredict(Model model, int selected)
         {
             InitializeComponent();
-            _connection = connection;
-            _items = items;
 
-            List<int> IDs = new List<int>();
+            _model = model;
 
-            foreach (StockRecord s in _items)
-                cmb_name.Items.Add(s.StockName);
+            _model.PopulateComboBox(cmb_name);
 
-            if ((selected >= 0) && (selected < _items.Count))
+            if ((selected >= 0) && (selected < cmb_name.Items.Count))
                 cmb_name.SelectedIndex = selected;
 
             cmb_name.Enabled = false;
 
-            IDs.Add(_items[selected].StockID);
-
-            txt_sales.Text = PredictSales(IDs).ToString();
-            txt_profits.Text = PredictProfit(IDs).ToString();
+            txt_sales.Text = _model.PredictSales(cmb_name.SelectedIndex).ToString();
+            txt_profits.Text = _model.PredictProfit(cmb_name.SelectedIndex).ToString();
         }
 
-        private double PredictSales(List<int> IDs)
-        {
-            return _connection.PredictNextMonthSales(IDs);
-        }
-
-        private double PredictProfit(List<int> IDs)
-        {
-            return _connection.PredictNextMonthProfit(IDs);
-        }
-
-        private void btn_edit_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

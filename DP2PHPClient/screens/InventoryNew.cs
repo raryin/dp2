@@ -12,17 +12,19 @@ namespace DP2PHPClient.screens
 {
     public partial class InventoryNew : Form
     {
-        ClientConnectionManager _connection;
+        Model _model;
 
-        public InventoryNew(ClientConnectionManager connection)
+        public InventoryNew(Model model)
         {
             InitializeComponent();
-            _connection = connection;
+
+            _model = model;
         }
 
         private void btn_edit_Click(object sender, EventArgs e)
         {
-            _connection.InsertStock(txt_name.Text, double.Parse(txt_cost.Text), double.Parse(txt_sell.Text), int.Parse(txt_qty.Text));
+            _model.InsertStock(txt_name.Text, double.Parse(txt_cost.Text), double.Parse(txt_sell.Text), int.Parse(txt_qty.Text));
+
             this.Close();
         }
 

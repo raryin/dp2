@@ -186,7 +186,7 @@ namespace DP2PHPServer
     /// Handles all communication with the database. Currently send dummy messages back in liu
     /// of a database implementation.
     /// </summary>
-    class DataWrapper
+    class RecordParser
     {
         /// <summary>
         /// Converts from the format returned from the database into the Records format.

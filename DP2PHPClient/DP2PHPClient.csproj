@@ -57,7 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="cs\ClientConnection.cs" />
+    <Compile Include="cs\ClientConnectionManager.cs" />
     <Compile Include="screens\InventoryPredict.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -71,7 +71,7 @@
       <DependentUpon>SalesAdd.cs</DependentUpon>
     </Compile>
     <Compile Include="UnitTests.cs" />
-    <Compile Include="cs\View.cs" />
+    <Compile Include="cs\MessageManager.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>

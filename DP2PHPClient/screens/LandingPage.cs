@@ -12,36 +12,20 @@ namespace DP2PHPClient.screens
 {
     public partial class LandingPage : Form
     {
-        ClientConnectionManager _connection;
+        Model _model;
 
-        public LandingPage()
+        public LandingPage(Model model)
         {
             InitializeComponent();
 
-            btn_start.Enabled = false;
+            _model = model;
 
-            Connect();
-        }
-
-        private void Connect()
-        {
-            _connection = new ClientConnectionManager("127.0.0.1", 25565);
-
-            if (_connection.ConnectToServer())
-            {
-                lbl_connect.Text = "Connection successful.";
-                btn_start.Enabled = true;
-            }
-            else
-            {
-                lbl_connect.Text = "Connection failed.";
-            }
+            _model.ConnectToServer();
         }
 
         private void btn_start_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            new screens.Sales(_connection).Show();
+            _model.UpdateScreen(new screens.Sales(_model));
         }
 
     }

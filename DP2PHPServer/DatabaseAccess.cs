@@ -137,7 +137,6 @@ namespace DP2PHPServer
             return RunNonQueryCommand(query);
         }
         
-        //TODO: change to private
         /// <summary>
         /// Overload to insert data into the Receipt table. ID is automatically generated. Returns 0 if failed.
         /// </summary>
@@ -147,8 +146,7 @@ namespace DP2PHPServer
             //Calls InsertCommand. Generates the query. The database connection is opened by InsertCommand.
             return InsertCommand(DatabaseTable.Receipt, "VALUES()");
         }
-
-        //TODO: change to private
+        
         /// <summary>
         /// Overload to insert data into the ItemSale table. Returns 0 if failed.
         /// </summary>
@@ -448,7 +446,7 @@ namespace DP2PHPServer
                 this.CloseConnection();
 
                 //Convert to proper records
-                records = DataWrapper.ConvertToRecord(type, list);
+                records = RecordParser.ConvertToRecord(type, list);
 
                 Console.WriteLine("Fetching...");
 

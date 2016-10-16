@@ -12,33 +12,26 @@ namespace DP2PHPClient.screens
 {
     public partial class InventoryQuantityDel : Form
     {
-        ClientConnectionManager _connection;
-        List<StockRecord> _items;
+        Model _model;
 
-        public InventoryQuantityDel(ClientConnectionManager connection, List<StockRecord> items, int selected)
+        public InventoryQuantityDel(Model model, int selected)
         {
             InitializeComponent();
-            _connection = connection;
-            _items = items;
+
+            _model = model;
 
             cmb_name.Enabled = false;
 
-            foreach (StockRecord s in _items)
-                cmb_name.Items.Add(s.StockName);
+            _model.PopulateComboBox(cmb_name);
 
-            if ((selected >= 0) && (selected < _items.Count))
+            if ((selected >= 0) && (selected < cmb_name.Items.Count))
                 cmb_name.SelectedIndex = selected;
         }
 
         private void btn_edit_Click(object sender, EventArgs e)
         {
-            _connection.DecrementStock(new StockRecord(_items[cmb_name.SelectedIndex].StockID, cmb_name.Text, 0, 0, int.Parse(txt_qty.Text)));
+            _model.DecrementStock(cmb_name.SelectedIndex, int.Parse(txt_qty.Text));
             this.Close();
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

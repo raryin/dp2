@@ -51,7 +51,7 @@ namespace DP2PHPClient
             }
             catch (ConnectionSetupException exception)
             {
-                View.ErrorNotify("Failed to connect to server.\nPlease check connection details.", "Connection Error");
+                MessageManager.ErrorNotify("Failed to connect to server.\nPlease check connection details.", "Connection Error");
                 return false;
             }
 
@@ -74,7 +74,7 @@ namespace DP2PHPClient
                 }
                 catch (CommsSetupShutdownException exception)
                 {
-                    View.ErrorNotify("Failed to disconnect from server.\n Likly a connection issue.", "Connection Error");
+                    MessageManager.ErrorNotify("Failed to disconnect from server.\n Likly a connection issue.", "Connection Error");
                     return false;
                 }
             }
@@ -112,19 +112,19 @@ namespace DP2PHPClient
                 if (_connection.SendReceiveObject<StockRecord, bool>("InsertStockRecord", "ReturnInsertStockRecord", 10000,
                     new StockRecord(0, stockName, purchase, sell, qty)))
                 {
-                    View.SuccessNotify("Successfully added stock.", "Receipt successful");
+                    MessageManager.SuccessNotify("Successfully added stock.", "Receipt successful");
                     return true;
                 }
                 //The server has failed to insert the stock in the database.
                 else
                 {
-                    View.ErrorNotify("Data could not be added to the database.\n Check the server for further details.",
+                    MessageManager.ErrorNotify("Data could not be added to the database.\n Check the server for further details.",
                         "Database Error");
                 }
             }
             catch (ExpectedReturnTimeoutException exception)
             {
-                View.ErrorNotify("No confirmation recieved from server.\n Likly a connection issue, check the server status.",
+                MessageManager.ErrorNotify("No confirmation recieved from server.\n Likly a connection issue, check the server status.",
                     "Connection Error");
             }
 
@@ -146,19 +146,19 @@ namespace DP2PHPClient
                 //Send a request to insert stock, expecting a confirmation. Also writes the number of rows deleted to rows.
                 if ((rows = _connection.SendReceiveObject<int, int>("DeleteStockRecord", "ReturnDeleteStockRecord", 10000, stockID)) != 0)
                 {
-                    View.SuccessNotify("Successfully deleted " + rows + " rows.", "Delete successful");
+                    MessageManager.SuccessNotify("Successfully deleted " + rows + " rows.", "Delete successful");
                     return true;
                 }
                 //The server has failed to insert the stock in the database.
                 else
                 {
-                    View.ErrorNotify("Data could not be deleted from the database.\n Check the server for further details.",
+                    MessageManager.ErrorNotify("Data could not be deleted from the database.\n Check the server for further details.",
                         "Database Error");
                 }
             }
             catch (ExpectedReturnTimeoutException exception)
             {
-                View.ErrorNotify("No confirmation recieved from server.\n Likly a connection issue, check the server status.",
+                MessageManager.ErrorNotify("No confirmation recieved from server.\n Likly a connection issue, check the server status.",
                     "Connection Error");
             }
 
@@ -181,20 +181,20 @@ namespace DP2PHPClient
                 //Send a request to insert stock, expecting a confirmation. Also writes the number of rows deleted to rows.
                 if ((records = _connection.SendReceiveObject<int, List<StockRecord>>("SelectStockRecord", "ReturnSelectStockRecord", 10000, stockID)) == null)
                 {
-                    View.ErrorNotify("Data could not be selected from the database.\n Check the server for further details.",
+                    MessageManager.ErrorNotify("Data could not be selected from the database.\n Check the server for further details.",
                     "Database Error");
                 }
 
                 //The server has failed to insert the stock in the database.
                 else if (records.Count == 0)
                 {
-                    View.ErrorNotify("Data could not be selected from the database.\n Check the server for further details.",
+                    MessageManager.ErrorNotify("Data could not be selected from the database.\n Check the server for further details.",
                     "Database Error");
                 }
             }
             catch (ExpectedReturnTimeoutException exception)
             {
-                View.ErrorNotify("No confirmation recieved from server.\n Likly a connection issue, check the server status.",
+                MessageManager.ErrorNotify("No confirmation recieved from server.\n Likly a connection issue, check the server status.",
                     "Connection Error");
             }
 
@@ -216,19 +216,19 @@ namespace DP2PHPClient
                 //Send a request to update stock, expecting a confirmation. Also writes the number of rows updated to rows.
                 if ((rows = _connection.SendReceiveObject<StockRecord, int>("UpdateStockRecord", "ReturnUpdateStockRecord", 10000, record)) != 0)
                 {
-                    View.SuccessNotify("Successfully updated " + rows + " rows.", "Update successful");
+                    MessageManager.SuccessNotify("Successfully updated " + rows + " rows.", "Update successful");
                     return true;
                 }
                 //The server has failed to insert the stock in the database.
                 else
                 {
-                    View.ErrorNotify("Data could not be updated in the database.\n Check the server for further details.",
+                    MessageManager.ErrorNotify("Data could not be updated in the database.\n Check the server for further details.",
                         "Database Error");
                 }
             }
             catch (ExpectedReturnTimeoutException exception)
             {
-                View.ErrorNotify("No confirmation recieved from server.\n Likly a connection issue, check the server status.",
+                MessageManager.ErrorNotify("No confirmation recieved from server.\n Likly a connection issue, check the server status.",
                     "Connection Error");
             }
 
@@ -250,19 +250,19 @@ namespace DP2PHPClient
                 //Send a request to update stock, expecting a confirmation. Also writes the number of rows updated to rows.
                 if ((rows = _connection.SendReceiveObject<StockRecord, int>("DecrementStockRecord", "ReturnDecrementStockRecord", 10000, record)) != 0)
                 {
-                    View.SuccessNotify("Successfully decremented " + rows + " rows.", "Decrement successful");
+                    MessageManager.SuccessNotify("Successfully decremented " + rows + " rows.", "Decrement successful");
                     return true;
                 }
                 //The server has failed to insert the stock in the database.
                 else
                 {
-                    View.ErrorNotify("Data could not be updated in the database.\n Check the server for further details.",
+                    MessageManager.ErrorNotify("Data could not be updated in the database.\n Check the server for further details.",
                         "Database Error");
                 }
             }
             catch (ExpectedReturnTimeoutException exception)
             {
-                View.ErrorNotify("No confirmation recieved from server.\n Likly a connection issue, check the server status.",
+                MessageManager.ErrorNotify("No confirmation recieved from server.\n Likly a connection issue, check the server status.",
                     "Connection Error");
             }
 
@@ -282,19 +282,19 @@ namespace DP2PHPClient
                 //Send a request to insert stock, expecting a confirmation.
                 if (_connection.SendReceiveObject<List<ItemSaleRecord>, bool>("InsertReceiptRecord", "ReturnInsertReceiptRecord", 10000, records))
                 {
-                    View.SuccessNotify("Successfully added receipt.", "Receipt successful");
+                    MessageManager.SuccessNotify("Successfully added receipt.", "Receipt successful");
                     return true;
                 }
                 //The server has failed to insert the stock in the database.
                 else
                 {
-                    View.ErrorNotify("Data could not be added to the database.\n Check the server for further details.",
+                    MessageManager.ErrorNotify("Data could not be added to the database.\n Check the server for further details.",
                         "Database Error");
                 }
             }
             catch (ExpectedReturnTimeoutException exception)
             {
-                View.ErrorNotify("No confirmation recieved from server.\n Likly a connection issue, check the server status.",
+                MessageManager.ErrorNotify("No confirmation recieved from server.\n Likly a connection issue, check the server status.",
                     "Connection Error");
             }
 
@@ -316,19 +316,19 @@ namespace DP2PHPClient
                 //Send a request to insert stock, expecting a confirmation. Also writes the number of rows deleted to rows.
                 if ((rows = _connection.SendReceiveObject<int, int>("DeleteReceiptRecord", "ReturnDeleteReceiptRecord", 10000, SaleID)) != 0)
                 {
-                    View.SuccessNotify("Successfully deleted " + rows + " rows.", "Delete successful");
+                    MessageManager.SuccessNotify("Successfully deleted " + rows + " rows.", "Delete successful");
                     return true;
                 }
                 //The server has failed to insert the stock in the database.
                 else
                 {
-                    View.ErrorNotify("Data could not be deleted from the database.\n Check the server for further details.",
+                    MessageManager.ErrorNotify("Data could not be deleted from the database.\n Check the server for further details.",
                         "Database Error");
                 }
             }
             catch (ExpectedReturnTimeoutException exception)
             {
-                View.ErrorNotify("No confirmation recieved from server.\n Likly a connection issue, check the server status.",
+                MessageManager.ErrorNotify("No confirmation recieved from server.\n Likly a connection issue, check the server status.",
                     "Connection Error");
             }
 
@@ -356,13 +356,13 @@ namespace DP2PHPClient
                     //Send a request for Receipt records, expecting a list of records.
                     if ((temp = _connection.SendReceiveObject<int, List<ReceiptRecord>>("GetAllReceipt", "ReturnGetAllReceipt", 10000, SaleID)) == null)
                     {
-                        View.ErrorNotify("Data could not be selected from the database.\n Check the server for further details.",
+                        MessageManager.ErrorNotify("Data could not be selected from the database.\n Check the server for further details.",
                         "Database Error");
                     }
                     //The server has failed to retrieve the stock in the database.
                     else if (temp.Count == 0)
                     {
-                        View.ErrorNotify("Data could not be selected from the database.\n Check the server for further details.",
+                        MessageManager.ErrorNotify("Data could not be selected from the database.\n Check the server for further details.",
                         "Database Error");
                     }
                     else
@@ -380,13 +380,13 @@ namespace DP2PHPClient
                     //Send a request for Receipt records, expecting a list of records.
                     if ((temp = _connection.SendReceiveObject<int, List<ItemSaleRecord>>("GetFullReceipt", "ReturnGetFullReceipt", 10000, SaleID)) == null)
                     {
-                        View.ErrorNotify("Data could not be selected from the database.\n Check the server for further details.",
+                        MessageManager.ErrorNotify("Data could not be selected from the database.\n Check the server for further details.",
                         "Database Error");
                     }
                     //The server has failed to retrieve the stock in the database.
                     else if (temp.Count == 0)
                     {
-                        View.ErrorNotify("Data could not be selected from the database.\n Check the server for further details.",
+                        MessageManager.ErrorNotify("Data could not be selected from the database.\n Check the server for further details.",
                         "Database Error");
                     }
                     else
@@ -400,7 +400,7 @@ namespace DP2PHPClient
             }
             catch (ExpectedReturnTimeoutException exception)
             {
-                View.ErrorNotify("No confirmation recieved from server.\n Likly a connection issue, check the server status.",
+                MessageManager.ErrorNotify("No confirmation recieved from server.\n Likly a connection issue, check the server status.",
                     "Connection Error");
             }
 
@@ -462,13 +462,13 @@ namespace DP2PHPClient
             //Send a request for Receipt records, expecting a list of records.
             if ((temp = _connection.SendReceiveObject<List<int>, List<double>>("PredictSales", "ReturnPredictSales", 10000, StockID)) == null)
             {
-                View.ErrorNotify("Data could not be selected from the database.\n Check the server for further details.",
+                MessageManager.ErrorNotify("Data could not be selected from the database.\n Check the server for further details.",
                 "Database Error");
             }
             //The server has failed to retrieve the stock in the database.
             else if (temp.Count == 0)
             {
-                View.ErrorNotify("Data could not be selected from the database.\n Check the server for further details.",
+                MessageManager.ErrorNotify("Data could not be selected from the database.\n Check the server for further details.",
                 "Database Error");
             }
             else
@@ -489,13 +489,13 @@ namespace DP2PHPClient
             //Send a request for Receipt records, expecting a list of records.
             if ((temp = _connection.SendReceiveObject<List<int>, List<double>>("PredictProfit", "ReturnPredictProfit", 10000, StockID)) == null)
             {
-                View.ErrorNotify("Data could not be selected from the database.\n Check the server for further details.",
+                MessageManager.ErrorNotify("Data could not be selected from the database.\n Check the server for further details.",
                 "Database Error");
             }
             //The server has failed to retrieve the stock in the database.
             else if (temp.Count == 0)
             {
-                View.ErrorNotify("Data could not be selected from the database.\n Check the server for further details.",
+                MessageManager.ErrorNotify("Data could not be selected from the database.\n Check the server for further details.",
                 "Database Error");
             }
             else

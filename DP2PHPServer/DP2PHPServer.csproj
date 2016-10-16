@@ -52,10 +52,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DatabaseAccess.cs" />
-    <Compile Include="DataWrapper.cs" />
+    <Compile Include="RecordParser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServerHandler.cs" />
+    <Compile Include="ServerConnectionManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

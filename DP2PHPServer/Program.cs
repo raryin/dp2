@@ -14,13 +14,13 @@ namespace DP2PHPServer
 
             dbconnect.DeleteStock(((StockRecord)dbconnect.Select(DatabaseTable.Stock, -1)[0]).StockID);
 
-            ServerHandler.CreateServer(System.Net.IPAddress.Any, 25565);
+            ServerConnectionManager.CreateServer(System.Net.IPAddress.Any, 25565);
 
             //Let the user close the server
             Console.WriteLine("\nPress any key to close server.");
             Console.ReadKey(true);
 
-            ServerHandler.EndServer();
+            ServerConnectionManager.EndServer();
         }
 
     }

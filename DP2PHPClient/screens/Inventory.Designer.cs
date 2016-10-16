@@ -34,11 +34,7 @@
             this.tb_sales = new System.Windows.Forms.ToolStripTextBox();
             this.tb_report = new System.Windows.Forms.ToolStripTextBox();
             this.tb_help = new System.Windows.Forms.ToolStripTextBox();
-            this.dg_data = new System.Windows.Forms.DataGridView();
-            this.btn_new = new System.Windows.Forms.Button();
-            this.btn_edit = new System.Windows.Forms.Button();
-            this.btn_delete = new System.Windows.Forms.Button();
-            this.btn_refresh = new System.Windows.Forms.Button();
+            this.dg_dataStock = new System.Windows.Forms.DataGridView();
             this.clm_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clm_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clm_cost = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -47,8 +43,12 @@
             this.clm_add = new System.Windows.Forms.DataGridViewButtonColumn();
             this.clm_delete = new System.Windows.Forms.DataGridViewButtonColumn();
             this.clm_predict = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.btn_new = new System.Windows.Forms.Button();
+            this.btn_edit = new System.Windows.Forms.Button();
+            this.btn_delete = new System.Windows.Forms.Button();
+            this.btn_refresh = new System.Windows.Forms.Button();
             this.toolStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dg_data)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dg_dataStock)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -102,11 +102,11 @@
             this.tb_help.Size = new System.Drawing.Size(100, 25);
             this.tb_help.Text = "Help";
             // 
-            // dg_data
+            // dg_dataStock
             // 
-            this.dg_data.AllowUserToAddRows = false;
-            this.dg_data.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dg_data.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dg_dataStock.AllowUserToAddRows = false;
+            this.dg_dataStock.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dg_dataStock.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.clm_id,
             this.clm_name,
             this.clm_cost,
@@ -115,11 +115,75 @@
             this.clm_add,
             this.clm_delete,
             this.clm_predict});
-            this.dg_data.Location = new System.Drawing.Point(79, 172);
-            this.dg_data.Name = "dg_data";
-            this.dg_data.Size = new System.Drawing.Size(777, 428);
-            this.dg_data.TabIndex = 3;
-            this.dg_data.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dg_data_CellContentClick_1);
+            this.dg_dataStock.Location = new System.Drawing.Point(79, 172);
+            this.dg_dataStock.Name = "dg_dataStock";
+            this.dg_dataStock.Size = new System.Drawing.Size(777, 428);
+            this.dg_dataStock.TabIndex = 3;
+            this.dg_dataStock.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dg_data_CellContentClick_1);
+            // 
+            // clm_id
+            // 
+            this.clm_id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.clm_id.HeaderText = "ID";
+            this.clm_id.Name = "clm_id";
+            this.clm_id.ReadOnly = true;
+            this.clm_id.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.clm_id.Width = 43;
+            // 
+            // clm_name
+            // 
+            this.clm_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.clm_name.HeaderText = "Product Name";
+            this.clm_name.Name = "clm_name";
+            this.clm_name.ReadOnly = true;
+            this.clm_name.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // clm_cost
+            // 
+            this.clm_cost.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.clm_cost.HeaderText = "Cost Price";
+            this.clm_cost.Name = "clm_cost";
+            this.clm_cost.ReadOnly = true;
+            this.clm_cost.Width = 74;
+            // 
+            // clm_sale
+            // 
+            this.clm_sale.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.clm_sale.HeaderText = "Sale Price";
+            this.clm_sale.Name = "clm_sale";
+            this.clm_sale.ReadOnly = true;
+            this.clm_sale.Width = 74;
+            // 
+            // clm_qty
+            // 
+            this.clm_qty.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.clm_qty.HeaderText = "QTY";
+            this.clm_qty.Name = "clm_qty";
+            this.clm_qty.ReadOnly = true;
+            this.clm_qty.Width = 54;
+            // 
+            // clm_add
+            // 
+            this.clm_add.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.clm_add.HeaderText = "";
+            this.clm_add.Name = "clm_add";
+            this.clm_add.ReadOnly = true;
+            this.clm_add.Width = 5;
+            // 
+            // clm_delete
+            // 
+            this.clm_delete.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.clm_delete.HeaderText = "";
+            this.clm_delete.Name = "clm_delete";
+            this.clm_delete.ReadOnly = true;
+            this.clm_delete.Width = 5;
+            // 
+            // clm_predict
+            // 
+            this.clm_predict.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.clm_predict.HeaderText = "";
+            this.clm_predict.Name = "clm_predict";
+            this.clm_predict.Width = 5;
             // 
             // btn_new
             // 
@@ -165,70 +229,6 @@
             this.btn_refresh.UseVisualStyleBackColor = true;
             this.btn_refresh.Click += new System.EventHandler(this.btn_refresh_Click);
             // 
-            // clm_id
-            // 
-            this.clm_id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.clm_id.HeaderText = "ID";
-            this.clm_id.Name = "clm_id";
-            this.clm_id.ReadOnly = true;
-            this.clm_id.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.clm_id.Width = 43;
-            // 
-            // clm_name
-            // 
-            this.clm_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.clm_name.HeaderText = "Product Name";
-            this.clm_name.Name = "clm_name";
-            this.clm_name.ReadOnly = true;
-            this.clm_name.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            // 
-            // clm_cost
-            // 
-            this.clm_cost.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.clm_cost.HeaderText = "Cost Price";
-            this.clm_cost.Name = "clm_cost";
-            this.clm_cost.ReadOnly = true;
-            this.clm_cost.Width = 80;
-            // 
-            // clm_sale
-            // 
-            this.clm_sale.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.clm_sale.HeaderText = "Sale Price";
-            this.clm_sale.Name = "clm_sale";
-            this.clm_sale.ReadOnly = true;
-            this.clm_sale.Width = 80;
-            // 
-            // clm_qty
-            // 
-            this.clm_qty.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.clm_qty.HeaderText = "QTY";
-            this.clm_qty.Name = "clm_qty";
-            this.clm_qty.ReadOnly = true;
-            this.clm_qty.Width = 54;
-            // 
-            // clm_add
-            // 
-            this.clm_add.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.clm_add.HeaderText = "";
-            this.clm_add.Name = "clm_add";
-            this.clm_add.ReadOnly = true;
-            this.clm_add.Width = 5;
-            // 
-            // clm_delete
-            // 
-            this.clm_delete.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.clm_delete.HeaderText = "";
-            this.clm_delete.Name = "clm_delete";
-            this.clm_delete.ReadOnly = true;
-            this.clm_delete.Width = 5;
-            // 
-            // clm_predict
-            // 
-            this.clm_predict.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.clm_predict.HeaderText = "";
-            this.clm_predict.Name = "clm_predict";
-            this.clm_predict.Width = 5;
-            // 
             // Inventory
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -239,14 +239,14 @@
             this.Controls.Add(this.btn_delete);
             this.Controls.Add(this.btn_edit);
             this.Controls.Add(this.btn_new);
-            this.Controls.Add(this.dg_data);
+            this.Controls.Add(this.dg_dataStock);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.label1);
             this.Name = "Inventory";
             this.Text = "Sales";
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dg_data)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dg_dataStock)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -260,7 +260,7 @@
         private System.Windows.Forms.ToolStripTextBox tb_sales;
         private System.Windows.Forms.ToolStripTextBox tb_report;
         private System.Windows.Forms.ToolStripTextBox tb_help;
-        private System.Windows.Forms.DataGridView dg_data;
+        private System.Windows.Forms.DataGridView dg_dataStock;
         private System.Windows.Forms.Button btn_new;
         private System.Windows.Forms.Button btn_edit;
         private System.Windows.Forms.Button btn_delete;

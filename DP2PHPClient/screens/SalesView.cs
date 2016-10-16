@@ -12,50 +12,24 @@ namespace DP2PHPClient.screens
 {
     public partial class SalesView : Form
     {
-        ClientConnectionManager _connection;
-        List<ItemSaleRecord> _items = new List<ItemSaleRecord>();
-        DateTime _date;
+        Model _model;
         int _selected;
 
-        public SalesView(ClientConnectionManager connection, int selected, DateTime date)
+        public SalesView(Model model, int index)
         {
             InitializeComponent();
 
-            _connection = connection;
-            _date = date;
-            _selected = selected;
+            _model = model;
+            _selected = index;
 
-            //Get the list of itemsales associated with the receipt
-            List<Record> temp = _connection.RequestReceiptInfo(selected);
-            //Since it is received as a generic "Records" list, must be converted to "Receipts" list.
-            _items.Clear();
-            if (temp != null)
-            {
-                foreach (Record r in temp)
-                    _items.Add((ItemSaleRecord)r);
-            }
-
-            //Dummy string array to hold rows of records
-            string[] row = null;
-
-            //First clear the grid
-            dg_data.Rows.Clear();
-
-            //Insert each entry from the database into the grid.
-            int i = 0;
-            foreach (ItemSaleRecord r in _items)
-            {
-                row = new string[] { (++i).ToString(), r.StockID.ToString(), r.Name.ToString(), r.Quantity.ToString(), r.PriceSold.ToString() };
-                dg_data.Rows.Add(row);
-            }
+            _model.GetFullReceipt(_selected, dg_data);
 
         }
 
         private void btn_delete_Click(object sender, EventArgs e)
         {
-            _connection.DeleteReceipt(_selected);
+            _model.DeleteReceipt(_selected);
             this.Close();
         }
-
     }
 }
