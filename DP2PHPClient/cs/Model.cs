@@ -88,23 +88,32 @@ namespace DP2PHPClient
             return true;
         }
 
-        public void ConnectToServer()
+        public bool ConnectToServer()
         {
             _connection = new ClientConnectionManager("127.0.0.1", 25565);
 
-            _connection.ConnectToServer();
-
-            if (_connection != null)
+            if (_connection.ConnectToServer())
             {
                 //Refresh records when first connecting to the server.
-                UpdateStoredStock();
-                UpdateStoredReceipts();
+                if (!UpdateStoredStock())
+                    return false;
+                if (!UpdateStoredReceipts())
+                    return false;
             }
+            else
+            {
+                return false;
+            }
+
+            return true;
         }
 
         public bool UpdateStoredStock()
         {
             _stockRecords = _connection.RequestStockInfo(-1);
+
+            if (_stockRecords.Count == 0) //If the database is returned empty, assume something went wrong.
+                return false;
 
             return true;
         }
@@ -120,6 +129,9 @@ namespace DP2PHPClient
                 foreach (Record r in temp)
                     _receiptRecords.Add((ReceiptRecord)r);
             }
+
+            if (_receiptRecords.Count == 0) //If the database is returned empty, assume something went wrong.
+                return false;
 
             return true;
         }

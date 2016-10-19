@@ -13,6 +13,7 @@ namespace DP2PHPClient.screens
     public partial class LandingPage : Form
     {
         Model _model;
+        bool success = false;
 
         public LandingPage(Model model)
         {
@@ -20,12 +21,30 @@ namespace DP2PHPClient.screens
 
             _model = model;
 
-            _model.ConnectToServer();
+            success = _model.ConnectToServer();
+
+            UpdateButton();
         }
 
         private void btn_start_Click(object sender, EventArgs e)
         {
-            _model.UpdateScreen(new screens.Sales(_model));
+            if (success)
+                _model.UpdateScreen(new screens.Sales(_model));
+            else
+            {
+                success = _model.ConnectToServer();
+            }
+
+            UpdateButton();
+
+        }
+
+        private void UpdateButton()
+        {
+            if (success)
+                btn_start.Text = "Get Started";
+            else
+                btn_start.Text = "Retry connection";
         }
 
     }

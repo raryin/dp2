@@ -324,7 +324,6 @@ namespace DP2PHPServer
         public List<Record> Select(DatabaseTable table, int id)
         {
             //Calls SelectCommand. Generates the query. The database connection is opened by SelectCommand.
-            //Delete all stock for -1.
             if (id == -1)
                 return SelectCommand(table);
 
@@ -616,6 +615,75 @@ namespace DP2PHPServer
 
             Console.WriteLine("Could not get Date/Time data.");
             return new DateTime(0);
+        }
+
+        public void ClearDatabase()
+        {
+            int rowsAffected = 0;
+
+            string query = "DELETE FROM ItemSale; DELETE FROM Stock; DELETE FROM Receipt;";
+
+            //Open connection
+            if (this.OpenConnection() == true)
+            {
+                //Create command and assign the query and connection from the constructor.
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                try
+                {
+                    //Execute command.
+                    rowsAffected = cmd.ExecuteNonQuery();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Query Failed.");
+                }
+
+                //Close connection.
+                this.CloseConnection();
+            }
+        }
+
+        public void PopulateDatabase()
+        {
+            int rowsAffected = 0;
+
+            //Get IDs already in database
+            int id_apple = 0, id_banana = 1, id_carrot = 2, id_durian = 3;
+            List<Record> rows = Select(DatabaseTable.Stock, -1);
+
+            string query;
+
+            if (rows.Count == 0)
+                query = "INSERT INTO Stock(StockName, PurchaseCost, SellPrice, StockQty) VALUES('Apple', 0.5, 1.0, 100); SET @apple_id = LAST_INSERT_ID(); INSERT INTO Stock(StockName, PurchaseCost, SellPrice, StockQty) VALUES('Banana', 1.5, 4.0, 100); SET @banana_id = LAST_INSERT_ID(); INSERT INTO Stock(StockName, PurchaseCost, SellPrice, StockQty) VALUES('Carrot', 0.2, 0.8, 100); SET @carrot_id = LAST_INSERT_ID(); INSERT INTO Stock(StockName, PurchaseCost, SellPrice, StockQty) VALUES('Durian', 1.0, 1.5, 100); SET @durian_id = LAST_INSERT_ID(); INSERT INTO Receipt(Date) VALUES('2016-09-04 23:51:11'); SET @last_id = LAST_INSERT_ID(); INSERT INTO ItemSale(SaleID, StockID, PriceSold, Quantity) VALUES(@last_id, @apple_id, 1.0, 1); INSERT INTO ItemSale(SaleID, StockID, PriceSold, Quantity) VALUES(@last_id, @banana_id, 4.0, 1); INSERT INTO ItemSale(SaleID, StockID, PriceSold, Quantity) VALUES(@last_id, @carrot_id, 0.8, 5); INSERT INTO ItemSale(SaleID, StockID, PriceSold, Quantity) VALUES(@last_id, @durian_id, 1.0, 2); INSERT INTO Receipt VALUES(); SET @last_id = LAST_INSERT_ID(); INSERT INTO ItemSale(SaleID, StockID, PriceSold, Quantity) VALUES(@last_id, @apple_id, 1.0, 12); INSERT INTO Receipt VALUES(); SET @last_id = LAST_INSERT_ID(); INSERT INTO ItemSale(SaleID, StockID, PriceSold, Quantity) VALUES(@last_id, @banana_id, 1.0, 12);";
+            else
+            {
+                id_apple = ((StockRecord)rows[0]).StockID;
+                id_banana = ((StockRecord)rows[1]).StockID;
+                id_carrot = ((StockRecord)rows[2]).StockID;
+                id_durian = ((StockRecord)rows[3]).StockID;
+
+                query = "INSERT INTO Receipt(Date) VALUES('2016-09-04 23:51:11'); SET @last_id = LAST_INSERT_ID(); INSERT INTO ItemSale(SaleID, StockID, PriceSold, Quantity) VALUES(@last_id, " + id_apple + ", 1.0, 1); INSERT INTO ItemSale(SaleID, StockID, PriceSold, Quantity) VALUES(@last_id, " + id_banana + ", 4.0, 1); INSERT INTO ItemSale(SaleID, StockID, PriceSold, Quantity) VALUES(@last_id, " + id_carrot + ", 0.8, 5); INSERT INTO ItemSale(SaleID, StockID, PriceSold, Quantity) VALUES(@last_id, " + id_durian + ", 1.0, 2); INSERT INTO Receipt VALUES(); SET @last_id = LAST_INSERT_ID(); INSERT INTO ItemSale(SaleID, StockID, PriceSold, Quantity) VALUES(@last_id, " + id_apple + ", 1.0, 12); INSERT INTO Receipt VALUES(); SET @last_id = LAST_INSERT_ID(); INSERT INTO ItemSale(SaleID, StockID, PriceSold, Quantity) VALUES(@last_id, " + id_banana + ", 1.0, 12);";
+            }
+
+
+            //Open connection
+            if (this.OpenConnection() == true)
+            {
+                //Create command and assign the query and connection from the constructor.
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                try
+                {
+                    //Execute command.
+                    rowsAffected = cmd.ExecuteNonQuery();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Query Failed.");
+                }
+
+                //Close connection.
+                this.CloseConnection();
+            }
         }
         
         /// <summary>

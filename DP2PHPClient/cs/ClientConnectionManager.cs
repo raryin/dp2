@@ -406,10 +406,6 @@ namespace DP2PHPClient
 
             return records;
         }
-
-
-        /////////TEST SHELLS////////////
-
         /// <summary>
         /// Overload for RequestReceiptInfo.
         /// </summary>
@@ -451,60 +447,100 @@ namespace DP2PHPClient
                 return false;
             }
 		}
-		
-		//SPRINT 2
-		public double PredictNextMonthSales(List<int> StockID)
+
+        /// <summary>
+        /// Predicts the next month of sales by getting the total sales and the date of the first
+        /// sale. This calculates the average sales per day, which is used to estimate the sales over
+        /// the next 30 days.
+        /// </summary>
+        /// <param name="ItemIDs">List of item ids to check.</param>
+        /// <returns>The estimated sales for the next month for all items listed.</returns>
+        public double PredictNextMonthSales(List<int> StockID)
         {
             List<double> temp = new List<double>();
 
             double totalSales = 0;
 
-            //Send a request for Receipt records, expecting a list of records.
-            if ((temp = _connection.SendReceiveObject<List<int>, List<double>>("PredictSales", "ReturnPredictSales", 10000, StockID)) == null)
+            try
+            {
+                //Send a request for Receipt records, expecting a list of records.
+                if ((temp = _connection.SendReceiveObject<List<int>, List<double>>("PredictSales", "ReturnPredictSales", 10000, StockID)) == null)
+                {
+                    MessageManager.ErrorNotify("Data could not be selected from the database.\n Check the server for further details.",
+                    "Database Error");
+                }
+                //The server has failed to retrieve the stock in the database.
+                else if (temp.Count == 0)
+                {
+                    MessageManager.ErrorNotify("Data could not be selected from the database.\n Check the server for further details.",
+                    "Database Error");
+                }
+                else
+                {
+                    foreach (double d in temp)
+                        totalSales += d;
+                }
+            }
+            catch (Exception ex)
             {
                 MessageManager.ErrorNotify("Data could not be selected from the database.\n Check the server for further details.",
-                "Database Error");
+                    "Database Error");
             }
-            //The server has failed to retrieve the stock in the database.
-            else if (temp.Count == 0)
-            {
-                MessageManager.ErrorNotify("Data could not be selected from the database.\n Check the server for further details.",
-                "Database Error");
-            }
-            else
-            {
-                foreach (double d in temp)
-                    totalSales += d;
-            }
-
+            
             return totalSales;
 		}
 		
+        /// <summary>
+        /// Predicts the next month of profits by getting the total sales and the date of the first
+        /// sale. This calculates the average sales per day, which is used to estimate the sales over
+        /// the next 30 days.
+        /// </summary>
+        /// <param name="ItemIDs">List of item ids to check.</param>
+        /// <returns>The estimated profit for the next month for all items listed.</returns>
 		public double PredictNextMonthProfit(List<int> StockID)
         {
             List<double> temp = new List<double>();
 
             double totalSales = 0;
 
-            //Send a request for Receipt records, expecting a list of records.
-            if ((temp = _connection.SendReceiveObject<List<int>, List<double>>("PredictProfit", "ReturnPredictProfit", 10000, StockID)) == null)
+            try
+            {
+                //Send a request for Receipt records, expecting a list of records.
+                if ((temp = _connection.SendReceiveObject<List<int>, List<double>>("PredictProfit", "ReturnPredictProfit", 10000, StockID)) == null)
+                {
+                    MessageManager.ErrorNotify("Data could not be selected from the database.\n Check the server for further details.",
+                    "Database Error");
+                }
+                //The server has failed to retrieve the stock in the database.
+                else if (temp.Count == 0)
+                {
+                    MessageManager.ErrorNotify("Data could not be selected from the database.\n Check the server for further details.",
+                    "Database Error");
+                }
+                else
+                {
+                    foreach (double d in temp)
+                        totalSales += d;
+                }
+            }
+            catch (Exception ex)
             {
                 MessageManager.ErrorNotify("Data could not be selected from the database.\n Check the server for further details.",
-                "Database Error");
-            }
-            //The server has failed to retrieve the stock in the database.
-            else if (temp.Count == 0)
-            {
-                MessageManager.ErrorNotify("Data could not be selected from the database.\n Check the server for further details.",
-                "Database Error");
-            }
-            else
-            {
-                foreach (double d in temp)
-                    totalSales += d;
+                    "Database Error");
             }
 
             return totalSales;
+        }
+
+        /// <summary>
+        /// Predicts the time needed to complete a prediction command. Currently a
+        /// hardcoded value.
+        /// </summary>
+        /// <param name="records">List of record lists.</param>
+        /// <returns>Time needed in seconds.</returns>
+        public double EstimatePredictionTime(List<List<Record>> records)
+        {
+            return 20.0;
         }
 
     }

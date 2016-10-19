@@ -1,0 +1,44 @@
+Base Exception Type: System.TimeoutException: Timeout in IO operation
+   at MySql.Data.MySqlClient.TimedStream.StopTimer()
+   at MySql.Data.MySqlClient.TimedStream.Read(Byte[] buffer, Int32 offset, Int32 count)
+   at System.IO.BufferedStream.Read(Byte[] array, Int32 offset, Int32 count)
+   at MySql.Data.MySqlClient.MySqlStream.ReadFully(Stream stream, Byte[] buffer, Int32 offset, Int32 count)
+   at MySql.Data.MySqlClient.MySqlStream.LoadPacket()
+   at MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   at MySql.Data.MySqlClient.NativeDriver.Open()
+   at MySql.Data.MySqlClient.Driver.Open()
+   at MySql.Data.MySqlClient.Driver.Create(MySqlConnectionStringBuilder settings)
+   at MySql.Data.MySqlClient.MySqlPool.CreateNewPooledConnection()
+   at MySql.Data.MySqlClient.MySqlPool.GetPooledConnection()
+   at MySql.Data.MySqlClient.MySqlPool.TryToGetDriver()
+   at MySql.Data.MySqlClient.MySqlPool.GetConnection()
+   at MySql.Data.MySqlClient.MySqlConnection.Open()
+   at DP2PHPServer.DatabaseAccess.OpenConnection() in C:\Users\James\Desktop\PHPGit\DP2PHPServer\DatabaseAccess.cs:line 64
+   at DP2PHPServer.DatabaseAccess.RunQueryCommand(DatabaseTable type, String query) in C:\Users\James\Desktop\PHPGit\DP2PHPServer\DatabaseAccess.cs:line 371
+   at DP2PHPServer.DatabaseAccess.GetTotalSales(Int32 ItemID) in C:\Users\James\Desktop\PHPGit\DP2PHPServer\DatabaseAccess.cs:line 546
+   at DP2PHPServer.DatabaseAccess.PredictSales(List`1 ItemIDs) in C:\Users\James\Desktop\PHPGit\DP2PHPServer\DatabaseAccess.cs:line 479
+   at DP2PHPServer.ServerConnectionManager.PredictNextMonthSales(PacketHeader header, Connection connection, List`1 IDs) in C:\Users\James\Desktop\PHPGit\DP2PHPServer\ServerConnectionManager.cs:line 290
+   at NetworkCommsDotNet.Tools.PacketTypeHandlerDelegateWrapper`1.Process(PacketHeader packetHeader, Connection connection, Object obj) in c:\Users\Karnifexx\Documents\Visual Studio 2010\Projects\networkcomms.net\NetworkCommsDotNet\Tools\PacketUnwrappers.cs:line 85
+   at NetworkCommsDotNet.NetworkComms.TriggerGlobalPacketHandlers(PacketHeader packetHeader, Connection connection, Object returnObject, Boolean ignoreUnknownPacketTypeOverride) in c:\Users\Karnifexx\Documents\Visual Studio 2010\Projects\networkcomms.net\NetworkCommsDotNet\NetworkComms.cs:line 746
+
+Stack Trace:    at MySql.Data.MySqlClient.TimedStream.StopTimer()
+   at MySql.Data.MySqlClient.TimedStream.Read(Byte[] buffer, Int32 offset, Int32 count)
+   at System.IO.BufferedStream.Read(Byte[] array, Int32 offset, Int32 count)
+   at MySql.Data.MySqlClient.MySqlStream.ReadFully(Stream stream, Byte[] buffer, Int32 offset, Int32 count)
+   at MySql.Data.MySqlClient.MySqlStream.LoadPacket()
+   at MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   at MySql.Data.MySqlClient.NativeDriver.Open()
+   at MySql.Data.MySqlClient.Driver.Open()
+   at MySql.Data.MySqlClient.Driver.Create(MySqlConnectionStringBuilder settings)
+   at MySql.Data.MySqlClient.MySqlPool.CreateNewPooledConnection()
+   at MySql.Data.MySqlClient.MySqlPool.GetPooledConnection()
+   at MySql.Data.MySqlClient.MySqlPool.TryToGetDriver()
+   at MySql.Data.MySqlClient.MySqlPool.GetConnection()
+   at MySql.Data.MySqlClient.MySqlConnection.Open()
+   at DP2PHPServer.DatabaseAccess.OpenConnection() in C:\Users\James\Desktop\PHPGit\DP2PHPServer\DatabaseAccess.cs:line 64
+   at DP2PHPServer.DatabaseAccess.RunQueryCommand(DatabaseTable type, String query) in C:\Users\James\Desktop\PHPGit\DP2PHPServer\DatabaseAccess.cs:line 371
+   at DP2PHPServer.DatabaseAccess.GetTotalSales(Int32 ItemID) in C:\Users\James\Desktop\PHPGit\DP2PHPServer\DatabaseAccess.cs:line 546
+   at DP2PHPServer.DatabaseAccess.PredictSales(List`1 ItemIDs) in C:\Users\James\Desktop\PHPGit\DP2PHPServer\DatabaseAccess.cs:line 479
+   at DP2PHPServer.ServerConnectionManager.PredictNextMonthSales(PacketHeader header, Connection connection, List`1 IDs) in C:\Users\James\Desktop\PHPGit\DP2PHPServer\ServerConnectionManager.cs:line 290
+   at NetworkCommsDotNet.Tools.PacketTypeHandlerDelegateWrapper`1.Process(PacketHeader packetHeader, Connection connection, Object obj) in c:\Users\Karnifexx\Documents\Visual Studio 2010\Projects\networkcomms.net\NetworkCommsDotNet\Tools\PacketUnwrappers.cs:line 85
+   at NetworkCommsDotNet.NetworkComms.TriggerGlobalPacketHandlers(PacketHeader packetHeader, Connection connection, Object returnObject, Boolean ignoreUnknownPacketTypeOverride) in c:\Users\Karnifexx\Documents\Visual Studio 2010\Projects\networkcomms.net\NetworkCommsDotNet\NetworkComms.cs:line 746

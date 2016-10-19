@@ -30,7 +30,6 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.btn_start = new System.Windows.Forms.Button();
-            this.lbl_connect = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -55,23 +54,12 @@
             this.btn_start.UseVisualStyleBackColor = true;
             this.btn_start.Click += new System.EventHandler(this.btn_start_Click);
             // 
-            // lbl_connect
-            // 
-            this.lbl_connect.AutoSize = true;
-            this.lbl_connect.ForeColor = System.Drawing.Color.White;
-            this.lbl_connect.Location = new System.Drawing.Point(779, 588);
-            this.lbl_connect.Name = "lbl_connect";
-            this.lbl_connect.Size = new System.Drawing.Size(129, 13);
-            this.lbl_connect.TabIndex = 2;
-            this.lbl_connect.Text = "Connecting to database...";
-            // 
             // LandingPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightSeaGreen;
             this.ClientSize = new System.Drawing.Size(934, 631);
-            this.Controls.Add(this.lbl_connect);
             this.Controls.Add(this.btn_start);
             this.Controls.Add(this.label1);
             this.Name = "LandingPage";
@@ -85,6 +73,5 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btn_start;
-        private System.Windows.Forms.Label lbl_connect;
     }
 }
